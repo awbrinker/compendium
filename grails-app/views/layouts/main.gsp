@@ -18,7 +18,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark navbar-static-top" role="navigation">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/#"><asset:image src="BlacKFlagLogo.ico" width="136" height="106.375" alt="Grails Logo"/></a>
+        <a class="navbar-brand" href="/"><asset:image src="BlacKFlagLogo.ico" width="136" height="106.375" alt="Grails Logo"/></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -36,7 +36,7 @@
 <div class="footer" role="contentinfo">
     <div class="container-fluid">
         <div class="row">
-            <div class="col">
+            <%-- <div class="col">
                 <a href="http://guides.grails.org" target="_blank">
                     <asset:image src="advancedgrails.svg" alt="Grails Guides" class="float-left"/>
                 </a>
@@ -49,7 +49,7 @@
                     <asset:image src="documentation.svg" alt="Grails Documentation" class="float-left"/>
                 </a>
                 <strong class="centered"><a href="http://docs.grails.org" target="_blank">Documentation</a></strong>
-                <p>Ready to dig in? You can find in-depth documentation for all the features of Grails in the <a href="http://docs.grails.org" target="_blank">User Guide</a>.</p>
+                <p>Yo ho ho and a bottle of rum</p>
 
             </div>
             <div class="col">
@@ -58,7 +58,7 @@
                 </a>
                 <strong class="centered"><a href="https://slack.grails.org" target="_blank">Join the Community</a></strong>
                 <p>Get feedback and share your experience with other Grails developers in the community <a href="https://slack.grails.org" target="_blank">Slack channel</a>.</p>
-            </div>
+            </div> --%>
         </div>
     </div>
 </div>

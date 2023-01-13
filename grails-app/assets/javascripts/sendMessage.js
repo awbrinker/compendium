@@ -37,7 +37,7 @@ function parseRoll(input) {
         if(list2.length == 1){
 
         sum += count;
-        out += count + ": " + count + "\n"
+        out += count + ": " + count + ",\n"
 
         }else{
 

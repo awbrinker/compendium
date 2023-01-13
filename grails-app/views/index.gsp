@@ -5,9 +5,16 @@
     <title>D&D Black Flag</title>
     <asset:javascript src="sendMessage.js"/>
     <asset:link rel="icon" href="BlackFlagLogo.ico" type="image/x-ico"/>
+    <asset:stylesheet href="home.css"/>
 </head>
 <body>
 <content tag="nav">
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Content<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li class="dropdown-item"><a href="#">Characters</a></li>
+        </ul>
+    </li>
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Compendium <span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -39,13 +46,13 @@
     </li>
 </content>
 
-<div class="svg" role="presentation">
+<%-- <div class="svg" role="presentation">
     <div class="grails-logo-container">
         <asset:image src="grails-cupsonly-logo-white.svg" class="grails-logo"/>
     </div>
-</div>
+</div> --%>
 
-<div id="content" role="main">
+<div role="main" class="homePage">
     <div class="container">
         <section class="row colset-2-its">
             <h1>Test Discord Integration:</h1>
@@ -56,16 +63,6 @@
                 Send to Discord
             </button>
 
-            <%-- <div id="controllers" role="navigation">
-                <h2>Available Controllers:</h2>
-                <ul>
-                    <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-                        <li class="controller">
-                            <g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link>
-                        </li>
-                    </g:each>
-                </ul>
-            </div> --%>
         </section>
     </div>
 </div>
