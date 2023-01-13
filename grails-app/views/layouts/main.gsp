@@ -18,7 +18,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark navbar-static-top" role="navigation">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/"><asset:image src="BlacKFlagLogo.ico" width="136" height="106.375" alt="Grails Logo"/></a>
+        <a class="navbar-brand" href="/"><asset:image src="BlackFlagLogo.ico" width="136" height="106.375" alt="Grails Logo"/></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -36,6 +36,9 @@
 <div class="footer" role="contentinfo">
     <div class="container-fluid">
         <div class="row">
+            <div class="col">
+                <p style="font-size: 8px;">©2023 Fuck Hasbro</p>
+            </div>
             <%-- <div class="col">
                 <a href="http://guides.grails.org" target="_blank">
                     <asset:image src="advancedgrails.svg" alt="Grails Guides" class="float-left"/>

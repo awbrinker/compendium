@@ -46,24 +46,38 @@
     </li>
 </content>
 
-<%-- <div class="svg" role="presentation">
-    <div class="grails-logo-container">
-        <asset:image src="grails-cupsonly-logo-white.svg" class="grails-logo"/>
-    </div>
-</div> --%>
-
 <div role="main" class="homePage">
-    <div class="container">
-        <section class="row colset-2-its">
-            <h1>Test Discord Integration:</h1>
+    <div class="mainMenu">
+            <div class="row">
+                <h1 style="font-size: 40px;">D&D Black Flag</h1>
+            </div>
+            <h2 style="font-size: 24px;">An unofficial digital toolset for Dungeons & Dragons Fifth Edition</h2>
 
-            <p>Enter a message or dice formula:</p>
-            <g:textField name="text"/>
-            <button onclick="sendMessage('text')">
-                Send to Discord
+            <button class="bannerButton">
+                <asset:image src="PirateBanner.png"/>
+                <p class="bannerText">Log In</p>
             </button>
 
-        </section>
+            <button class="bannerButton">
+                <asset:image src="PirateBanner.png"/>
+                <p class="bannerHeader">Set Sail!</p>
+                <p class="bannerSubText">Create Account</p>
+            </button>
+
+            <%-- <div class="row">
+                <h1>Test Discord Integration:</h1>
+            </div>
+
+            <div class="row">
+                <p>Enter a message or dice formula:</p>
+                <g:textField name="text" style="margin-left: 10px"/>
+            </div>
+
+            <div class="row">
+                <button onclick="sendMessage('text')">
+                        Send to Discord
+                    </button>
+            </div> --%>
     </div>
 </div>
 
