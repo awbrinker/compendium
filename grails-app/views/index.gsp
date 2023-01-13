@@ -53,16 +53,20 @@
             </div>
             <h2 style="font-size: 24px;">An unofficial digital toolset for Dungeons & Dragons Fifth Edition</h2>
 
-            <button class="bannerButton">
-                <asset:image src="PirateBanner.png"/>
-                <p class="bannerText">Log In</p>
-            </button>
+            <a href="/login">
+                <button class="bannerButton">
+                    <asset:image src="PirateBanner.png"/>
+                    <p class="bannerText">Log In</p>
+                </button>
+            </a>
 
-            <button class="bannerButton">
-                <asset:image src="PirateBanner.png"/>
-                <p class="bannerHeader">Set Sail!</p>
-                <p class="bannerSubText">Create Account</p>
-            </button>
+            <a href="/register">
+                <button class="bannerButton">
+                    <asset:image src="PirateBanner.png"/>
+                    <p class="bannerHeader">Set Sail!</p>
+                    <p class="bannerSubText">Create Account</p>
+                </button>
+            </a>
 
             <%-- <div class="row">
                 <h1>Test Discord Integration:</h1>

@@ -96,6 +96,7 @@ grails:
                 scriptlet: html
                 taglib: none
                 staticparts: none
+    plugin.springsecurity.rest.token.storage.jwt.secret : 'xxxxxxxxxxxxxxxxxxxxxx'
 
 ---
 hibernate:

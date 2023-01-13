@@ -1,4 +1,4 @@
-package grails-app.domain
+package compendium
 
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString

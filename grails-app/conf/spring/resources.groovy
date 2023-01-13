@@ -1,5 +1,6 @@
-import grails-app.domain.UserPasswordEncoderListener
+import compendium.UserPasswordEncoderListener
 // Place your Spring DSL code here
 beans = {
     userPasswordEncoderListener(UserPasswordEncoderListener)
+
 }
