@@ -54,9 +54,13 @@ function parseRoll(input) {
         
 
         let results = [];
+        let rand = getRandom(count, size);
+        let randList = rand.split("\n");
+
+        console.log(randList);
 
         for(let i = 0; i < count; i++){
-            results.push(Math.floor(Math.random()*size)+1);
+            results.push(parseInt(randList[i]));
         }
         
         out += count + "d" + size;
@@ -99,4 +103,12 @@ function parseRoll(input) {
     out += "Total: **" + sum +"**\n";
 
     return out;
+}
+
+function getRandom(count, size)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", "https://www.random.org/integers/?num=" + count + "&min=1&max=" + size + "&col=1&base=10&format=plain&rnd=new", false); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
 }
