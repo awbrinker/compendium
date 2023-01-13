@@ -2,43 +2,39 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Welcome to Grails</title>
+    <title>D&D Black Flag</title>
+    <asset:javascript src="sendMessage.js"/>
+    <asset:link rel="icon" href="BlackFlagLogo.ico" type="image/x-ico"/>
 </head>
 <body>
 <content tag="nav">
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Application Status <span class="caret"></span></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Compendium <span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li class="dropdown-item"><a href="#">Environment: ${grails.util.Environment.current.name}</a></li>
-            <li class="dropdown-item"><a href="#">App profile: ${grailsApplication.config.getProperty('grails.profile')}</a></li>
-            <li class="dropdown-item"><a href="#">App version:
-                <g:meta name="info.app.version"/></a>
-            </li>
+            <li class="dropdown-item"><a href="#">Races</a></li>
+            <li class="dropdown-item"><a href="#">Classes</a></li>
+            <li class="dropdown-item"><a href="#">Backgrounds</li>
+            <li class="dropdown-item"><a href="#">Feats</li>
             <li role="separator" class="dropdown-divider"></li>
-            <li class="dropdown-item"><a href="#">Grails version:
-                <g:meta name="info.app.grailsVersion"/></a>
-            </li>
-            <li class="dropdown-item"><a href="#">Groovy version: ${GroovySystem.getVersion()}</a></li>
-            <li class="dropdown-item"><a href="#">JVM version: ${System.getProperty('java.version')}</a></li>
+            <li class="dropdown-item"><a href="#">Equipment </li>
+            <li class="dropdown-item"><a href="#">Vehicles</a></li>
+            <li class="dropdown-item"><a href="#">Magic Items</a></li>
             <li role="separator" class="dropdown-divider"></li>
-            <li class="dropdown-item"><a href="#">Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</a></li>
+            <li class="dropdown-item"><a href="#">Spells</a></li>
+            <li class="dropdown-item"><a href="#">Monsters</a></li>
         </ul>
     </li>
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Artefacts <span class="caret"></span></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Downloads <span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li class="dropdown-item"><a href="#">Controllers: ${grailsApplication.controllerClasses.size()}</a></li>
-            <li class="dropdown-item"><a href="#">Domains: ${grailsApplication.domainClasses.size()}</a></li>
-            <li class="dropdown-item"><a href="#">Services: ${grailsApplication.serviceClasses.size()}</a></li>
-            <li class="dropdown-item"><a href="#">Tag Libraries: ${grailsApplication.tagLibClasses.size()}</a></li>
+            <li class="dropdown-item"><a href="#">Sources </a></li>
+            <li class="dropdown-item"><a href="#">Tools </a></li>
         </ul>
     </li>
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Installed Plugins <span class="caret"></span></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
         <ul class="dropdown-menu dropdown-menu-right">
-            <g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-                <li class="dropdown-item"><a href="#">${plugin.name} - ${plugin.version}</a></li>
-            </g:each>
+            <li class="dropdown-item"><a href="#">Log in </a></li>
         </ul>
     </li>
 </content>
@@ -52,16 +48,15 @@
 <div id="content" role="main">
     <div class="container">
         <section class="row colset-2-its">
-            <h1>Welcome to Grails</h1>
+            <h1>Test Discord Integration:</h1>
 
-            <p>
-                Congratulations, you have successfully started your first Grails application! At the moment
-                this is the default page, feel free to modify it to either redirect to a controller or display
-                whatever content you may choose. Below is a list of controllers that are currently deployed in
-                this application, click on each to execute its default action:
-            </p>
+            <p>Enter a message or dice formula:</p>
+            <g:textField name="text"/>
+            <button onclick="sendMessage('text')">
+                Send to Discord
+            </button>
 
-            <div id="controllers" role="navigation">
+            <%-- <div id="controllers" role="navigation">
                 <h2>Available Controllers:</h2>
                 <ul>
                     <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
@@ -70,7 +65,7 @@
                         </li>
                     </g:each>
                 </ul>
-            </div>
+            </div> --%>
         </section>
     </div>
 </div>

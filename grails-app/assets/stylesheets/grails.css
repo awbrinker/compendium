@@ -133,11 +133,11 @@ a.navbar-brand {
 }
 
 .svg #band {
-    background-image: url(../img/grails-cupsonly-logo-white.svg);
+    background-image: url(../img/BlackFlagLogo.ico);
 }
 
 .no-svg #band {
-    background-image: url(../img/groovy-logo-white.png);
+    background-image: url(../img/BlackFlagLogo.ico);
 }
 
 @media (max-width: 1010px) {
