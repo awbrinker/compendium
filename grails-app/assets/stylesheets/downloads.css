@@ -1,0 +1,16 @@
+.downloadsList {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: left;
+    align-items: left;
+
+}
+
+a:link {
+    color: yellow;
+}
+
+a:visited {
+    color: darkgoldenrod;
+}

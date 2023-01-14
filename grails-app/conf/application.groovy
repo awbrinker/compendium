@@ -5,19 +5,18 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'compendium.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'compendium.UserRole'
 grails.plugin.springsecurity.authority.className = 'compendium.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-	[pattern: '/',               access: ['permitAll']],
-	[pattern: '/error',          access: ['permitAll']],
-	[pattern: '/index',          access: ['permitAll']],
-	[pattern: '/index.gsp',      access: ['permitAll']],
-	[pattern: '/shutdown',       access: ['permitAll']],
-	[pattern: '/logout/**',   	 access: ['permitAll']],
-	[pattern: '/downloads/sources',   access: ['ROLE_USER', 'ROLE_ADMIN']],
-	[pattern: '/downloads/tools',   access: ['ROLE_USER', 'ROLE_ADMIN']],
-	[pattern: '/assets/**',      access: ['permitAll']],
-	[pattern: '/**/js/**',       access: ['permitAll']],
-	[pattern: '/**/css/**',      access: ['permitAll']],
-	[pattern: '/**/images/**',   access: ['permitAll']],
-	[pattern: '/**/favicon.ico', access: ['permitAll']],
+	[pattern: '/',               	access: ['permitAll']],
+	[pattern: '/error',          	access: ['permitAll']],
+	[pattern: '/index',          	access: ['permitAll']],
+	[pattern: '/index.gsp',      	access: ['permitAll']],
+	[pattern: '/shutdown',       	access: ['permitAll']],
+	[pattern: '/logout/**',   	 	access: ['permitAll']],
+	[pattern: '/downloads/**', 		access: ['ROLE_USER', 'ROLE_ADMIN']],
+	[pattern: '/assets/**',      	access: ['permitAll']],
+	[pattern: '/**/js/**',       	access: ['permitAll']],
+	[pattern: '/**/css/**',      	access: ['permitAll']],
+	[pattern: '/**/images/**',   	access: ['permitAll']],
+	[pattern: '/**/favicon.ico', 	access: ['permitAll']],
 ]
 
 grails.plugin.springsecurity.filterChain.chainMap = [
