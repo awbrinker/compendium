@@ -23,6 +23,8 @@ class Spell {
 
     String source
 
+    String[] classes
+
     static constraints = {
         body(maxSize: 1024)
         name(unique: true)

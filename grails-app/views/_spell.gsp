@@ -38,6 +38,11 @@
         <p name="${spell.id}text" id="${spell.id}text">${spell.body}</p>
         <p name="${spell.id}highText" id="${spell.id}highText">${spell.highText}</p>
         <p name="${spell.id}comText" id="${spell.id}comText">${spell.compText}</p>
+        <div class="row">
+            <g:each in="${spell.classes}">
+                <button name="${spell.id}classes" id="${spell.id}classes" class="classbtn">${it}</button>
+            </g:each>
+        </div>
         <div class="row" style="align-items: center">
             <g:render template="/roll" model="${[source: (spell.id+'formula'), target: (spell.id+'target')]}"/>
             <g:render template="/display" model="${[sourceList: [spell.id+'name', spell.id+'level', spell.id+'casting', spell.id+'range', spell.id+'comps', spell.id+'duration', spell.id+'text', spell.id+'highText', spell.id+'comText'], target: spell.id+'target']}"/>

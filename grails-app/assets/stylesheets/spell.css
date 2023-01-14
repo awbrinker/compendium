@@ -1,6 +1,6 @@
 .spellBody {
     background-color: transparent;
-    /* border: none; */
+    border: none;
 }
 
 .sidepanel  {
@@ -13,6 +13,7 @@
     overflow-x: hidden;
     transition: 0.4s;
     padding-top: 10px;
+    border-radius: 10px;
 }
 
 .closebtn {
@@ -27,4 +28,16 @@
 
 .closebtn:hover {
     color:gray
+}
+
+.classbtn {
+    color: gray; 
+    border: white; 
+    background-color: transparent;
+    width: 75px;
+    margin-bottom: 10px;
+}
+
+.classbtn:hover {
+    color:white
 }
