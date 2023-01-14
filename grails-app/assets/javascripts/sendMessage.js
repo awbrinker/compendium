@@ -48,79 +48,81 @@ function parseRoll(input) {
 
     set.forEach(element => {
 
-    let sum = 0;
+        let sum = 0;
 
-    const list = element.split("+");
+        const list = element.split("+");
 
-    list.forEach(element => {
-        element.trim();
+        list.forEach(element => {
+            element.trim();
 
-        list2 = element.split("d");
-        let count = parseInt(list2[0], 10);
+            list2 = element.split("d");
+            let count = parseInt(list2[0], 10);
 
-        if(Number.isNaN(count)){
-            count = 1;
-        }
-
-        if(list2.length == 1){
-
-        sum += count;
-        out += count + ": " + count + ",\n"
-
-        }else{
-
-        let size = parseInt(list2[1], 10);
-        let flag = "n"
-        let fCount = 0;
-
-        list3 = list2[1].split("k");
-        if(list3.length > 1){
-            flag = list3[1].substring(0,1);
-            size = list3[0];
-            fCount = list3[1].substring(1);
-        }
-        
-
-        let results = [];
-        let rand = getRandom(count, size);
-        let randList = rand.split("\n");
-
-        for(let i = 0; i < count; i++){
-            results.push(parseInt(randList[i]));
-        }
-        
-        out += count + "d" + size;
-
-        if(flag == "h") {
-            out += "kh" + fCount + ": "
-            results.sort((a, b) => a < b ? 1 : a > b ? -1 : 0);
-            for(let i = 0; i < fCount && i < count; i++){
-                out += results[i] + ", "
-                sum += results[i]
-            }
-            for(let i = fCount; i < count; i++){
-                out += "~~" + results[i] +"~~, "
+            if(Number.isNaN(count)){
+                count = 1;
             }
 
-        }else if(flag == "l"){
-            out += "kl" + fCount + ": "
-            results.sort((a, b) => a < b ? -1 : a > b ? 1 : 0);
-            for(let i = 0; i < fCount && i < count; i++){
-                out += results[i] + ", "
-                sum += results[i]
-            }
-            for(let i = fCount; i < count; i++){
-                out += "~~" + results[i] +"~~, "
+            if(list2.length == 1){
+
+            sum += count;
+            out += count + ": " + count + ",\n"
+
+            }else{
+
+            let size = parseInt(list2[1], 10);
+            let flag = "n"
+            let fCount = 0;
+
+            list3 = list2[1].split("k");
+            if(list3.length > 1){
+                flag = list3[1].substring(0,1);
+                size = list3[0];
+                fCount = parseInt(list3[1].substring(1));
             }
 
-        }else{
-            out += ": "
-            for(let i = 0; i < results.length; i++){
-                out += results[i] + ", ";
-                sum += results[i]
+            let results = [];
+            let rand = getRandom(count, size);
+            let randList = rand.split("\n");
+
+            for(let i = 0; i < count; i++){
+                results.push(parseInt(randList[i]));
             }
-        }
-        out += "\n";
+
+            out += count + "d" + size;
+
+            let i = 0
+
+            if(flag == "h") {
+                out += "kh" + fCount + ": "
+                results.sort((a, b) => a < b ? 1 : a > b ? -1 : 0);
+                for(i; i < fCount && i < count; i++){
+                    out += results[i] + ", "
+                    sum += results[i]
+                }
+                for(i; i < count; i++){
+                    out += "~~" + results[i] +"~~, "
+                    console.log(results[i])
+                }
+
+            }else if(flag == "l"){
+                out += "kl" + fCount + ": "
+                results.sort((a, b) => a < b ? -1 : a > b ? 1 : 0);
+                for(let i = 0; i < fCount && i < count; i++){
+                    out += results[i] + ", "
+                    sum += results[i]
+                }
+                for(let i = fCount; i < count; i++){
+                    out += "~~" + results[i] +"~~, "
+                }
+
+            }else{
+                out += ": "
+                for(i; i < results.length; i++){
+                    out += results[i] + ", ";
+                    sum += results[i]
+                }
+            }
+            out += "\n";
 
     }
 
