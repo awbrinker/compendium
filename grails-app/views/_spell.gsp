@@ -4,7 +4,12 @@
 <g:hiddenField name="${spell.id}target" id="${spell.id}target" value="${hook}"/>
 
 <tr style="align-items: center" onclick="togglePanel(${spell.id})">
-    <td style="width: 10%">${spell.level}</td>
+    <g:if test="${spell.level == '0th'}">
+        <td style="width: 10%">Cantrip</td>
+    </g:if>
+    <g:else>
+        <td style="width: 10%">${spell.level}</td>
+    </g:else>
     <td style="width: 15%">${spell.name}</td>
     <td style="width: 15%">${spell.castingTime}</td>
     <td style="width: 15%">${spell.duration}</td>
@@ -19,14 +24,23 @@
 <div id="${spell.id}Collapse" class="sidepanel">
     <div class="card card-body spellBody">
         <button class="closebtn" onclick="togglePanel(${spell.id})">X</button>
-        <h1>${spell.name}</h1>
-        <h3>${spell.level} Level ${spell.school}</h3>
+        <h1 name="${spell.id}name" id="${spell.id}name">${spell.name}</h1>
+        <g:if test="${spell.level == '0th'}">
+            <h3 name="${spell.id}level" id="${spell.id}level">${spell.school} Cantrip</h3>
+        </g:if>
+        <g:else>
+            <h3 name="${spell.id}level" id="${spell.id}level">${spell.level} Level ${spell.school}</h3>
+        </g:else>
+        <h4 name="${spell.id}casting" id="${spell.id}casting">Casting time: ${spell.castingTime}</h4>
+        <h4 name="${spell.id}range" id="${spell.id}range">Range: ${spell.range}</h4>
+        <h4 name="${spell.id}comps" id="${spell.id}comps">Components: <g:each in="${spell.components}">${it} </g:each></h4>
+        <h4 name="${spell.id}duration" id="${spell.id}duration">Duration: ${spell.duration}</h4>
         <p name="${spell.id}text" id="${spell.id}text">${spell.body}</p>
-        <p name="${spell.id}text2" id="${spell.id}text2">${spell.highText}</p>
-        <p name="${spell.id}text3" id="${spell.id}text3">${spell.compText}</p>
+        <p name="${spell.id}highText" id="${spell.id}highText">${spell.highText}</p>
+        <p name="${spell.id}comText" id="${spell.id}comText">${spell.compText}</p>
         <div class="row" style="align-items: center">
-            <g:render template="/roll" model="[source: 'formula', target: 'target']"/>
-            <g:render template="/display" model="[sourceList: ['${spell.id}text', '${spell.id}text2', '${spell.id}text3'], target: '${spell.id}target']"/>
+            <g:render template="/roll" model="${[source: (spell.id+'formula'), target: (spell.id+'target')]}"/>
+            <g:render template="/display" model="${[sourceList: [spell.id+'name', spell.id+'level', spell.id+'casting', spell.id+'range', spell.id+'comps', spell.id+'duration', spell.id+'text', spell.id+'highText', spell.id+'comText'], target: spell.id+'target']}"/>
         </div>
     </div>
 </div>
@@ -43,3 +57,6 @@ function togglePanel(id) {
     }
 }
 </script>
+
+<%-- <g:render template="/roll" model="[source: 'formula', target: '1target']"/>
+<g:render template="/display" model="[sourceList: ['1text', '1highText', '1comText'], target: '1target']"/> --%>

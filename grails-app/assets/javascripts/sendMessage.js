@@ -1,6 +1,6 @@
-function sendMessage(id) {
+function sendMessage(id) {e
 
-    let input = document.getElementById(id.name).value
+    let input = document.getElementById(id).value
     if(input.substring(0,2) == "/r"){
         input = parseRoll(input.substring(2));
     }
@@ -19,27 +19,25 @@ function sendMessage(id) {
 }
 
 function sendMessageTo(id, target) {
-
-
     let input
     let url
 
-    if(id.name != null){
-        input = document.getElementById(id.name).value
+    if(id != null){
+        input = document.getElementById(id).value
     }else{
-        input = document.getElementById(id.id).value
+        input = document.getElementById(id).value
     }
     if(input == null){
-        input = document.getElementById(id.id).innerHTML
+        input = document.getElementById(id).innerHTML
     }
 
-    if(target.name != null){
-        url = document.getElementById(target.name).value
+    if(target != null){
+        url = document.getElementById(target).value
     }else{
-        url = document.getElementById(target.id).value
+        url = document.getElementById(target).value
     }
     if(url == null){
-        url = document.getElementById(target.id).innerHTML
+        url = document.getElementById(target).innerHTML
     }
 
     if(input.substring(0,2) == "/r"){
@@ -61,22 +59,24 @@ function sendMessageTo(id, target) {
 
 function sendMultiMessageTo(idList, target) {
 
-    console.log(idList);
+    idList = idList.substring(1,idList.length-1)
+    let ids = idList.split(",")
 
     let input = ""
     let url
 
-    idList.forEach(id => {
-        input += document.getElementById(id.id).innerText + "\n"
+    ids.forEach(id => {
+        id = id.trim()
+        input += document.getElementById(id).innerText + "\n"
     })
 
-    if(target.name != null){
-        url = document.getElementById(target.name).value
+    if(target != null){
+        url = document.getElementById(target).value
     }else{
-        url = document.getElementById(target.id).value
+        url = document.getElementById(target).value
     }
     if(url == null){
-        url = document.getElementById(target.id).innerText
+        url = document.getElementById(target).innerText
     }
 
     if(input.substring(0,2) == "/r"){

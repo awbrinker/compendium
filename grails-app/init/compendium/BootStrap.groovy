@@ -10,7 +10,7 @@ class BootStrap {
         def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
         def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
 
-        def testAdmin = new User(username: 'admin', password: 'password')
+        def testAdmin = new User(username: 'admin', password: 'password', defaultHook: 'https://discordapp.com/api/webhooks/1063212486121234443/WnujW9t76JO5ogf-RUbhrjHlVerXMmsHYfJ2VD-R0rACP9DOOsYmemSqwp1TbdPJy2bW')
         testAdmin.save(flush: true)
 
         def testUser = new User(username: 'user', password: 'password')

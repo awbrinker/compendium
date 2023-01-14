@@ -10,8 +10,6 @@ class CompendiumController {
     def spells(){
         def springSecurityService = Holders.applicationContext.springSecurityService
 
-        println(Spell.getAll())
-
-        render(view: "spells", model: [spells: Spell.getAll(), hook: springSecurityService.currentUser.defaultHook])
+        render(view: "spells", model: [spells: Spell.listOrderByName(), hook: springSecurityService.currentUser.defaultHook])
     }
 }
