@@ -20,8 +20,64 @@ function sendMessage(id) {
 
 function sendMessageTo(id, target) {
 
-    let input = document.getElementById(id.name).value
-    let url = document.getElementById(target.name).value
+
+    let input
+    let url
+
+    if(id.name != null){
+        input = document.getElementById(id.name).value
+    }else{
+        input = document.getElementById(id.id).value
+    }
+    if(input == null){
+        input = document.getElementById(id.id).innerHTML
+    }
+
+    if(target.name != null){
+        url = document.getElementById(target.name).value
+    }else{
+        url = document.getElementById(target.id).value
+    }
+    if(url == null){
+        url = document.getElementById(target.id).innerHTML
+    }
+
+    if(input.substring(0,2) == "/r"){
+        input = parseRoll(input.substring(2));
+    }
+
+    const request = new XMLHttpRequest();
+    request.open("POST", url);
+    request.setRequestHeader('Content-type', 'application/json');
+    const params = {
+        username: "Steve the Helpful Pirate",
+        avatar_url: "https://cdn-icons-png.flaticon.com/512/6545/6545894.png",
+        content: input
+    }
+
+    request.send(JSON.stringify(params));
+
+}
+
+function sendMultiMessageTo(idList, target) {
+
+    console.log(idList);
+
+    let input = ""
+    let url
+
+    idList.forEach(id => {
+        input += document.getElementById(id.id).innerText + "\n"
+    })
+
+    if(target.name != null){
+        url = document.getElementById(target.name).value
+    }else{
+        url = document.getElementById(target.id).value
+    }
+    if(url == null){
+        url = document.getElementById(target.id).innerText
+    }
 
     if(input.substring(0,2) == "/r"){
         input = parseRoll(input.substring(2));

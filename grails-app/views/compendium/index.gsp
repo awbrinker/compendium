@@ -53,7 +53,7 @@
                     </a>
                 </div>
                 <div class="col">
-                    <a href="/#">
+                    <a href="/compendium/spells">
                         <button class="bannerButton">
                             <asset:image src="PirateBanner.png"/>
                             <p class="bannerText">Spells</p>

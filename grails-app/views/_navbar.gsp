@@ -19,7 +19,7 @@
             <li class="dropdown-item"><a href="#">Vehicles</a></li>
             <li class="dropdown-item"><a href="#">Magic Items</a></li>
             <li role="separator" class="dropdown-divider"></li>
-            <li class="dropdown-item"><a href="#">Spells</a></li>
+            <li class="dropdown-item"><a href="/compendium/spells">Spells</a></li>
             <li class="dropdown-item"><a href="#">Monsters</a></li>
         </ul>
     </li>
