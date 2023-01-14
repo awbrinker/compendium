@@ -12,14 +12,18 @@
 
 <div role="main" class="homePage">
     <div class="mainMenu">
-            
+
             <div class="row">
                 <h1>Test Discord Integration:</h1>
             </div>
 
             <div class="row">
-                <p>Enter a webhook URL to send the message to:</p>
-                <g:textField name="target" style="margin-left: 10px"/>
+                <p>Your default webhook is:</p>
+                <g:form style="text-align: left" action="updateHook" autocomplete="off">
+                    <g:textField name="target" style="margin-left: 10px; width: 500px" value="${hook}"/>
+                    <button class="button">Save</button>
+            </g:form>
+
             </div>
 
             <div class="row">
