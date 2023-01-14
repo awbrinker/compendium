@@ -1,6 +1,6 @@
 function sendMessage(id) {
 
-    let input = document.getElementById(id).value
+    let input = document.getElementById(id.name).value
     if(input.substring(0,2) == "/r"){
         input = parseRoll(input.substring(2));
     }
@@ -20,8 +20,8 @@ function sendMessage(id) {
 
 function sendMessageTo(id, target) {
 
-    let input = document.getElementById(id).value
-    let url = document.getElementById(target).value
+    let input = document.getElementById(id.name).value
+    let url = document.getElementById(target.name).value
 
     if(input.substring(0,2) == "/r"){
         input = parseRoll(input.substring(2));
@@ -42,9 +42,15 @@ function sendMessageTo(id, target) {
 
 function parseRoll(input) {
 
-    const list = input.split("+");
-    let sum = 0;
+    const set = input.split("&");
+
     let out = "Rolling: **"+input+"**\n";
+
+    set.forEach(element => {
+
+    let sum = 0;
+
+    const list = element.split("+");
 
     list.forEach(element => {
         element.trim();
@@ -120,8 +126,10 @@ function parseRoll(input) {
 
     });
 
-    out += "Total: **" + sum +"**\n";
+    out += "Total: **" + sum +"**\n\n";
 
+    });
+    
     return out;
 }
 

@@ -31,7 +31,7 @@
                 <g:textField name="text" style="margin-left: 10px"/>
             </div>
 
-            <g:render template="/roll"/>
+            <g:render template="/roll" model="[source: 'text', target: 'target']"/>
 
     </div>
 </div>
