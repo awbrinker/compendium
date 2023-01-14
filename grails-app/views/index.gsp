@@ -34,16 +34,27 @@
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Downloads <span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li class="dropdown-item"><a href="#">Sources </a></li>
-            <li class="dropdown-item"><a href="#">Tools </a></li>
+            <li class="dropdown-item"><a href="/downloads/sources">Sources </a></li>
+            <li class="dropdown-item"><a href="/downloads/tools">Tools </a></li>
         </ul>
     </li>
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
-        <ul class="dropdown-menu dropdown-menu-right">
-            <li class="dropdown-item"><a href="#">Log in </a></li>
-        </ul>
-    </li>
+    <sec:ifLoggedIn>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><sec:username/><span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li class="dropdown-item"><a href="#">View Profile</a></li>
+                    <li class="dropdown-item"><g:link class="nav-link" controller="Logout">Log out</g:link></li>
+                </ul>
+            </li>
+    </sec:ifLoggedIn>
+    <sec:ifNotLoggedIn>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li class="dropdown-item"><a href="/login/auth">Log in </a></li>
+            </ul>
+        </li>
+    </sec:ifNotLoggedIn>
 </content>
 
 <div role="main" class="homePage">
@@ -53,20 +64,33 @@
             </div>
             <h2 style="font-size: 24px;">An unofficial digital toolset for Dungeons & Dragons Fifth Edition</h2>
 
-            <a href="/login">
+            <sec:ifNotLoggedIn>
+            <a href="/login/auth">
                 <button class="bannerButton">
                     <asset:image src="PirateBanner.png"/>
                     <p class="bannerText">Log In</p>
                 </button>
             </a>
+            </sec:ifNotLoggedIn>
 
-            <a href="/register">
+            <sec:ifLoggedIn>
+            <a href="/logout">
+                <button class="bannerButton">
+                    <asset:image src="PirateBanner.png"/>
+                    <p class="bannerText">Log Out</p>
+                </button>
+            </a>
+            </sec:ifLoggedIn>
+
+            <sec:ifNotLoggedIn>
+            <a href="/login/register">
                 <button class="bannerButton">
                     <asset:image src="PirateBanner.png"/>
                     <p class="bannerHeader">Set Sail!</p>
                     <p class="bannerSubText">Create Account</p>
                 </button>
             </a>
+            </sec:ifNotLoggedIn>
 
             <%-- <div class="row">
                 <h1>Test Discord Integration:</h1>

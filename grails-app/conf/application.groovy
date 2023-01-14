@@ -10,11 +10,14 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/index',          access: ['permitAll']],
 	[pattern: '/index.gsp',      access: ['permitAll']],
 	[pattern: '/shutdown',       access: ['permitAll']],
+	[pattern: '/logout/**',   	 access: ['permitAll']],
+	[pattern: '/downloads/sources',   access: ['ROLE_USER', 'ROLE_ADMIN']],
+	[pattern: '/downloads/tools',   access: ['ROLE_USER', 'ROLE_ADMIN']],
 	[pattern: '/assets/**',      access: ['permitAll']],
 	[pattern: '/**/js/**',       access: ['permitAll']],
 	[pattern: '/**/css/**',      access: ['permitAll']],
 	[pattern: '/**/images/**',   access: ['permitAll']],
-	[pattern: '/**/favicon.ico', access: ['permitAll']]
+	[pattern: '/**/favicon.ico', access: ['permitAll']],
 ]
 
 grails.plugin.springsecurity.filterChain.chainMap = [
@@ -26,3 +29,4 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 	[pattern: '/**',             filters: 'JOINED_FILTERS']
 ]
 
+grails.plugin.springsecurity.logout.postOnly = false;
