@@ -35,6 +35,10 @@
     text-align: center;
     position: relative;
 }
+.bannerButton:hover {
+    transition: 0.1s;
+    color:darkred
+}
 
 .bannerText {
     position:absolute;
