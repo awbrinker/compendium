@@ -66,3 +66,14 @@
     font-family:'Times New Roman', Times, serif;
     font-weight: 500;
 }
+
+.rollText {
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-53%, -50%);
+    font-size: 12px;
+    font-family:'Times New Roman', Times, serif;
+    font-weight: 800;
+    color: white;
+}

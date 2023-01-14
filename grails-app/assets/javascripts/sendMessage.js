@@ -18,6 +18,28 @@ function sendMessage(id) {
 
 }
 
+function sendMessageTo(id, target) {
+
+    let input = document.getElementById(id).value
+    let url = document.getElementById(target).value
+
+    if(input.substring(0,2) == "/r"){
+        input = parseRoll(input.substring(2));
+    }
+
+    const request = new XMLHttpRequest();
+    request.open("POST", url);
+    request.setRequestHeader('Content-type', 'application/json');
+    const params = {
+        username: "Steve the Helpful Pirate",
+        avatar_url: "https://cdn-icons-png.flaticon.com/512/6545/6545894.png",
+        content: input
+    }
+
+    request.send(JSON.stringify(params));
+
+}
+
 function parseRoll(input) {
 
     const list = input.split("+");
@@ -56,8 +78,6 @@ function parseRoll(input) {
         let results = [];
         let rand = getRandom(count, size);
         let randList = rand.split("\n");
-
-        console.log(randList);
 
         for(let i = 0; i < count; i++){
             results.push(parseInt(randList[i]));
