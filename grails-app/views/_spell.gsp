@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 
-<g:hiddenField name="${spell.id}formula" id="${spell.id}formula" value="/r ${spell.formula}"/>
-<g:hiddenField name="${spell.id}target" id="${spell.id}target" value="${hook}"/>
-
 <tr style="align-items: center" onclick="togglePanel(${spell.id})">
     <g:if test="${spell.level == '0th'}">
         <td style="width: 10%">Cantrip</td>
@@ -20,6 +17,9 @@
     <g:each in="${spell.dmgType}">${it}; </g:each>
     </td>
 </tr>
+
+<g:hiddenField name="${spell.id}formula" id="${spell.id}formula" value="/r ${spell.formula}"/>
+<g:hiddenField name="${spell.id}target" id="${spell.id}target" value="${hook}"/>
 
 <div id="${spell.id}Collapse" class="sidepanel">
     <div class="card card-body spellBody">
@@ -40,7 +40,9 @@
         <p name="${spell.id}comText" id="${spell.id}comText">${spell.compText}</p>
         <div class="row">
             <g:each in="${spell.classes}">
-                <button name="${spell.id}classes" id="${spell.id}classes" class="classbtn">${it}</button>
+                <a href="/compendium/classes/${it}" class="classbtn">
+                    <button name="${spell.id}classes" id="${spell.id}classes" class="classbtn">${it}</button>
+                </a>
             </g:each>
         </div>
         <div class="row" style="align-items: center">
@@ -62,6 +64,3 @@ function togglePanel(id) {
     }
 }
 </script>
-
-<%-- <g:render template="/roll" model="[source: 'formula', target: '1target']"/>
-<g:render template="/display" model="[sourceList: ['1text', '1highText', '1comText'], target: '1target']"/> --%>
