@@ -17,7 +17,7 @@
             <div class="alert alert-error" style="text-align: center; font-size: large; color:red;">${errorMessage}</div>
         </g:if>
 
-        <g:form style="text-align: left" controller="login" action="createAccount">
+        <g:form style="text-align: left" controller="login" action="createAccount" autocomplete="off">
 
                     <label for="valCode">Enter your desired username:</label>
                     <g:textField name="username"/> <br>

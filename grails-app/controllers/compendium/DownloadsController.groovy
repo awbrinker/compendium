@@ -5,6 +5,10 @@ import org.apache.commons.io.IOUtils
 
 class DownloadsController {
 
+    def index() {
+        render(view: "index")
+    }
+
     def tools() {
         render(view: "tools")
     }

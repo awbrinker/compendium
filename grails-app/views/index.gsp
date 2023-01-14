@@ -47,10 +47,10 @@
                     </a>
                 </div>
                 <div class="col">
-                    <a href="/#">
+                    <a href="/compendium">
                         <button class="bannerButton">
                             <asset:image src="PirateBanner.png"/>
-                            <p class="bannerText" style="color: red">Compendium</p>
+                            <p class="bannerText">Compendium</p>
                         </button>
                     </a>
                 </div>

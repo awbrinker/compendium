@@ -37,9 +37,10 @@
             </div>
 
             <div style="align-items: center">
-                <p>
-                    <input type="submit" class="btn btn-lg btn-light" id="submit" value="${message(code: 'springSecurity.login.button')}"/>
-                </p>
+                <button class="bannerButton" id="submit" value="${message(code: 'springSecurity.login.button')}">
+                    <asset:image src="PirateBanner.png"/>
+                    <p class="bannerText">Log In</p>
+                </button>
             </div>
 
         </form>
