@@ -82,8 +82,30 @@
     color: white;
 }
 
-.rollText:hover {
+.rollText-shift {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-25%, -50%);
+    font-size: 12px;
+    font-family:'Times New Roman', Times, serif;
+    font-weight: 800;
+    color: green;
+}
+
+.rollText-ctrl {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-25%, -50%);
+    font-size: 12px;
+    font-family:'Times New Roman', Times, serif;
+    font-weight: 800;
     color: red;
+}
+
+.rollText:hover {
+    color: goldenrod;
 }
 
 .displayText {
@@ -98,5 +120,5 @@
 }
 
 .displayText:hover {
-    color: red;
+    color: goldenrod;
 }

@@ -1,3 +1,6 @@
+let shift = false;
+let ctrl = false;
+
 function sendMessage(id) {e
 
     let input = document.getElementById(id).value
@@ -98,9 +101,18 @@ function sendMultiMessageTo(idList, target) {
 
 function parseRoll(input) {
 
-    const set = input.split("&");
+    if(shift){
+        input=input.replace("d20", " 1d20")
+        input = input.replace("1d20", "2d20kh1")
+    }
+    if(ctrl){
+        input=input.replace("d20", " 1d20")
+        input = input.replace("1d20", "2d20kl1")
+    }
 
     let out = "Rolling: **"+input+"**\n";
+
+    const set = input.split("&");
 
     set.forEach(element => {
 
@@ -157,7 +169,6 @@ function parseRoll(input) {
                 }
                 for(i; i < count; i++){
                     out += "~~" + results[i] +"~~, "
-                    console.log(results[i])
                 }
 
             }else if(flag == "l"){
@@ -198,3 +209,32 @@ function getRandom(count, size)
     xmlHttp.send( null );
     return xmlHttp.responseText;
 }
+
+function keyHandler(event) {
+    shift = event.shiftKey;
+    ctrl = event.ctrlKey;
+    let list = document.getElementsByClassName('rollText-shift')
+
+    for (let i = 0; i < list.length; ++i) {
+        list[i].className = shift ? 'rollText-shift' : 'rollText'
+    }
+
+    list = document.getElementsByClassName('rollText')
+
+    for (let i = 0; i < list.length; ++i) {
+        list[i].className = shift ? 'rollText-shift' : 'rollText'
+        if(!shift){
+            list[i].className = ctrl ? 'rollText-ctrl' : 'rollText'
+        }
+    }
+
+    list = document.getElementsByClassName('rollText-ctrl')
+
+    for (let i = 0; i < list.length; ++i) {
+        list[i].className = ctrl ? 'rollText-ctrl' : 'rollText'
+    }
+}
+
+window.addEventListener("keydown", keyHandler, false);
+window.addEventListener("keypress", keyHandler, false);
+window.addEventListener("keyup", keyHandler, false);
