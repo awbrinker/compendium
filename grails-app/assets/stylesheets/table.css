@@ -1,0 +1,16 @@
+.table_box {
+    margin: 1cm;
+    padding: 5px;
+}
+
+.color_page {
+    background: #ccf;
+}
+
+.tr:hover {
+    color: black;
+}
+
+.box div, .box ul {
+    float: right;
+}

@@ -21,13 +21,13 @@
     top: 0;
     right: 25px;
     font-size: 36px;
-    color:white;
+    color:gray;
     background-color: transparent;
     border: none;
 }
 
 .closebtn:hover {
-    color:gray
+    color:white
 }
 
 .classbtn {

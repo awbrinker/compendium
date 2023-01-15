@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 
-<tr style="align-items: center" onclick="togglePanel(${spell.id})">
+<tr style="align-items: center; justify-content: center" onclick="togglePanel(${spell.id})">
     <g:if test="${spell.level == '0th'}">
         <td style="width: 10%">Cantrip</td>
     </g:if>
     <g:else>
         <td style="width: 10%">${spell.level}</td>
     </g:else>
-    <td style="width: 15%">${spell.name}</td>
+    <td style="width: 15%; font-weight: 700">${spell.name}</td>
     <td style="width: 15%">${spell.castingTime}</td>
     <td style="width: 15%">${spell.duration}</td>
     <td style="width: 10%">${spell.range}</td>
@@ -46,7 +46,9 @@
             </g:each>
         </div>
         <div class="row" style="align-items: center">
-            <g:render template="/roll" model="${[source: (spell.id+'formula'), target: (spell.id+'target')]}"/>
+            <g:if test="${spell.formula != 'None'}">
+                <g:render template="/roll" model="${[source: (spell.id+'formula'), target: (spell.id+'target')]}"/>
+            </g:if>
             <g:render template="/display" model="${[sourceList: [spell.id+'name', spell.id+'level', spell.id+'casting', spell.id+'range', spell.id+'comps', spell.id+'duration', spell.id+'text', spell.id+'highText', spell.id+'comText'], target: spell.id+'target']}"/>
         </div>
     </div>

@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> 
     <asset:javascript src="sendMessage.js"/>
     <asset:javascript src="sorttable.js"/>
+    <asset:javascript src="paginator.js"/>
     <asset:link rel="icon" href="BlackFlagLogo.ico" type="image/x-ico"/>
     <asset:stylesheet href="home.css"/>
     <asset:stylesheet href="spell.css"/>
+    <asset:stylesheet href="table.css"/>
 
 </head>
 <body>
@@ -20,22 +22,36 @@
             
             <%-- Filter By Header  --%>
 
-            <table class="sortable" style="text-align: left; width: 1400px">
-                <thead>
-                <th><b>Level</b></th>
-                <th><b>Name</b></th>
-                <th><b>Casting Time</b></th>
-                <th><b>Duration</b></th>
-                <th><b>Range</b></th>
-                <th><b>Attack</b></th>
-                <th><b>Save</b></th>
-                <th><b>Damage/Effect</b></th>
-                </thead>
+            <div id="table_box_bootstrap">
+                <table class="sortable" id="data" name="data" style="text-align: left; width: 1400px">
+                    <thead>
+                    <th><b>Level</b></th>
+                    <th><b>Name</b></th>
+                    <th><b>Casting Time</b></th>
+                    <th><b>Duration</b></th>
+                    <th><b>Range</b></th>
+                    <th><b>Attack</b></th>
+                    <th><b>Save</b></th>
+                    <th><b>Damage/Effect</b></th>
+                    </thead>
 
-                <g:each in="${spells}">
-                    <g:render template="/spell" model="[spell: it, hook: hook]" />
-                </g:each>
-            </table>
+                    <g:each in="${spells}">
+                        <g:render template="/spell" model="[spell: it, hook: hook]" />
+                    </g:each>
+                </table>
+            </div>
+            <div id="index_native" class="box"></div>
+
+            <script type="text/javascript">
+                window.addEventListener("load", function () {
+                    var box = paginator({
+                        table: document.getElementById("table_box_bootstrap").getElementsByTagName("table")[0],
+                        box_mode: "list",
+                    });
+                    box.className = "box";
+                    document.getElementById("table_box_bootstrap").appendChild(box);
+                }, false);
+            </script>
 
     </div>
 </div>
