@@ -9,23 +9,43 @@
     align-items: center;
 }
 
+.longPage {
+    background-image: url('../images/slategrey.png');
+    background-repeat: repeat;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .mainMenu {
-    background-color: rgb(47, 47, 47);
+    background-color: rgb(47, 47, 47, 0.8);
     border-color: black;
     border-width: 100px;
     padding: 30px;
     border-radius: 25px;
     min-width: 500px;
-    max-width: 1500px;
+    max-width: 2000px;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: white;
-    opacity: 80%;
+    /* opacity: 80%; */
 }
 
 .row {
     margin: 5px;
+}
+
+.backbtn {
+    position: relative;
+    top: -20px;
+    left: -1200%;
+    font-size: 14px;
+    color:gray;
+    background-color: black;
+    border-radius: 10px;
 }
 
 .bannerButton {
@@ -33,11 +53,13 @@
     background-color: transparent;
     text-align: center;
     position: relative;
+    opacity: 80%;
 }
 
 .bannerButton:hover {
     transition: 0.1s;
-    color:darkred
+    color:darkred;
+    opacity: 70%;
 }
 
 .classBannerButton {
@@ -47,22 +69,33 @@
     height: 275px;
     text-align: center;
     position: relative;
+    opacity: 95%;
 }
 
 .classBannerButton:hover {
     transition: 0.1s;
     color:darkred;
+    opacity: 75%;
+}
+
+.homeBannerImage {
+    position:relative;
+    transform: translate(-6%, 30%);
+    border-radius: 30px;
+    width: 120px;
+    height: 120px;
 }
 
 .classBannerImage {
     position:relative;
     transform: translate(-6%, 30%);
     border-radius: 30px;
+    width: 120px;
+    height: 120px;
 
 }
 
 .classBannerImage:hover {
-    opacity: 50%;
     box-shadow: 2px 2px 5px black;
 }
 

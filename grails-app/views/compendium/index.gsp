@@ -12,32 +12,36 @@
 
 <div role="main" class="homePage">
     <div class="mainMenu">
+
             <div class="row">
                 <h1 style="font-size: 40px;">D&D 5e Compendium</h1>
             </div>
 
             <div class="row">
                 <div class="col">
-                    <a href="/#">
-                        <button class="bannerButton">
-                            <asset:image src="PirateBanner.png"/>
-                            <p class="bannerText">Classes</p>
+                    <a href="/compendium/classes">
+                        <button class="classBannerButton">
+                            <asset:image src="compendiumIcons/class.svg" class="homeBannerImage"/>
+                            <asset:image src="PirateBanner.png" class="classBanner"/>
+                            <p class="classBannerText">Classes</p>
                         </button>
                     </a>
                 </div>
                 <div class="col">
                     <a href="/#">
-                        <button class="bannerButton">
-                            <asset:image src="PirateBanner.png"/>
-                            <p class="bannerText">Races</p>
+                        <button class="classBannerButton">
+                            <asset:image src="compendiumIcons/race.png" class="homeBannerImage"/>
+                            <asset:image src="PirateBanner.png" class="classBanner"/>
+                            <p class="classBannerText">Races</p>
                         </button>
                     </a>
                 </div>
                 <div class="col">
                     <a href="/compendium/backgrounds">
-                        <button class="bannerButton">
-                            <asset:image src="PirateBanner.png"/>
-                            <p class="bannerText">Backgrounds</p>
+                        <button class="classBannerButton">
+                            <asset:image src="compendiumIcons/gate.png" class="homeBannerImage"/>
+                            <asset:image src="PirateBanner.png" class="classBanner"/>
+                            <p class="classBannerText">Backgrounds</p>
                         </button>
                     </a>
                 </div>
@@ -46,25 +50,28 @@
             <div class="row">
                 <div class="col">
                     <a href="/compendium/feats">
-                        <button class="bannerButton">
-                            <asset:image src="PirateBanner.png"/>
-                            <p class="bannerText">Feats</p>
+                        <button class="classBannerButton">
+                            <asset:image src="compendiumIcons/feat.png" class="homeBannerImage"/>
+                            <asset:image src="PirateBanner.png" class="classBanner"/>
+                            <p class="classBannerText">Feats</p>
                         </button>
                     </a>
                 </div>
                 <div class="col">
                     <a href="/compendium/spells">
-                        <button class="bannerButton">
-                            <asset:image src="PirateBanner.png"/>
-                            <p class="bannerText">Spells</p>
+                        <button class="classBannerButton">
+                            <asset:image src="compendiumIcons/spell.png" class="homeBannerImage"/>
+                            <asset:image src="PirateBanner.png" class="classBanner"/>
+                            <p class="classBannerText">Spells</p>
                         </button>
                     </a>
                 </div>
                 <div class="col">
                     <a href="/#">
-                        <button class="bannerButton">
-                            <asset:image src="PirateBanner.png"/>
-                            <p class="bannerText">Monsters</p>
+                        <button class="classBannerButton">
+                            <asset:image src="compendiumIcons/monster.png" class="homeBannerImage"/>
+                            <asset:image src="PirateBanner.png" class="classBanner"/>
+                            <p class="classBannerText">Monsters</p>
                         </button>
                     </a>
                 </div>
@@ -73,25 +80,28 @@
             <div class="row">
                 <div class="col">
                     <a href="/compendium/equipment">
-                        <button class="bannerButton">
-                            <asset:image src="PirateBanner.png"/>
-                            <p class="bannerText">Equipment</p>
+                        <button class="classBannerButton">
+                            <asset:image src="compendiumIcons/plate.png" class="homeBannerImage"/>
+                            <asset:image src="PirateBanner.png" class="classBanner"/>
+                            <p class="classBannerText">Equipment</p>
                         </button>
                     </a>
                 </div>
                 <div class="col">
                     <a href="/compendium/magicitems">
-                        <button class="bannerButton">
-                            <asset:image src="PirateBanner.png"/>
-                            <p class="bannerText">Magic Items</p>
+                        <button class="classBannerButton">
+                            <asset:image src="compendiumIcons/demonomicon.png" class="homeBannerImage"/>
+                            <asset:image src="PirateBanner.png" class="classBanner"/>
+                            <p class="classBannerText">Magic Items</p>
                         </button>
                     </a>
                 </div>
                 <div class="col">
                     <a href="/#">
-                        <button class="bannerButton">
-                            <asset:image src="PirateBanner.png"/>
-                            <p class="bannerText">Vehicles</p>
+                        <button class="classBannerButton">
+                            <asset:image src="compendiumIcons/mechanicalbeholder.png" class="homeBannerImage"/>
+                            <asset:image src="PirateBanner.png" class="classBanner"/>
+                            <p class="classBannerText">Vehicles</p>
                         </button>
                     </a>
                 </div>

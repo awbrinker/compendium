@@ -40,17 +40,19 @@
             <div class="row">
                 <div class="col">
                     <a href="/#">
-                        <button class="bannerButton">
-                            <asset:image src="PirateBanner.png"/>
-                            <p class="bannerText" style="color: red">My Content</p>
+                        <button class="classBannerButton">
+                            <asset:image src="homeIcons/content.svg" class="homeBannerImage"/>
+                            <asset:image src="PirateBanner.png" class="classBanner"/>
+                            <p class="classBannerText" style="color: red">My Content</p>
                         </button>
                     </a>
                 </div>
-                <div class="col">
+                <div class="col" style="margin-left: 100px">
                     <a href="/compendium">
-                        <button class="bannerButton">
-                            <asset:image src="PirateBanner.png"/>
-                            <p class="bannerText">Compendium</p>
+                        <button class="classBannerButton">
+                            <asset:image src="homeIcons/compendium.png" class="homeBannerImage"/>
+                            <asset:image src="PirateBanner.png" class="classBanner"/>
+                            <p class="classBannerText">Compendium</p>
                         </button>
                     </a>
                 </div>
@@ -59,17 +61,19 @@
             <div class="row">
                 <div class="col">
                     <a href="/downloads/index">
-                        <button class="bannerButton">
-                            <asset:image src="PirateBanner.png"/>
-                            <p class="bannerText">Downloads</p>
+                        <button class="classBannerButton">
+                            <asset:image src="homeIcons/coreset.png" class="homeBannerImage"/>
+                            <asset:image src="PirateBanner.png" class="classBanner"/>
+                            <p class="classBannerText">Downloads</p>
                         </button>
                     </a>
                 </div>
-                <div class="col">
+                <div class="col" style="margin-left: 100px">
                     <a href="/user/index">
-                        <button class="bannerButton">
-                            <asset:image src="PirateBanner.png"/>
-                            <p class="bannerText">Profile</p>
+                        <button class="classBannerButton">
+                            <asset:image src="BlackFlagLogo.ico" class="homeBannerImage"/>
+                            <asset:image src="PirateBanner.png" class="classBanner"/>
+                            <p class="classBannerText">Profile</p>
                         </button>
                     </a>
                 </div>
