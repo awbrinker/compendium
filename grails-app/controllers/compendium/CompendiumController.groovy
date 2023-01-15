@@ -7,6 +7,14 @@ class CompendiumController {
         render(view: "index")
     }
 
+    def classes() { 
+        render(view: "classes")
+    }
+
+    def races() { 
+        render(view: "races")
+    }
+
     def spells(){
         def springSecurityService = Holders.applicationContext.springSecurityService
 

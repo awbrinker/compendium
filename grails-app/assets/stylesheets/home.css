@@ -1,6 +1,6 @@
 .homePage {
     background-image: url('../images/Saltmarsh.png');
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     background-size: cover;
     min-height: 90vh;
     display: flex;
@@ -17,7 +17,6 @@
     border-radius: 25px;
     min-width: 500px;
     max-width: 1500px;
-    height: 75%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,9 +34,70 @@
     text-align: center;
     position: relative;
 }
+
 .bannerButton:hover {
     transition: 0.1s;
     color:darkred
+}
+
+.classBannerButton {
+    border: none;
+    background-color: transparent;
+    width: 350px;
+    height: 275px;
+    text-align: center;
+    position: relative;
+}
+
+.classBannerButton:hover {
+    transition: 0.1s;
+    color:darkred;
+}
+
+.classBannerImage {
+    position:relative;
+    transform: translate(-6%, 30%);
+    border-radius: 30px;
+
+}
+
+.classBannerImage:hover {
+    opacity: 50%;
+    box-shadow: 2px 2px 5px black;
+}
+
+.classBanner {
+    position:relative;
+    transform: translate(-6%, 0%);
+}
+
+.classBannerText {
+    position: relative;
+    font-size: 28px;
+    transform: translate(-2%, -400%);
+    font-family:'Times New Roman', Times, serif;
+    font-weight: 800;
+}
+
+.bannerImage {
+    position:relative;
+    top: 0;
+    left: 0;
+    transform: translate(-6%, -10%);
+    border: 10px;
+    border-color: black;
+    border-radius: 30px;
+}
+
+.bannerImage:hover {
+    border-radius: 100px;
+}
+
+.banner {
+    position:relative;
+    top: 50%;
+    left: 0%;
+    transform: translate(0%, -42%);
 }
 
 .bannerText {
