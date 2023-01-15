@@ -12,4 +12,11 @@ class CompendiumController {
 
         render(view: "spells", model: [spells: Spell.listOrderByName(), hook: springSecurityService.currentUser.defaultHook])
     }
+
+    def equipment(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+
+        render(view: "equipment", model: [items: Equipment.listOrderByName(), hook: springSecurityService.currentUser.defaultHook])
+    }
+
 }

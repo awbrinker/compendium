@@ -72,7 +72,7 @@
 
             <div class="row">
                 <div class="col">
-                    <a href="/#">
+                    <a href="/compendium/equipment">
                         <button class="bannerButton">
                             <asset:image src="PirateBanner.png"/>
                             <p class="bannerText">Equipment</p>

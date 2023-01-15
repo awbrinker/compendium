@@ -15,7 +15,7 @@
             <li class="dropdown-item"><a href="#">Backgrounds</li>
             <li class="dropdown-item"><a href="#">Feats</li>
             <li role="separator" class="dropdown-divider"></li>
-            <li class="dropdown-item"><a href="#">Equipment </li>
+            <li class="dropdown-item"><a href="/compendium/equipment">Equipment </li>
             <li class="dropdown-item"><a href="#">Vehicles</a></li>
             <li class="dropdown-item"><a href="#">Magic Items</a></li>
             <li role="separator" class="dropdown-divider"></li>
