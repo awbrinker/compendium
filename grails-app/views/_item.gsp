@@ -32,6 +32,7 @@
                 <g:render template="/display" model="${[sourceList: [item.id+'name', item.id+'type', item.id+'cost', item.id+'weight', item.id+'attributes', item.id+'notes', item.id+'text'], target: item.id+'target']}"/>
             </g:else>
         </div>
+        <p name="${item.id}source" id="${item.id}source" class="sourceText">${item.source}</p>
     </div>
 </div>
 

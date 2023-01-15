@@ -34,7 +34,7 @@
                     </a>
                 </div>
                 <div class="col">
-                    <a href="/#">
+                    <a href="/compendium/backgrounds">
                         <button class="bannerButton">
                             <asset:image src="PirateBanner.png"/>
                             <p class="bannerText">Backgrounds</p>
@@ -45,7 +45,7 @@
 
             <div class="row">
                 <div class="col">
-                    <a href="/#">
+                    <a href="/compendium/feats">
                         <button class="bannerButton">
                             <asset:image src="PirateBanner.png"/>
                             <p class="bannerText">Feats</p>
@@ -80,7 +80,7 @@
                     </a>
                 </div>
                 <div class="col">
-                    <a href="/#">
+                    <a href="/compendium/magicitems">
                         <button class="bannerButton">
                             <asset:image src="PirateBanner.png"/>
                             <p class="bannerText">Magic Items</p>

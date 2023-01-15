@@ -10,17 +10,17 @@
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Compendium <span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li class="dropdown-item"><a href="#">Races</a></li>
-            <li class="dropdown-item"><a href="#">Classes</a></li>
-            <li class="dropdown-item"><a href="#">Backgrounds</li>
-            <li class="dropdown-item"><a href="#">Feats</li>
+            <li class="dropdown-item"><a href="/compendium/races">Races</a></li>
+            <li class="dropdown-item"><a href="/compendium/classes">Classes</a></li>
+            <li class="dropdown-item"><a href="/compendium/backgrounds">Backgrounds</li>
+            <li class="dropdown-item"><a href="/compendium/feats">Feats</li>
             <li role="separator" class="dropdown-divider"></li>
             <li class="dropdown-item"><a href="/compendium/equipment">Equipment </li>
-            <li class="dropdown-item"><a href="#">Vehicles</a></li>
-            <li class="dropdown-item"><a href="#">Magic Items</a></li>
+            <li class="dropdown-item"><a href="/compendium/vehicles">Vehicles</a></li>
+            <li class="dropdown-item"><a href="/compendium/magicitems">Magic Items</a></li>
             <li role="separator" class="dropdown-divider"></li>
             <li class="dropdown-item"><a href="/compendium/spells">Spells</a></li>
-            <li class="dropdown-item"><a href="#">Monsters</a></li>
+            <li class="dropdown-item"><a href="/compendium/monsters">Monsters</a></li>
         </ul>
     </li>
     <li class="dropdown">

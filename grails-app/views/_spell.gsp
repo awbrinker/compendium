@@ -51,6 +51,7 @@
             </g:if>
             <g:render template="/display" model="${[sourceList: [spell.id+'name', spell.id+'level', spell.id+'casting', spell.id+'range', spell.id+'comps', spell.id+'duration', spell.id+'text', spell.id+'highText', spell.id+'comText'], target: spell.id+'target']}"/>
         </div>
+        <p name="${spell.id}source" id="${spell.id}source" class="sourceText">${spell.source}</p>
     </div>
 </div>
 

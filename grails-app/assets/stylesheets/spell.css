@@ -6,6 +6,7 @@
 .sidepanel  {
     width: 0px;
     position: fixed;
+    max-height: 750px;
     z-index: 1;
     top: 10%;
     left: 0;
@@ -18,8 +19,8 @@
 
 .closebtn {
     position: absolute;
-    top: 0;
-    right: 25px;
+    top: -20px;
+    right: 0px;
     font-size: 36px;
     color:gray;
     background-color: transparent;
@@ -40,4 +41,33 @@
 
 .classbtn:hover {
     color:white
+}
+
+.sourceText {
+    position: absolute;
+    bottom: -5px;
+    right: 10px;
+    font-size: 14px;
+    color: gray;
+    font-style: italic;
+}
+
+.Uncommon {
+    color: green
+}
+
+.Rare {
+    color: rgb(43, 43, 236)
+}
+
+.Very {
+    color: purple
+}
+
+.Legendary {
+    color: gold
+}
+
+.Artifact {
+    color: saddlebrown
 }

@@ -19,4 +19,22 @@ class CompendiumController {
         render(view: "equipment", model: [items: Equipment.listOrderByName(), hook: springSecurityService.currentUser.defaultHook])
     }
 
+    def feats(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+
+        render(view: "feats", model: [feats: Feat.listOrderByName(), hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def backgrounds(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+
+        render(view: "backgrounds", model: [backgrounds: Background.listOrderByName(), hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def magicitems(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+
+        render(view: "magicitems", model: [magicitems: MagicItem.listOrderByName(), hook: springSecurityService.currentUser.defaultHook])
+    }
+
 }

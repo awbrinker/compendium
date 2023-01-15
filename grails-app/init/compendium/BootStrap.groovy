@@ -26,6 +26,9 @@ class BootStrap {
         // Libraries
         SpellLibrary.initialize()
         EquipmentLibrary.initialize()
+        FeatLibrary.initialize()
+        BackgroundLibrary.initialize()
+        MagicItemLibrary.initialize()
     }
 
     def init = { servletContext ->
