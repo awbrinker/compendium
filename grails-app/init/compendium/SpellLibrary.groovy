@@ -2,6 +2,34 @@ package compendium
 
 class SpellLibrary {
 
+    static void overload() {
+        for(int i = 0; i < 750; i++){
+            def iceKnife = new Spell(
+            name: "Ice Knife"+i,
+            level: "1st",
+            castingTime: "1 Action",
+            range: "60 ft",
+            components: ["S", "M"],
+            duration: "Instantaneous",
+            school: "Conjuration",
+            atk: "Ranged",
+            save: "DEX",
+            dmgType: ["Piercing", "Cold"],
+            concentration: false,
+            
+            formula: "d10 & 2d6",
+            higherAddFormula: "d6",
+
+            body: "You create a shard of ice and fling it at one creature within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 piercing damage. Hit or miss, the shard then explodes. The target and each creature within 5 feet of it must succeed on a Dexterity saving throw or take 2d6 cold damage.",
+            highText: "At Higher Levels. When you cast this spell using a spell slot of 2nd level or higher, the cold damage increases by 1d6 for each slot level above 1st.",
+            compText: "* - (a drop of water or a piece of ice)",
+            source: "Elemental Evil Player's Companion",
+
+            classes: ["Bard", "Sorcerer", "Warlock", "Wizard", "Artificer"]
+        ).save(flush: true)
+        }
+    }
+
     static void initialize() {
         def iceKnife = new Spell(
             name: "Ice Knife",

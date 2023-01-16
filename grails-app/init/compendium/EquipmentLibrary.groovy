@@ -2,6 +2,21 @@ package compendium
 
 class EquipmentLibrary {
 
+    static void overload() {
+        for(int i = 0; i < 400; i++){
+            def arrows = new Equipment(
+            name: "Arrows"+i,
+            type: "Ammunition",
+            cost: "0.05 gp",
+            weight: "0.05 lbs",
+            attributes: "",
+            notes: "Combat, Damage",
+            damage: "",
+            body: "Arrows are used with a weapon that has the ammunition property to make a ranged attack. Each time you attack with the weapon, you expend one piece of ammunition. Drawing the ammunition from a quiver, case, or other container is part of the attack (you need a free hand to load a one-handed weapon). At the end of the battle, you can recover half your expended ammunition by taking a minute to search the battlefield."
+        ).save(flush: true)
+        }
+    }
+
     static void initialize() {
         
         // Adventuring Gear

@@ -28,7 +28,7 @@
                     </a>
                 </div>
                 <div class="col">
-                    <a href="/#">
+                    <a href="/compendium/races">
                         <button class="classBannerButton">
                             <asset:image src="compendiumIcons/race.png" class="homeBannerImage"/>
                             <asset:image src="PirateBanner.png" class="classBanner"/>
@@ -67,7 +67,7 @@
                     </a>
                 </div>
                 <div class="col">
-                    <a href="/#">
+                    <a href="/compendium/monsters">
                         <button class="classBannerButton">
                             <asset:image src="compendiumIcons/monster.png" class="homeBannerImage"/>
                             <asset:image src="PirateBanner.png" class="classBanner"/>
@@ -97,7 +97,7 @@
                     </a>
                 </div>
                 <div class="col">
-                    <a href="/#">
+                    <a href="/compendium/vehicles">
                         <button class="classBannerButton">
                             <asset:image src="compendiumIcons/mechanicalbeholder.png" class="homeBannerImage"/>
                             <asset:image src="PirateBanner.png" class="classBanner"/>

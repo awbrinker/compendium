@@ -29,6 +29,12 @@ class BootStrap {
         FeatLibrary.initialize()
         BackgroundLibrary.initialize()
         MagicItemLibrary.initialize()
+        MonsterLibrary.initialize()
+
+        // SpellLibrary.overload()
+        // EquipmentLibrary.overload()
+        // MagicItemLibrary.overload()
+        // MonsterLibrary.overload()
     }
 
     def init = { servletContext ->

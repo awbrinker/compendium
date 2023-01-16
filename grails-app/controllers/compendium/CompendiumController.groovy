@@ -45,4 +45,10 @@ class CompendiumController {
         render(view: "magicitems", model: [magicitems: MagicItem.listOrderByName(), hook: springSecurityService.currentUser.defaultHook])
     }
 
+    def monsters(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+
+        render(view: "monsters", model: [monsters: Monster.listOrderByName(), hook: springSecurityService.currentUser.defaultHook])
+    }
+
 }
