@@ -32,7 +32,7 @@ class BootStrap {
         MonsterLibrary.initialize()
 
         // SpellLibrary.overload()
-        // EquipmentLibrary.overload()
+        //EquipmentLibrary.overload()
         // MagicItemLibrary.overload()
         // MonsterLibrary.overload()
     }

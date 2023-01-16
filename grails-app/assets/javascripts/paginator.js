@@ -209,10 +209,23 @@ function paginator(config) {
         var left = make_button("&laquo;", (page>1?page-1:1), config, (page == 1), false);
         page_box.appendChild(left);
 
-        for (var i=1;i<=pages;i++) {
-            var li = make_button(i, i, config, false, (page == i));
-            page_box.appendChild(li);
-        }
+        var text = document.createElement("input");
+        text.type = 'text';
+        page_box.appendChild(text);
+
+        var goto = document.createElement("button");
+        goto.innerHTML = "Go";
+        goto.style="border: none";
+        
+        goto.addEventListener("click", function (event) {
+            event.preventDefault();
+            if (this.disabled != true) {
+                config.page = text.value;
+                paginator(config);
+            }
+            return false;
+        }, false);
+        page_box.appendChild(goto);
 
         var right = make_button("&raquo;", (pages>page?page+1:page), config, (page == pages), false);
         page_box.appendChild(right);
