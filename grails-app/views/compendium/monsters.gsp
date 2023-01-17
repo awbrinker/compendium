@@ -62,13 +62,11 @@
                 <g:field type="number" name="end" value="${end}"/>
                 <g:submitButton name="reload" value="Reload"/>
                 </div>
-            </g:form>
 
             <div id="index_native" class="box"></div>
             <div id="table_box_bootstrap">
                 <table id="data" name="data" style="text-align: left; width: 1400px">
                     <thead>
-                    <g:form controller="compendium">
                         <th><b>
                             <div class="row">
                                 CR

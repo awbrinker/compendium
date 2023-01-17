@@ -104,14 +104,10 @@ class CompendiumController {
         else return next;
     }
 
-    def filterMonsters(){
-       def springSecurityService = Holders.applicationContext.springSecurityService
-
+    def getFilteredMonsters(baseList) {
         def monsters = new ArrayList<Monster>()
 
-        println params.crEnd
-
-        for(Monster it: Monster.getAll()){
+        for(Monster it: baseList){
             boolean flag = true;
             flag = it.name.toLowerCase().contains(params.nameFilter.toLowerCase())
             flag = worse(flag, it.type.toLowerCase().contains(params.typeFilter.toLowerCase()) || (it.subtype != null && it.subtype.toLowerCase().contains(params.typeFilter.toLowerCase())))
@@ -134,6 +130,12 @@ class CompendiumController {
             }
         }
 
+        return monsters
+    }
+
+    def filterMonsters(){
+       def springSecurityService = Holders.applicationContext.springSecurityService
+
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
@@ -141,6 +143,8 @@ class CompendiumController {
             start = params.start.toInteger()-1
             end = params.end.toInteger()
         }
+
+        def monsters = getFilteredMonsters(Monster.getAll())
 
         if(end < 10 && monsters.size() > 10 && end < monsters.size() && end < springSecurityService.currentUser.defaultLoadSize){
             end = Math.min(monsters.size(), springSecurityService.currentUser.defaultLoadSize)
@@ -152,12 +156,25 @@ class CompendiumController {
     }
 
     def sortMonstersCrAsc(){
-                def springSecurityService = Holders.applicationContext.springSecurityService
+        def springSecurityService = Holders.applicationContext.springSecurityService
 
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        render(view: "monsters", model: [monsters: Monster.listOrderByCr().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        if(params.start != null){
+            start = params.start.toInteger()-1
+            end = params.end.toInteger()
+        }
+
+        def monsters = getFilteredMonsters(Monster.listOrderByCr())
+
+        if(end < 10 && monsters.size() > 10 && end < monsters.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(monsters.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, monsters.size())
+
+        render(view: "monsters", model: [monsters: monsters.subList(start, end), count: monsters.size(), start: start+1, end: end, nameFilter: params.nameFilter, typeFilter: params.typeFilter, 
+                                        sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def sortMonstersCrDesc(){
@@ -166,16 +183,42 @@ class CompendiumController {
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        render(view: "monsters", model: [monsters: Monster.listOrderByCr(order: "desc").subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        if(params.start != null){
+            start = params.start.toInteger()-1
+            end = params.end.toInteger()
+        }
+
+        def monsters = getFilteredMonsters(Monster.listOrderByCr(order: "desc"))
+
+        if(end < 10 && monsters.size() > 10 && end < monsters.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(monsters.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, monsters.size())
+
+        render(view: "monsters", model: [monsters: monsters.subList(start, end), count: monsters.size(), start: start+1, end: end, nameFilter: params.nameFilter, typeFilter: params.typeFilter, 
+                                        sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def sortMonstersNameAsc(){
-                def springSecurityService = Holders.applicationContext.springSecurityService
+        def springSecurityService = Holders.applicationContext.springSecurityService
 
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        render(view: "monsters", model: [monsters: Monster.listOrderByName().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        if(params.start != null){
+            start = params.start.toInteger()-1
+            end = params.end.toInteger()
+        }
+
+        def monsters = getFilteredMonsters(Monster.listOrderByName())
+
+        if(end < 10 && monsters.size() > 10 && end < monsters.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(monsters.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, monsters.size())
+
+        render(view: "monsters", model: [monsters: monsters.subList(start, end), count: monsters.size(), start: start+1, end: end, nameFilter: params.nameFilter, typeFilter: params.typeFilter, 
+                                        sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def sortMonstersNameDesc(){
@@ -184,16 +227,42 @@ class CompendiumController {
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        render(view: "monsters", model: [monsters: Monster.listOrderByName(order: "desc").subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        if(params.start != null){
+            start = params.start.toInteger()-1
+            end = params.end.toInteger()
+        }
+
+        def monsters = getFilteredMonsters(Monster.listOrderByName(order: "desc"))
+
+        if(end < 10 && monsters.size() > 10 && end < monsters.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(monsters.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, monsters.size())
+
+        render(view: "monsters", model: [monsters: monsters.subList(start, end), count: monsters.size(), start: start+1, end: end, nameFilter: params.nameFilter, typeFilter: params.typeFilter, 
+                                        sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def sortMonstersTypeAsc(){
-                def springSecurityService = Holders.applicationContext.springSecurityService
+        def springSecurityService = Holders.applicationContext.springSecurityService
 
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        render(view: "monsters", model: [monsters: Monster.listOrderByType().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        if(params.start != null){
+            start = params.start.toInteger()-1
+            end = params.end.toInteger()
+        }
+
+        def monsters = getFilteredMonsters(Monster.listOrderByType())
+
+        if(end < 10 && monsters.size() > 10 && end < monsters.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(monsters.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, monsters.size())
+
+        render(view: "monsters", model: [monsters: monsters.subList(start, end), count: monsters.size(), start: start+1, end: end, nameFilter: params.nameFilter, typeFilter: params.typeFilter, 
+                                        sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def sortMonstersTypeDesc(){
@@ -202,16 +271,42 @@ class CompendiumController {
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        render(view: "monsters", model: [monsters: Monster.listOrderByType(order: "desc").subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        if(params.start != null){
+            start = params.start.toInteger()-1
+            end = params.end.toInteger()
+        }
+
+        def monsters = getFilteredMonsters(Monster.listOrderByType(order: "desc"))
+
+        if(end < 10 && monsters.size() > 10 && end < monsters.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(monsters.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, monsters.size())
+
+        render(view: "monsters", model: [monsters: monsters.subList(start, end), count: monsters.size(), start: start+1, end: end, nameFilter: params.nameFilter, typeFilter: params.typeFilter, 
+                                        sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def sortMonstersSubtypeAsc(){
-                def springSecurityService = Holders.applicationContext.springSecurityService
+        def springSecurityService = Holders.applicationContext.springSecurityService
 
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        render(view: "monsters", model: [monsters: Monster.listOrderBySubtype().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        if(params.start != null){
+            start = params.start.toInteger()-1
+            end = params.end.toInteger()
+        }
+
+        def monsters = getFilteredMonsters(Monster.listOrderBySubtype())
+
+        if(end < 10 && monsters.size() > 10 && end < monsters.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(monsters.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, monsters.size())
+
+        render(view: "monsters", model: [monsters: monsters.subList(start, end), count: monsters.size(), start: start+1, end: end, nameFilter: params.nameFilter, typeFilter: params.typeFilter, 
+                                        sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def sortMonstersSubtypeDesc(){
@@ -220,16 +315,42 @@ class CompendiumController {
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        render(view: "monsters", model: [monsters: Monster.listOrderBySubtype(order: "desc").subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        if(params.start != null){
+            start = params.start.toInteger()-1
+            end = params.end.toInteger()
+        }
+
+        def monsters = getFilteredMonsters(Monster.listOrderBySubtype(order: "desc"))
+
+        if(end < 10 && monsters.size() > 10 && end < monsters.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(monsters.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, monsters.size())
+
+        render(view: "monsters", model: [monsters: monsters.subList(start, end), count: monsters.size(), start: start+1, end: end, nameFilter: params.nameFilter, typeFilter: params.typeFilter, 
+                                        sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def sortMonstersSizeAsc(){
-                def springSecurityService = Holders.applicationContext.springSecurityService
+        def springSecurityService = Holders.applicationContext.springSecurityService
 
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        render(view: "monsters", model: [monsters: Monster.listOrderBySize().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        if(params.start != null){
+            start = params.start.toInteger()-1
+            end = params.end.toInteger()
+        }
+
+        def monsters = getFilteredMonsters(Monster.listOrderBySize())
+
+        if(end < 10 && monsters.size() > 10 && end < monsters.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(monsters.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, monsters.size())
+
+        render(view: "monsters", model: [monsters: monsters.subList(start, end), count: monsters.size(), start: start+1, end: end, nameFilter: params.nameFilter, typeFilter: params.typeFilter, 
+                                        sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def sortMonstersSizeDesc(){
@@ -238,16 +359,42 @@ class CompendiumController {
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        render(view: "monsters", model: [monsters: Monster.listOrderBySize(order: "desc").subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        if(params.start != null){
+            start = params.start.toInteger()-1
+            end = params.end.toInteger()
+        }
+
+        def monsters = getFilteredMonsters(Monster.listOrderBySize(order: "desc"))
+
+        if(end < 10 && monsters.size() > 10 && end < monsters.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(monsters.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, monsters.size())
+
+        render(view: "monsters", model: [monsters: monsters.subList(start, end), count: monsters.size(), start: start+1, end: end, nameFilter: params.nameFilter, typeFilter: params.typeFilter, 
+                                        sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def sortMonstersAlignmentAsc(){
-                def springSecurityService = Holders.applicationContext.springSecurityService
+        def springSecurityService = Holders.applicationContext.springSecurityService
 
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        render(view: "monsters", model: [monsters: Monster.listOrderByAlignment().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        if(params.start != null){
+            start = params.start.toInteger()-1
+            end = params.end.toInteger()
+        }
+
+        def monsters = getFilteredMonsters(Monster.listOrderByAlignment())
+
+        if(end < 10 && monsters.size() > 10 && end < monsters.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(monsters.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, monsters.size())
+
+        render(view: "monsters", model: [monsters: monsters.subList(start, end), count: monsters.size(), start: start+1, end: end, nameFilter: params.nameFilter, typeFilter: params.typeFilter, 
+                                        sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def sortMonstersAlignmentDesc(){
@@ -256,16 +403,42 @@ class CompendiumController {
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        render(view: "monsters", model: [monsters: Monster.listOrderByAlignment(order: "desc").subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        if(params.start != null){
+            start = params.start.toInteger()-1
+            end = params.end.toInteger()
+        }
+
+        def monsters = getFilteredMonsters(Monster.listOrderByAlignment(order: "desc"))
+
+        if(end < 10 && monsters.size() > 10 && end < monsters.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(monsters.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, monsters.size())
+
+        render(view: "monsters", model: [monsters: monsters.subList(start, end), count: monsters.size(), start: start+1, end: end, nameFilter: params.nameFilter, typeFilter: params.typeFilter, 
+                                        sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def sortMonstersEnvironmentAsc(){
-                def springSecurityService = Holders.applicationContext.springSecurityService
+        def springSecurityService = Holders.applicationContext.springSecurityService
 
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        render(view: "monsters", model: [monsters: Monster.listOrderByEnvironment().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        if(params.start != null){
+            start = params.start.toInteger()-1
+            end = params.end.toInteger()
+        }
+
+        def monsters = getFilteredMonsters(Monster.listOrderByEnvironment())
+
+        if(end < 10 && monsters.size() > 10 && end < monsters.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(monsters.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, monsters.size())
+
+        render(view: "monsters", model: [monsters: monsters.subList(start, end), count: monsters.size(), start: start+1, end: end, nameFilter: params.nameFilter, typeFilter: params.typeFilter, 
+                                        sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def sortMonstersEnvironmentDesc(){
@@ -274,16 +447,42 @@ class CompendiumController {
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        render(view: "monsters", model: [monsters: Monster.listOrderByEnvironment(order: "desc").subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        if(params.start != null){
+            start = params.start.toInteger()-1
+            end = params.end.toInteger()
+        }
+
+        def monsters = getFilteredMonsters(Monster.listOrderByEnvironment(order: "desc"))
+
+        if(end < 10 && monsters.size() > 10 && end < monsters.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(monsters.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, monsters.size())
+
+        render(view: "monsters", model: [monsters: monsters.subList(start, end), count: monsters.size(), start: start+1, end: end, nameFilter: params.nameFilter, typeFilter: params.typeFilter, 
+                                        sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def sortMonstersTagsAsc(){
-                def springSecurityService = Holders.applicationContext.springSecurityService
+        def springSecurityService = Holders.applicationContext.springSecurityService
 
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        render(view: "monsters", model: [monsters: Monster.listOrderByTags().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        if(params.start != null){
+            start = params.start.toInteger()-1
+            end = params.end.toInteger()
+        }
+
+        def monsters = getFilteredMonsters(Monster.listOrderByTags())
+
+        if(end < 10 && monsters.size() > 10 && end < monsters.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(monsters.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, monsters.size())
+
+        render(view: "monsters", model: [monsters: monsters.subList(start, end), count: monsters.size(), start: start+1, end: end, nameFilter: params.nameFilter, typeFilter: params.typeFilter, 
+                                        sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def sortMonstersTagsDesc(){
@@ -292,7 +491,20 @@ class CompendiumController {
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        render(view: "monsters", model: [monsters: Monster.listOrderByTags(order: "desc").subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        if(params.start != null){
+            start = params.start.toInteger()-1
+            end = params.end.toInteger()
+        }
+
+        def monsters = getFilteredMonsters(Monster.listOrderByTags(order: "desc"))
+
+        if(end < 10 && monsters.size() > 10 && end < monsters.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(monsters.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, monsters.size())
+
+        render(view: "monsters", model: [monsters: monsters.subList(start, end), count: monsters.size(), start: start+1, end: end, nameFilter: params.nameFilter, typeFilter: params.typeFilter, 
+                                        sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
     }
 
 }
