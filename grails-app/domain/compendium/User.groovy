@@ -14,6 +14,7 @@ class User implements Serializable {
     String username
     String password
     String defaultHook
+    int defaultLoadSize
     boolean enabled = true
     boolean accountExpired
     boolean accountLocked

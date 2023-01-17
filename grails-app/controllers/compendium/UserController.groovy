@@ -7,7 +7,7 @@ class UserController {
     def index() { 
         def springSecurityService = Holders.applicationContext.springSecurityService
 
-        render(view: "index", model: [hook: springSecurityService.currentUser.defaultHook])
+        render(view: "index", model: [hook: springSecurityService.currentUser.defaultHook, load: springSecurityService.currentUser.defaultLoadSize])
     }
 
     @Transactional
@@ -18,5 +18,15 @@ class UserController {
         user.setDefaultHook(params.target)
         user.save(flush: true)
         render(view: "index", model: [hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    @Transactional
+    def updateLoad() {
+        def springSecurityService = Holders.applicationContext.springSecurityService
+        def user = springSecurityService.currentUser
+
+        user.setDefaultLoadSize(params.load.toInteger())
+        user.save(flush: true)
+        render(view: "index", model: [hook: springSecurityService.currentUser.defaultHook, load: springSecurityService.currentUser.defaultLoadSize])
     }
 }

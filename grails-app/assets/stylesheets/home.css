@@ -48,6 +48,27 @@
     border-radius: 10px;
 }
 
+.filterbtnlg {
+    color: white;
+    font-size: 32px; 
+    border-radius: 15px; 
+    background-color: darkred
+}
+
+.filterbtnlg:hover {
+    opacity: 0.8;
+}
+
+.filterbtn {
+    color: white;
+    border-radius: 15px; 
+    background-color: darkred
+}
+
+.filterbtn:hover {
+    opacity: 0.8;
+}
+
 .bannerButton {
     border: none;
     background-color: transparent;

@@ -19,8 +19,50 @@
 
 <div role="main" class="homePage">
     <div class="mainMenu">
-            
-            <%-- Filter By Header  --%>
+
+            <button class="filterbtnlg" type="button" data-toggle="collapse" data-target="#aboutCollapse" aria-expanded="false" aria-controls="aboutCollapse">
+                Filter Monsters
+            </button>
+            <div class="collapse" id="aboutCollapse" style="align-items: center">
+                <div class="card card-body" style="background-color: rgb(47, 47, 47, 0.8); border: none; align-items: center">
+                    <g:form controller="compendium" action="filterMonsters">
+                    <table class="plain">
+                        <thead>
+                            <th><b>Monster Name</b></th>
+                            <th><b>Challenge Range</b></th>
+                            <th><b>Size</b></th>
+                            <th><b>Environment</b></th>
+                            <th><b>Type/Subtype</b></th>
+                            <th><b></b></th>
+                        </thead>
+                        <tr>
+                            <td><g:textField name="nameFilter" value="${nameFilter}"/></td>
+                            <td >
+                                <g:select name="crStart" from="${['--', '1/8', '1/4', '1/2', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']}" value="${crStart}"/>
+                                to
+                                <g:select name="crEnd" from="${['--', '1/8', '1/4', '1/2', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']}" value="${crEnd}"/>
+                            </td>
+                            <td><g:select name="sizeFilter" from="${["--", "Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"]}" value="${sizeFilter}"/></td>
+                            <td><g:select name="environmentFilter" from="${["--", "Arctic", "Coastal", "Desert", "Forest", "Grassland", "Hill", "Mountain", "Swamp", "Underdark", "Underwater", "Urban"]}" value="${environmentFilter}"/></td>
+                            <td><g:textField name="typeFilter" value="${typeFilter}"/></td>
+                            <td><g:submitButton name="filterButton" value="Filter Monsters" class="filterbtn"/></td>
+                        </tr>
+                    </table>
+                    <div class="row">
+                        <g:actionSubmit name="resetButton" value="Reset Filters" class="filterbtn" action="monsters"/>
+                    </div>
+                </div>
+            </div>
+
+            <hr/>
+
+            <p>Currently loaded ${start} to ${end} of ${count} total items.</p>
+                <div style="display: flex; flex-direction: horizontal; padding: 5px">
+                <g:field type="number" name="start" value="${start}"/>
+                <g:field type="number" name="end" value="${end}"/>
+                <g:submitButton name="reload" value="Reload"/>
+                </div>
+            </g:form>
 
             <div id="index_native" class="box"></div>
             <div id="table_box_bootstrap">
@@ -36,8 +78,7 @@
                     <th><b>Tags</b></th>
                     </thead>
 
-                    <%-- TODO: Parameterized Limiting (All pages) --%>
-                    <g:each in="${monsters.size() < 10 ? monsters : monsters.subList(0, 10)}">
+                    <g:each in="${monsters}">
                         <g:render template="/monster" model="[monster: it, hook: hook]" />
                     </g:each>
                 </table>

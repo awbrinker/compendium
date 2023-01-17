@@ -22,6 +22,13 @@
             
             <%-- Filter By Header  --%>
 
+            <p>Currently loaded ${start} to ${end} of ${count} total items.</p>
+            <g:form controller="compendium" action="magictems">
+                <g:field type="number" name="start" value="${start}"/>
+                <g:field type="number" name="end" value="${end}"/>
+                <g:submitButton name="reload" value="Reload"/>
+            </g:form>
+
             <div id="table_box_bootstrap">
                 <table class="sortable" id="data" name="data" style="text-align: left; width: 1400px">
                     <thead>

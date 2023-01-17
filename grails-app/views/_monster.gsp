@@ -21,7 +21,7 @@
         <hr/>
         <div name="${monster.id}ac" id="${monster.id}ac">Armor Class: ${monster.ac}</div>
         <div name="${monster.id}hp" id="${monster.id}hp">Hit Points: ${monster.hp} (${monster.hpformula})</div>
-        <div name="${monster.id}speed" id="${monster.id}speed">Hit Points: ${monster.speed}</div>
+        <div name="${monster.id}speed" id="${monster.id}speed">Speed: ${monster.speed}</div>
         <hr/>
         <div name="${monster.id}stats" id="${monster.id}stats">
             <g:each in="${(0..<6)}">
