@@ -82,19 +82,27 @@
         </div>
 
         <div name="${monster.id}senses" id="${monster.id}senses">Sense: ${monster.senses}</div>
-        <div name="${monster.id}senses" id="${monster.id}senses">Languages: ${monster.languages}</div>
+        <div name="${monster.id}languages" id="${monster.id}languages">Languages: ${monster.languages}</div>
         <div name="${monster.id}cr" id="${monster.id}cr" style="white-space: pre-wrap">Challenge ${monster.cr}      Proficiency Bonus +${monster.prof}</div>
+
+        <div class="row" style="align-items: center">
+            <g:render template="/display" model="${[sourceList: [monster.id+'name', monster.id+'header', monster.id+'ac', monster.id+'hp', monster.id+'speed', monster.id+'stats', monster.id+'saves', 
+                                                                monster.id+'skills', monster.id+'resistances', monster.id+'immunities', monster.id+'vulnerabilities', monster.id+'conditionImmunities', 
+                                                                monster.id+'senses', monster.id+'languages', monster.id+'cr'], target: monster.id+'target']}"/>
+        </div>
+
         <g:if test="${monster.attributes != null}">
             <hr/>
             <div name="${monster.id}attributes" id="${monster.id}attributes">
                 <g:each in="${(0..<monster.attributes.length)}">
-                    <p style="white-space: pre-wrap">${monster.attributes[it]}</p>
+                    <p style="white-space: pre-wrap" id="${monster.id}at${it}">${monster.attributes[it]}</p>
                     <g:hiddenField name="${monster.id}atform${it}" id="${monster.id}atform${it}" value="/r ${monster.attributeFormulas[it]}"/>
-                    <g:if test="${monster.attributeFormulas[it] != "None"}">
-                        <div class="row">
-                            <g:render template="/roll" model="${[source: (monster.id+'atform'+it), target: (monster.id+'target')]}"/>
-                        </div>
-                    </g:if>
+                    <div class="row">
+                        <g:if test="${monster.attributeFormulas[it] != "None"}">
+                                <g:render template="/roll" model="${[source: (monster.id+'atform'+it), target: (monster.id+'target')]}"/>
+                        </g:if>
+                        <g:render template="/display" model="${[sourceList: [monster.id+'name', monster.id+'at'+it], target: monster.id+'target']}"/>
+                    </div>
                 </g:each>
             </div>
         </g:if>
@@ -102,42 +110,66 @@
         <hr/>
         <div name="${monster.id}actions" id="${monster.id}actions">
             <g:each in="${(0..<monster.actions.length)}">
-                <p style="white-space: pre-wrap">${monster.actions[it]}</p>
+                <p style="white-space: pre-wrap" id="${monster.id}act${it}">${monster.actions[it]}</p>
                 <g:hiddenField name="${monster.id}actform${it}" id="${monster.id}actform${it}" value="/r ${monster.actionFormulas[it]}"/>
-                <g:if test="${monster.actionFormulas[it] != "None"}">
-                    <div class="row">
-                        <g:render template="/roll" model="${[source: (monster.id+'actform'+it), target: (monster.id+'target')]}"/>
-                    </div>
-                </g:if>
+                <div class="row">
+                    <g:if test="${monster.actionFormulas[it] != "None"}">
+                            <g:render template="/roll" model="${[source: (monster.id+'actform'+it), target: (monster.id+'target')]}"/>
+                    </g:if>
+                    <g:render template="/display" model="${[sourceList: [monster.id+'name', monster.id+'act'+it], target: monster.id+'target']}"/>
+                </div>
             </g:each>
         </div>
+        <g:if test="${monster.bonusActions != null}">
+            <h2>Legendary Actions</h2>
+            <hr/>
+            <div name="${monster.id}bonusActions" id="${monster.id}bonusActions">
+                <g:each in="${(0..<monster.bonusActions.length)}">
+                    <p style="white-space: pre-wrap" id="${monster.id}bact${it}">${monster.bonusActions[it]}</p>
+                    <g:hiddenField name="${monster.id}lactform${it}" id="${monster.id}bactform${it}" value="/r ${monster.bonusActionFormulas[it]}"/>
+                    <div class="row">
+                    <g:if test="${monster.bonusActionFormulas[it] != "None"}">
+                            <g:render template="/roll" model="${[source: (monster.id+'bactform'+it), target: (monster.id+'target')]}"/>
+                    </g:if>
+                    <g:render template="/display" model="${[sourceList: [monster.id+'name', monster.id+'bact'+it], target: monster.id+'target']}"/>
+                </div>
+                </g:each>
+            </div>
+        </g:if>
+        <g:if test="${monster.reactions != null}">
+            <h2>Legendary Actions</h2>
+            <hr/>
+            <div name="${monster.id}reactions" id="${monster.id}reactions">
+                <g:each in="${(0..<monster.reactions.length)}">
+                    <p style="white-space: pre-wrap" id="${monster.id}react${it}">${monster.reactions[it]}</p>
+                    <g:hiddenField name="${monster.id}lactform${it}" id="${monster.id}reactform${it}" value="/r ${monster.reactionFormulas[it]}"/>
+                    <div class="row">
+                    <g:if test="${monster.reactionFormulas[it] != "None"}">
+                            <g:render template="/roll" model="${[source: (monster.id+'reactform'+it), target: (monster.id+'target')]}"/>
+                    </g:if>
+                    <g:render template="/display" model="${[sourceList: [monster.id+'name', monster.id+'react'+it], target: monster.id+'target']}"/>
+                </div>
+                </g:each>
+            </div>
+        </g:if>
         <g:if test="${monster.legendaryActions != null}">
             <h2>Legendary Actions</h2>
             <hr/>
             <div name="${monster.id}legendaryActions" id="${monster.id}legendaryActions">
                 <g:each in="${(0..<monster.legendaryActions.length)}">
-                    <p style="white-space: pre-wrap">${monster.legendaryActions[it]}</p>
+                    <p style="white-space: pre-wrap" id="${monster.id}lact${it}">${monster.legendaryActions[it]}</p>
                     <g:hiddenField name="${monster.id}lactform${it}" id="${monster.id}lactform${it}" value="/r ${monster.legendaryActionFormulas[it]}"/>
+                    <div class="row">
                     <g:if test="${monster.legendaryActionFormulas[it] != "None"}">
-                        <div class="row">
                             <g:render template="/roll" model="${[source: (monster.id+'lactform'+it), target: (monster.id+'target')]}"/>
-                        </div>
                     </g:if>
+                    <g:render template="/display" model="${[sourceList: [monster.id+'name', monster.id+'lact'+it], target: monster.id+'target']}"/>
+                </div>
                 </g:each>
             </div>
         </g:if>
         <hr/>
 
-        <%-- <p name="${monster.id}text" id="${monster.id}text" style="white-space: pre-wrap">${monster.body}</p>
-        <div class="row" style="align-items: center">
-            <g:if test="${monster.prereq != null}">
-                <g:render template="/display" model="${[sourceList: [monster.id+'name', monster.id+'prereq', monster.id+'text'], target: monster.id+'target']}"/>
-            </g:if>
-            <g:else>
-                <g:render template="/display" model="${[sourceList: [monster.id+'name', monster.id+'text'], target: monster.id+'target']}"/>
-            </g:else>
-        </div>
-        <p name="${monster.id}source" id="${monster.id}source" class="sourceText">${monster.source}</p> --%>
     </div>
 </div>
 
