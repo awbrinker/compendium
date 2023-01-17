@@ -66,16 +66,82 @@
 
             <div id="index_native" class="box"></div>
             <div id="table_box_bootstrap">
-                <table class="sortable" id="data" name="data" style="text-align: left; width: 1400px">
+                <table id="data" name="data" style="text-align: left; width: 1400px">
                     <thead>
-                    <th><b>CR</b></th>
-                    <th><b>Name</b></th>
-                    <th><b>Type</b></th>
-                    <th><b>Subtype</b></th>
-                    <th><b>Size</b></th>
-                    <th><b>Alignment</b></th>
-                    <th><b>Environment</b></th>
-                    <th><b>Tags</b></th>
+                    <g:form controller="compendium">
+                        <th><b>
+                            <div class="row">
+                                CR
+                                <div class="col">
+                                <g:actionSubmit class="sortbtn" value="&#9650;" action="sortMonstersCrAsc"/>
+                                <g:actionSubmit class="sortbtn" value="&#9660;" action="sortMonstersCrDesc"/>
+                                </div>
+                            </div>
+                        </b></th>
+                        <th><b>
+                            <div class="row">
+                                Name
+                                <div class="col">
+                                <g:actionSubmit class="sortbtn" value="&#9650;" action="sortMonstersNameAsc"/>
+                                <g:actionSubmit class="sortbtn" value="&#9660;" action="sortMonstersNameDesc"/>
+                                </div>
+                            </div>
+                        </b></th>
+                        <th><b>
+                            <div class="row">
+                                Type
+                                <div class="col">
+                                <g:actionSubmit class="sortbtn" value="&#9650;" action="sortMonstersTypeAsc"/>
+                                <g:actionSubmit class="sortbtn" value="&#9660;" action="sortMonstersTypeDesc"/>
+                                </div>
+                            </div>
+                        </b></th>
+                        <th><b>
+                            <div class="row">
+                                Subtype
+                                <div class="col">
+                                <g:actionSubmit class="sortbtn" value="&#9650;" action="sortMonstersSubtypeAsc"/>
+                                <g:actionSubmit class="sortbtn" value="&#9660;" action="sortMonstersSubtypeDesc"/>
+                                </div>
+                            </div>
+                        </b></th>
+                        <th><b>
+                            <div class="row">
+                                Size
+                                <div class="col">
+                                <g:actionSubmit class="sortbtn" value="&#9650;" action="sortMonstersSizeAsc"/>
+                                <g:actionSubmit class="sortbtn" value="&#9660;" action="sortMonstersSizeDesc"/>
+                                </div>
+                            </div>
+                        </b></th>
+                        <th><b>
+                            <div class="row">
+                                Alignment
+                                <div class="col">
+                                <g:actionSubmit class="sortbtn" value="&#9650;" action="sortMonstersAlignmentAsc"/>
+                                <g:actionSubmit class="sortbtn" value="&#9660;" action="sortMonstersAlignmentDesc"/>
+                                </div>
+                            </div>
+                        </b></th>
+                        <th><b>
+                            <div class="row">
+                                Environment
+                                <div class="col">
+                                <g:actionSubmit class="sortbtn" value="&#9650;" action="sortMonstersEnvironmentAsc"/>
+                                <g:actionSubmit class="sortbtn" value="&#9660;" action="sortMonstersEnvironmentDesc"/>
+                                </div>
+                            </div>
+                        </b></th>
+                        <th><b>
+                            <div class="row">
+                                Tags
+                                <div class="col">
+                                <g:actionSubmit class="sortbtn" value="&#9650;" action="sortMonstersTagsAsc"/>
+                                <g:actionSubmit class="sortbtn" value="&#9660;" action="sortMonstersTagsDesc"/>
+                                </div>
+                            </div>
+                        </b></th>
+                    </g:form>
                     </thead>
 
                     <g:each in="${monsters}">

@@ -5,10 +5,10 @@
     <td style="width: 15%; font-weight: 700">${monster.name}</td>
     <td style="width: 10%">${monster.type}</td>
     <td style="width: 10%">${monster.subtype}</td>
-    <td style="width: 10%">${monster.size}</td>
+    <td style="width: 8%">${monster.size}</td>
     <td style="width: 10%">${monster.alignment}</td>
-    <td style="width: 10%">${monster.environment}</td>
-    <td style="width: 15%">${monster.tags}</td>
+    <td style="width: 15%">${monster.environment}</td>
+    <td style="width: 13%">${monster.tags}</td>
 </tr>
 
 <g:hiddenField name="${monster.id}target" id="${monster.id}target" value="${hook}"/>

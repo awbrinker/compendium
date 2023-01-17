@@ -38,6 +38,27 @@
     margin: 5px;
 }
 
+.col {
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+}
+
+tr:hover {
+    background-color: rgb(30, 30, 30, 0.95);
+}
+
+.sortbtn {
+    background-color: transparent;
+    border: none;
+    width: 50%;
+    font-size: 10px;
+}
+
+.sortbtn:hover {
+    opacity: 0.8;
+}
+
 .backbtn {
     position: relative;
     top: -20px;

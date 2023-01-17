@@ -114,7 +114,7 @@ class CompendiumController {
         for(Monster it: Monster.getAll()){
             boolean flag = true;
             flag = it.name.toLowerCase().contains(params.nameFilter.toLowerCase())
-            flag = worse(flag, it.type.toLowerCase().contains(params.typeFilter.toLowerCase()) || it.subtype.toLowerCase().contains(params.typeFilter.toLowerCase()))
+            flag = worse(flag, it.type.toLowerCase().contains(params.typeFilter.toLowerCase()) || (it.subtype != null && it.subtype.toLowerCase().contains(params.typeFilter.toLowerCase())))
 
             if(params.sizeFilter != "--"){
                 flag = worse(flag, it.size == params.sizeFilter)
@@ -149,6 +149,150 @@ class CompendiumController {
 
         render(view: "monsters", model: [monsters: monsters.subList(start, end), count: monsters.size(), start: start+1, end: end, nameFilter: params.nameFilter, typeFilter: params.typeFilter, 
                                         sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def sortMonstersCrAsc(){
+                def springSecurityService = Holders.applicationContext.springSecurityService
+
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        render(view: "monsters", model: [monsters: Monster.listOrderByCr().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def sortMonstersCrDesc(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        render(view: "monsters", model: [monsters: Monster.listOrderByCr(order: "desc").subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def sortMonstersNameAsc(){
+                def springSecurityService = Holders.applicationContext.springSecurityService
+
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        render(view: "monsters", model: [monsters: Monster.listOrderByName().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def sortMonstersNameDesc(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        render(view: "monsters", model: [monsters: Monster.listOrderByName(order: "desc").subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def sortMonstersTypeAsc(){
+                def springSecurityService = Holders.applicationContext.springSecurityService
+
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        render(view: "monsters", model: [monsters: Monster.listOrderByType().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def sortMonstersTypeDesc(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        render(view: "monsters", model: [monsters: Monster.listOrderByType(order: "desc").subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def sortMonstersSubtypeAsc(){
+                def springSecurityService = Holders.applicationContext.springSecurityService
+
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        render(view: "monsters", model: [monsters: Monster.listOrderBySubtype().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def sortMonstersSubtypeDesc(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        render(view: "monsters", model: [monsters: Monster.listOrderBySubtype(order: "desc").subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def sortMonstersSizeAsc(){
+                def springSecurityService = Holders.applicationContext.springSecurityService
+
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        render(view: "monsters", model: [monsters: Monster.listOrderBySize().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def sortMonstersSizeDesc(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        render(view: "monsters", model: [monsters: Monster.listOrderBySize(order: "desc").subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def sortMonstersAlignmentAsc(){
+                def springSecurityService = Holders.applicationContext.springSecurityService
+
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        render(view: "monsters", model: [monsters: Monster.listOrderByAlignment().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def sortMonstersAlignmentDesc(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        render(view: "monsters", model: [monsters: Monster.listOrderByAlignment(order: "desc").subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def sortMonstersEnvironmentAsc(){
+                def springSecurityService = Holders.applicationContext.springSecurityService
+
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        render(view: "monsters", model: [monsters: Monster.listOrderByEnvironment().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def sortMonstersEnvironmentDesc(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        render(view: "monsters", model: [monsters: Monster.listOrderByEnvironment(order: "desc").subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def sortMonstersTagsAsc(){
+                def springSecurityService = Holders.applicationContext.springSecurityService
+
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        render(view: "monsters", model: [monsters: Monster.listOrderByTags().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def sortMonstersTagsDesc(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        render(view: "monsters", model: [monsters: Monster.listOrderByTags(order: "desc").subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
     }
 
 }
