@@ -19,7 +19,7 @@
         <h1 name="${monster.id}name" id="${monster.id}name">${monster.name}</h1>
         <div name="${monster.id}header" id="${monster.id}header" style="font-style: italic">${monster.size} ${monster.type}<g:if test="${monster.subtype !=null}"> (${monster.subtype})</g:if>, ${monster.alignment}</div>
         <hr/>
-        <div name="${monster.id}ac" id="${monster.id}ac">Armor Class: ${monster.ac}</div>
+        <div name="${monster.id}ac" id="${monster.id}ac">Armor Class: ${monster.ac}<g:if test="${monster.actext != null}"> (${monster.actext})</g:if></div>
         <div name="${monster.id}hp" id="${monster.id}hp">Hit Points: ${monster.hp} (${monster.hpformula})</div>
         <div name="${monster.id}speed" id="${monster.id}speed">Speed: ${monster.speed}</div>
         <hr/>
@@ -81,7 +81,7 @@
             </g:if>
         </div>
 
-        <div name="${monster.id}senses" id="${monster.id}senses">Sense: ${monster.senses}</div>
+        <div name="${monster.id}senses" id="${monster.id}senses">Senses: ${monster.senses}</div>
         <div name="${monster.id}languages" id="${monster.id}languages">Languages: ${monster.languages}</div>
         <div name="${monster.id}cr" id="${monster.id}cr" style="white-space: pre-wrap">Challenge ${monster.cr}      Proficiency Bonus +${monster.prof}</div>
 

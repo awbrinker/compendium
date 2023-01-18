@@ -56,7 +56,9 @@
                 <g:textField name="text" style="margin-left: 10px"/>
             </div>
 
-            <g:render template="/roll" model="[source: 'text', target: 'target']"/>
+            <div class="row">
+                <g:render template="/roll" model="[source: 'text', target: 'target']"/>
+            </div>
 
     </div>
 </div>

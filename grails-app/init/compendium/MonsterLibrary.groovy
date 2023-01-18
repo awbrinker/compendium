@@ -71,7 +71,7 @@ Cantrips (at will): mage hand, ray of frost, shocking grasp
             reactions: null,
             reactionFormulas: null,
 
-            source: "Mordenkainen's Tome of Foes"
+            source: "Tomb of Annihilation"
         ).save(flush:true)
         }
     }
@@ -244,7 +244,7 @@ Cantrips (at will): mage hand, ray of frost, shocking grasp
             reactions: null,
             reactionFormulas: null,
 
-            source: "Mordenkainen's Tome of Foes"
+            source: "Tomb of Annihilation"
         ).save(flush:true)
 
     }
