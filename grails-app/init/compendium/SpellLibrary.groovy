@@ -15,6 +15,7 @@ class SpellLibrary {
             atk: "Ranged",
             save: "DEX",
             dmgType: ["Piercing", "Cold"],
+            tags: ["Damage"],
             concentration: false,
             
             formula: "d10 & 2d6",
@@ -42,6 +43,7 @@ class SpellLibrary {
             atk: "Ranged",
             save: "DEX",
             dmgType: ["Piercing", "Cold"],
+            tags: ["Damage"],
             concentration: false,
             
             formula: "d10 & 2d6",
@@ -66,6 +68,7 @@ class SpellLibrary {
             atk: "None",
             save: "None",
             dmgType: ["Utility"],
+            tags: null,
             concentration: false,
             
             formula: "None",

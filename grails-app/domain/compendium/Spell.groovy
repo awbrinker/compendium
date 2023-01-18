@@ -12,6 +12,7 @@ class Spell {
     String atk
     String save
     String[] dmgType
+    String[] tags
     boolean concentration
     
     String formula
@@ -30,5 +31,6 @@ class Spell {
         name(unique: true)
         highText(nullable: true)
         compText(nullable: true)
+        tags(nullable: true)
     }
 }

@@ -57,11 +57,11 @@
             <hr/>
 
             <p>Currently loaded ${start} to ${end} of ${count} total items.</p>
-                <div style="display: flex; flex-direction: horizontal; padding: 5px">
-                <g:field type="number" name="start" value="${start}"/>
-                <g:field type="number" name="end" value="${end}"/>
-                <g:submitButton name="reload" value="Reload"/>
-                </div>
+            <div style="display: flex; flex-direction: horizontal; padding: 5px">
+            <g:field type="number" name="start" value="${start}"/>
+            <g:field type="number" name="end" value="${end}"/>
+            <g:submitButton name="reload" value="Reload"/>
+            </div>
 
             <div id="index_native" class="box"></div>
             <div id="table_box_bootstrap">

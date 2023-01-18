@@ -24,7 +24,7 @@
         </ul>
     </li>
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Downloads <span class="caret"></span></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Supplements<span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li class="dropdown-item"><a href="/downloads/sources">Sources </a></li>
             <li class="dropdown-item"><a href="/downloads/tools">Tools </a></li>

@@ -3,6 +3,13 @@ import grails.util.Holders
 
 class CompendiumController {
 
+    def worse(cur, next){
+        if(!cur) {
+            return cur;
+        }
+        else return next;
+    }
+
     def index() { 
         render(view: "index")
     }
@@ -15,8 +22,39 @@ class CompendiumController {
         render(view: "races")
     }
 
-    def spells(){
-        def springSecurityService = Holders.applicationContext.springSecurityService
+    // Spells
+
+    def getFilteredSpells(baseList) {
+        def spells = new ArrayList<Spell>()
+
+        for(Spell it: baseList){
+            boolean flag = true;
+            flag = it.name.toLowerCase().contains(params.nameFilter.toLowerCase())
+
+            if(params.tagFilter != "--"){
+                flag = worse(flag, it.dmgType.contains(params.tagFilter) || (it.tags != null && it.tags.contains(params.tagFilter)))
+            }
+            if(params.castingTimeFilter != "--"){
+                flag = worse(flag, it.environment == params.castingTimeFilter)
+            }
+            if(params.levelStart != "--"){
+                flag = worse(flag, it.level.compareTo(params.levelStart) >= 0)
+            }
+            if(params.levelEnd != "--"){
+                flag = worse(flag, it.level.compareTo(params.levelEnd) <= 0)
+            }
+
+            if(flag){
+                spells.add(it)
+            }
+        }
+
+        return spells
+    }
+
+    def filterSpells(){
+       def springSecurityService = Holders.applicationContext.springSecurityService
+
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
@@ -25,24 +63,37 @@ class CompendiumController {
             end = params.end.toInteger()
         }
 
+        def spells = getFilteredSpells(Spell.getAll())
+
+        if(end < 10 && spells.size() > 10 && end < spells.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(spells.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, spells.size())
+
+        render(view: "spells", model: [spells: spells.subList(start, end), count: spells.size(), start: start+1, end: end, nameFilter: params.nameFilter, tagsFilter: params.tagsFilter, 
+                                        castingTimeFilter: params.castingTimeFilter, levelStart: params.levelStart, levelEnd: params.levelEnd, hook: springSecurityService.currentUser.defaultHook])
+    }
+
+    def spells(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
         end = Math.min(end, Spell.count())
 
-        render(view: "spells", model: [spells: Spell.listOrderByName(), count: Spell.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        render(view: "spells", model: [spells: Spell.listOrderByName().subList(start, end), count: Spell.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
     }
+
+    // Equipment
 
     def equipment(){
         def springSecurityService = Holders.applicationContext.springSecurityService
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        if(params.start != null){
-            start = params.start.toInteger()-1
-            end = params.end.toInteger()
-        }
-
         end = Math.min(end, Equipment.count())
 
-        render(view: "equipment", model: [items: Equipment.listOrderByName(), count: Equipment.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        render(view: "equipment", model: [items: Equipment.listOrderByName().subList(start, end), count: Equipment.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def feats(){
@@ -64,14 +115,9 @@ class CompendiumController {
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        if(params.start != null){
-            start = params.start.toInteger()-1
-            end = params.end.toInteger()
-        }
-
         end = Math.min(end, MagicItem.count())
 
-        render(view: "magicitems", model: [magicitems: MagicItem.listOrderByName(), count: MagicItem.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+        render(view: "magicitems", model: [magicitems: MagicItem.listOrderByName().subList(start, end), count: MagicItem.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
     }
 
     // Monsters
@@ -94,14 +140,9 @@ class CompendiumController {
         int start = 0
         int end = springSecurityService.currentUser.defaultLoadSize
 
-        render(view: "monsters", model: [monsters: Monster.listOrderByName().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
-    }
+        end = Math.min(end, Monster.count())
 
-    def worse(cur, next){
-        if(!cur) {
-            return cur;
-        }
-        else return next;
+        render(view: "monsters", model: [monsters: Monster.listOrderByName().subList(start, end), count: Monster.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def getFilteredMonsters(baseList) {

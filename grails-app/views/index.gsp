@@ -64,7 +64,7 @@
                         <button class="classBannerButton">
                             <asset:image src="homeIcons/coreset.png" class="homeBannerImage"/>
                             <asset:image src="PirateBanner.png" class="classBanner"/>
-                            <p class="classBannerText">Downloads</p>
+                            <p class="classBannerText">Supplements</p>
                         </button>
                     </a>
                 </div>

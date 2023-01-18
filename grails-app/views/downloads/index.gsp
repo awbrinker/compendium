@@ -13,7 +13,7 @@
 <div role="main" class="homePage">
     <div class="mainMenu">
             <div class="row">
-                <h1 style="font-size: 40px;">Downloads</h1>
+                <h1 style="font-size: 40px;">Supplements</h1>
             </div>
             <div class="row">
                 <a href="/downloads/sources">
