@@ -3,7 +3,7 @@ New Functionality:
     -Character builder
 
 New Commpendium domains:
-    -Vehicles, Classes, Races
+    -Classes, Races
 
 Modernize Compendium:
     -Equipment and Magic Item filtering
