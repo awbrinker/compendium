@@ -12,11 +12,13 @@
 
 <div role="main" class="homePage">
     <div class="mainMenu">
-            <a href="/compendium">
-                <button class="backbtn">
-                    <p>Back</p>
-                </button>
-            </a>
+            <div style="align-items: left; width: 100%">
+                <a href="/compendium">
+                    <button class="backbtn">
+                        <p>Back</p>
+                    </button>
+                </a>
+            </div>
 
             <h1 style="font-size: 32px; margin-top: 0px; margin-bottom: 10px">D&D 5e Classes</h1>
 

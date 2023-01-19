@@ -12,6 +12,15 @@
 
 <div role="main" class="longPage">
     <div class="mainMenu">
+            <div style="align-items: left; width: 100%">
+                <a href="/compendium">
+                    <button class="backbtn">
+                        <p>Back</p>
+                    </button>
+                </a>
+            </div>
+            
+
             <div class="row">
                 <h1 style="font-size: 40px;">D&D 5e Compendium</h1>
             </div>
@@ -194,7 +203,7 @@
                         <button class="classBannerButton">
                             <asset:image src="compendiumIcons/gate.png" class="homeBannerImage"/>
                             <asset:image src="PirateBanner.png" class="classBanner"/>
-                            <p class="classBannerText">Changeline</p>
+                            <p class="classBannerText">Changeling</p>
                         </button>
                     </a>
                 </div>

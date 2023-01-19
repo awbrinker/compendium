@@ -30,6 +30,8 @@ class BootStrap {
         BackgroundLibrary.initialize()
         MagicItemLibrary.initialize()
         MonsterLibrary.initialize()
+        VehicleLibrary.initialize()
+
 
         // SpellLibrary.overload()
         // EquipmentLibrary.overload()

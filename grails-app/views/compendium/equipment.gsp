@@ -19,6 +19,13 @@
 
 <div role="main" class="homePage">
     <div class="mainMenu">
+            <div style="align-items: left; width: 100%">
+                <a href="/compendium">
+                    <button class="backbtn">
+                        <p>Back</p>
+                    </button>
+                </a>
+            </div>
             
             <%-- Filter By Header  --%>
 

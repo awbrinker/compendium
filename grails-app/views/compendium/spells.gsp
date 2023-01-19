@@ -19,6 +19,13 @@
 
 <div role="main" class="homePage">
     <div class="mainMenu">
+            <div style="align-items: left; width: 100%">
+                <a href="/compendium">
+                    <button class="backbtn">
+                        <p>Back</p>
+                    </button>
+                </a>
+            </div>
             
             <button class="filterbtnlg" type="button" data-toggle="collapse" data-target="#aboutCollapse" aria-expanded="false" aria-controls="aboutCollapse">
                 Filter Spells

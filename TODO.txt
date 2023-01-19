@@ -1,0 +1,16 @@
+New Functionality:
+    -Character sheet display
+    -Character builder
+
+New Commpendium domains:
+    -Vehicles, Classes, Races
+
+Modernize Compendium:
+    -Equipment and Magic Item filtering
+    -Equipment and Magic Item parameterized load count
+    -Equipment, Spell, and Magic Item load sorting
+
+    -Individual monster pages
+
+Fill Compendium:
+    -All

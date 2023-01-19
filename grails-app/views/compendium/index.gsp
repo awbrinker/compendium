@@ -12,6 +12,13 @@
 
 <div role="main" class="homePage">
     <div class="mainMenu">
+            <div style="align-items: left; width: 100%">
+                <a href="/">
+                    <button class="backbtn">
+                        <p>Back</p>
+                    </button>
+                </a>
+            </div>
 
             <div class="row">
                 <h1 style="font-size: 40px;">D&D 5e Compendium</h1>

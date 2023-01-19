@@ -548,4 +548,18 @@ class CompendiumController {
                                         sizeFilter: params.sizeFilter, environmentFilter: params.environmentFilter, crStart: params.crStart, crEnd: params.crEnd, hook: springSecurityService.currentUser.defaultHook])
     }
 
+
+    // Vehicles
+
+    def vehicles(){
+        render(view: "vehicles")
+    }
+
+    def vehicle(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+        def vehicle = Vehicle.findByName(params.vehicle)
+
+        render(view: "vehicle", model: [vehicle: vehicle, hook: springSecurityService.currentUser.defaultHook])
+    }
+
 }
