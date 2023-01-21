@@ -86,6 +86,62 @@ class CompendiumController {
 
     // Equipment
 
+    def getConvertedValue(input){
+        String value = input.substring(0, input.length()-3)
+        
+        return (int)(Float.valueOf(value))
+    }
+
+    def getFilteredEquipment(baseList) {
+        def equipment = new ArrayList<Equipment>()
+
+        for(Equipment it: baseList){
+            boolean flag = true;
+            flag = (it.name.toLowerCase().contains(params.nameFilter.toLowerCase()) || 
+                    it.type.toLowerCase().contains(params.nameFilter.toLowerCase()) ||
+                    (it.attributes != null && it.attributes.toLowerCase().contains(params.nameFilter.toLowerCase())) ||
+                    (it.notes != null && it.notes.toLowerCase().contains(params.nameFilter.toLowerCase()))
+                    )
+
+            if(params.costStart != ""){
+                flag = worse(flag, getConvertedValue(it.cost) >= params.costStart.toInteger())
+            }
+            if(params.costEnd != ""){
+                flag = worse(flag, getConvertedValue(it.cost) <= params.costEnd.toInteger())
+            }
+            if(params.weightStart != ""){
+                flag = worse(flag, getConvertedValue(it.weight) >= params.weightStart.toInteger())
+            }
+            if(params.weightEnd != ""){
+                flag = worse(flag, getConvertedValue(it.weight) <= params.weightEnd.toInteger())
+            }
+
+            if(flag){
+                equipment.add(it)
+            }
+        }
+
+        return equipment
+    }
+
+    def filterEquipment(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        end = Math.min(end, Equipment.count())
+
+        def equipment = getFilteredEquipment(Equipment.listOrderByName().subList(start, end))
+
+        if(end < 10 && equipment.size() > 10 && end < equipment.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(equipment.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, equipment.size())
+
+        render(view: "equipment", model: [items: equipment.subList(start, end), nameFilter: params.nameFilter, costStart: params.costStart, costEnd: params.costEnd, 
+                                            weightStart: params.weightStart, weightEnd: params.weightEnd, count: equipment.size(), start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+    }
+
     def equipment(){
         def springSecurityService = Holders.applicationContext.springSecurityService
         int start = 0
@@ -153,7 +209,7 @@ class CompendiumController {
         end = Math.min(end, magicItems.size())
 
         render(view: "magicitems", model: [magicitems: magicItems.subList(start, end), nameFilter: params.nameFilter, rarityFilter: params.rarityFilter, attuneFilter: params.attuneFilter, 
-                                            typeFilter: params.typeFilter, tagFilter: params.tagFilter, count: MagicItem.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+                                            typeFilter: params.typeFilter, tagFilter: params.tagFilter, count: magicitems.size(), start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
     }
 
     def magicitems(){

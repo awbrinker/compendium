@@ -27,13 +27,48 @@
                 </a>
             </div>
             
-            <%-- Filter By Header  --%>
+            <button class="filterbtnlg" type="button" data-toggle="collapse" data-target="#aboutCollapse" aria-expanded="false" aria-controls="aboutCollapse">
+                Filter Equipment
+            </button>
+            <div class="collapse" id="aboutCollapse" style="align-items: center">
+                <div class="card card-body" style="background-color: rgb(47, 47, 47, 0.8); border: none; align-items: center">
+                    <g:form controller="compendium" action="filterEquipment">
+                    <table class="plain">
+                        <thead>
+                            <th><b>Search - Name, Type, Attribute, Notes</b></th>
+                            <th style="text-align: center"><b>Cost</b></th>
+                            <th style="text-align: center"><b>Weight</b></th>
+                            <th><b></b></th>
+                        </thead>
+                        <tr>
+                            <td><g:textField name="nameFilter" value="${nameFilter}"/></td>
+                            <td>
+                                <g:field type="number" name="costStart" value="${costStart}"/>
+                                to
+                                <g:field type="number" name="costEnd" value="${costEnd}"/>
+                            </td>
+                            <td>
+                                <g:field type="number" name="weightStart" value="${weightStart}"/>
+                                to
+                                <g:field type="number" name="weightEnd" value="${weightEnd}"/>
+                            </td>                          
+                            <td><g:submitButton name="filterButton" value="Filter Equipment" class="filterbtn"/></td>
+                        </tr>
+                    </table>
+                    <div class="row">
+                        <g:actionSubmit name="resetButton" value="Reset Filters" class="filterbtn" action="equipment"/>
+                    </div>
+                </div>
+            </div>
+
+            <hr/>
 
             <p>Currently loaded ${start} to ${end} of ${count} total items.</p>
-            <g:form controller="compendium" action="equipment">
-                <g:field type="number" name="start" value="${start}"/>
-                <g:field type="number" name="end" value="${end}"/>
-                <g:submitButton name="reload" value="Reload"/>
+            <div style="display: flex; flex-direction: horizontal; padding: 5px">
+            <g:field type="number" name="start" value="${start}"/>
+            <g:field type="number" name="end" value="${end}"/>
+            <g:submitButton name="reload" value="Reload"/>
+            </div>
             </g:form>
 
             <div id="table_box_bootstrap">
