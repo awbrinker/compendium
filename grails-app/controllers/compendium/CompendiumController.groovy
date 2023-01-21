@@ -110,6 +110,52 @@ class CompendiumController {
 
     // Magic Items
 
+    def getFilteredMagicItems(baseList) {
+        def magicItems = new ArrayList<MagicItem>()
+
+        for(MagicItem it: baseList){
+            boolean flag = true;
+            flag = it.name.toLowerCase().contains(params.nameFilter.toLowerCase())
+
+            if(params.rarityFilter != "--"){
+                flag = worse(flag, it.rarity == params.rarityFilter)
+            }
+            if(params.attuneFilter != "--"){
+                flag = worse(flag, (it.attunement == true && params.attuneFilter == "Yes") || (it.attunement == false && params.attuneFilter == "No"))
+            }
+            if(params.typeFilter != "--"){
+                flag = worse(flag, it.type == params.typeFilter)
+            }
+            if(params.tagFilter != "--"){
+                flag = worse(flag, it.notes.toLowerCase().contains(params.tagFilter.toLowerCase()))
+            }
+
+            if(flag){
+                magicItems.add(it)
+            }
+        }
+
+        return magicItems
+    }
+
+    def filterMagicItems(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+        int start = 0
+        int end = springSecurityService.currentUser.defaultLoadSize
+
+        end = Math.min(end, MagicItem.count())
+
+        def magicItems = getFilteredMagicItems(MagicItem.listOrderByName().subList(start, end))
+
+        if(end < 10 && magicItems.size() > 10 && end < magicItems.size() && end < springSecurityService.currentUser.defaultLoadSize){
+            end = Math.min(magicItems.size(), springSecurityService.currentUser.defaultLoadSize)
+        }
+        end = Math.min(end, magicItems.size())
+
+        render(view: "magicitems", model: [magicitems: magicItems.subList(start, end), nameFilter: params.nameFilter, rarityFilter: params.rarityFilter, attuneFilter: params.attuneFilter, 
+                                            typeFilter: params.typeFilter, tagFilter: params.tagFilter, count: MagicItem.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
+    }
+
     def magicitems(){
         def springSecurityService = Holders.applicationContext.springSecurityService
         int start = 0

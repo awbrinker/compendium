@@ -22,7 +22,7 @@
             
 
             <div class="row">
-                <h1 style="font-size: 40px;">D&D 5e Compendium</h1>
+                <h1 style="font-size: 40px;">D&D 5e Races</h1>
             </div>
 
             <h2 style="Font-size: 28px;">Player's Handbook</h2>

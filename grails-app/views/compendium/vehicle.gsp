@@ -106,15 +106,15 @@
                                 <g:each in="${(1..<vehicle.components[comp].length)}">
                                     <p style="white-space: pre-wrap" id="comp${comp}">${vehicle.components[comp][it]}</p>
                                     <g:hiddenField name="compform${comp}${it}" id="compform${comp}${it}" value="/r ${vehicle.compFormulas[comp][it]}"/>
-                                    <div class="row">
+                                    <div class="row" style="width: 50%">
                                         <g:if test="${vehicle.compFormulas[comp][it] != "None"}">
                                                 <g:render template="/roll" model="${[source: ('compform'+comp+it), target: ('target')]}"/>
                                         </g:if>
                                     </div>
                                 </g:each>
-                            </div>
-                            <div class="row">
-                                <g:render template="/display" model="${[sourceList: ['name', 'component'+comp], target: 'target']}"/>
+                                <div class="row" style="width: 50%">
+                                    <g:render template="/display" model="${[sourceList: ['name', 'component'+comp], target: 'target']}"/>
+                                </div>
                             </div>
                         </g:each>
                     </div>
