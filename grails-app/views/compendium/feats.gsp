@@ -27,7 +27,31 @@
                 </a>
             </div>
             
-            <%-- Filter By Header  --%>
+            <button class="filterbtnlg" type="button" data-toggle="collapse" data-target="#aboutCollapse" aria-expanded="false" aria-controls="aboutCollapse">
+                Filter Feats
+            </button>
+            <div class="collapse" id="aboutCollapse" style="align-items: center">
+                <div class="card card-body" style="background-color: rgb(47, 47, 47, 0.8); border: none; align-items: center">
+                    <g:form controller="compendium" action="filterFeats">
+                    <table class="plain">
+                        <thead>
+                            <th><b>Feat Name</b></th>
+                            <th><b>Tags</b></th>
+                            <th><b></b></th>
+                        </thead>
+                        <tr>
+                            <td><g:textField name="nameFilter" value="${nameFilter}"/></td>
+                            <td><g:select name="tagFilter" from="${["--", "Buff", "Combat", "Communication", "Control", "Damage", "Debuff", "Deception", "Detection",
+                                                                    "Exploration", "Healing", "Movement", "Psionic", "Social", "Utility", "Warding"]}" value="${tagFilter}"/></td>
+                            <td><g:submitButton name="filterButton" value="Filter Feats" class="filterbtn"/></td>
+                        </tr>
+                    </table>
+                    <div class="row">
+                        <g:actionSubmit name="resetButton" value="Reset Filters" class="filterbtn" action="feats"/>
+                    </div>
+                    </g:form>
+                </div>
+            </div>
 
             <div id="table_box_bootstrap">
                 <table class="sortable" id="data" name="data" style="text-align: left; width: 1400px">

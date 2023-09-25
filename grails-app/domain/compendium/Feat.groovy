@@ -11,7 +11,8 @@ class Feat {
     String body
 
     static constraints = {
-        body(maxSize: 1024)
+        body(maxSize: 2048)
+        tags(nullable: true)
         prereq(nullable: true)
         name(unique: true)
     }

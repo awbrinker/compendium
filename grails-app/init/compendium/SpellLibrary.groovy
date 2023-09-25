@@ -1,86 +1,237 @@
 package compendium
 
+import groovy.json.JsonSlurper
+
 class SpellLibrary {
 
-    static void overload() {
-        for(int i = 0; i < 750; i++){
-            def iceKnife = new Spell(
-            name: "Ice Knife"+i,
-            level: "1st",
-            castingTime: "1 Action",
-            range: "60 ft",
-            components: ["S", "M"],
-            duration: "Instantaneous",
-            school: "Conjuration",
-            atk: "Ranged",
-            save: "DEX",
-            dmgType: ["Piercing", "Cold"],
-            tags: ["Damage"],
-            concentration: false,
-            
-            formula: "d10 & 2d6",
-            higherAddFormula: "d6",
-
-            body: "You create a shard of ice and fling it at one creature within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 piercing damage. Hit or miss, the shard then explodes. The target and each creature within 5 feet of it must succeed on a Dexterity saving throw or take 2d6 cold damage.",
-            highText: "At Higher Levels. When you cast this spell using a spell slot of 2nd level or higher, the cold damage increases by 1d6 for each slot level above 1st.",
-            compText: "* - (a drop of water or a piece of ice)",
-            source: "Elemental Evil Player's Companion",
-
-            classes: ["Bard", "Sorcerer", "Warlock", "Wizard", "Artificer"]
-        ).save(flush: true)
+    static String stripBrackets(string){
+        if(string){
+            return string.substring(1, string.length()-1)
         }
+        return ""
+    }
+
+    static String grabCastingTime(time){
+
+        if (stripBrackets(time.unit.toString()) == "bonus"){
+            return "1 bonus action"
+        }
+
+        return stripBrackets(time.number.toString()) + " " + stripBrackets(time.unit.toString())
+    }
+
+    static String grabDuration(duration){
+
+        if(duration.get(0).type == "permanent"){
+            return "Until Dispelled"
+        }
+
+        if(duration.get(0).type == "special"){
+            return "Special"
+        }
+
+        if(duration.get(0).type == "instant") {
+            return "Instantaneous"
+        }
+
+        return stripBrackets(duration.duration.amount.toString()) + " " + stripBrackets(duration.duration.type.toString())
+    }
+
+    static String grabRange(range){
+
+        if(!range){
+            return "None?"
+        }
+
+        if(range.type == "cone"){
+            return "Self ($range.distance.amount ft cone)"
+        }
+
+        if(!range.distance){
+            return "No distance?"
+        }
+
+        if (range.distance.type == "sight" && !range.distance.amount){
+            return "Sight"
+        }
+
+        if (range.distance.type == "self"){
+            return "Self"
+        }
+
+        if(range.distance.type == "touch"){
+            return "Touch"
+        }
+
+        return "$range.distance.amount ft"
+    }
+
+    static String[] grabComponents(components){
+        
+        def comps = []
+
+        if(components.v){
+            comps.add("V")
+        }
+        if(components.s){
+            comps.add("S")
+        }
+        if(components.m){
+            comps.add("M")
+        }
+
+        return comps as String[]
+    }
+
+    static String grabSchool(school){
+        if(school == "A"){
+            return "Abjuration"
+        }
+        if(school == "C"){
+            return "Conjuration"
+        }
+        if(school == "D"){
+            return "Divination"
+        }
+        if(school == "E"){
+            return "Enchantment"
+        }
+        if(school == "V"){
+            return "Evocation"
+        }
+        if(school == "I"){
+            return "Illusion"
+        }
+        if(school == "N"){
+            return "Necromancy"
+        }
+        if(school == "T"){
+            return "Transmutation"
+        }
+        return "..Other?"
+    }
+
+    static String grabAtk(atk){
+        if(!atk){
+            return "None"
+        }
+        if(atk == "M"){
+            return "Melee"
+        }
+        return "Ranged"
+    }
+
+    static String listToString(list) {
+
+        if(!list){
+            return "None"
+        }
+
+        return list.toString().substring(1, list.toString().length()-1)
+    }
+
+    static String generateBody(list) {
+
+        if(!list){
+            return "None"
+        }
+
+        def out = " "
+
+        for(int i = 0; i < list.size(); i++){
+            if(!list.get(i)){
+                out += " "
+            } else if(list.get(i) instanceof String){
+                out += list.get(i)
+            } else if(list.get(i).type == "table"){
+                out += "Figure this shit out later"
+            } else if(list.get(i).type == "list"){
+                out += "Figure this shit out later"
+            } else if(list.get(i).type == "entries"){
+                out += generateBody(list.get(i))
+            } else {
+                out += list.get(i)
+            }
+
+            out += """
+            """
+        }
+
+        return out
+    }
+
+    static String grabHighText(higher){
+        if(!higher){
+            return ""
+        }
+
+        return "At Higher Levels. " + higher.entries.get(0).toString().substring(1, higher.entries.get(0).toString().length()-1)
+    }
+
+    static String grabCompText(m){
+        if(!m){
+            return ""
+        }
+
+        if(m instanceof String){
+            return  "* - ($m)"
+        }
+
+        return "* - ($m.text)"
+    }
+
+    static boolean grabConcentration(conc){
+        if(conc.toString() == "true")
+            return true
+        
+        return false
     }
 
     static void initialize() {
-        def iceKnife = new Spell(
-            name: "Ice Knife",
-            level: "1st",
-            castingTime: "1 Action",
-            range: "60 ft",
-            components: ["S", "M"],
-            duration: "Instantaneous",
-            school: "Conjuration",
-            atk: "Ranged",
-            save: "DEX",
-            dmgType: ["Piercing", "Cold"],
-            tags: ["Damage"],
-            concentration: false,
-            
-            formula: "d10 & 2d6",
-            higherAddFormula: "d6",
+        String[] library = ["spells-egw.json",
+                            "spells-ftd.json",
+                            "spells-ggr.json",
+                            "spells-phb.json",
+                            "spells-scc.json",
+                            "spells-tce.json",
+                            "spells-xge.json"]
 
-            body: "You create a shard of ice and fling it at one creature within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 piercing damage. Hit or miss, the shard then explodes. The target and each creature within 5 feet of it must succeed on a Dexterity saving throw or take 2d6 cold damage.",
-            highText: "At Higher Levels. When you cast this spell using a spell slot of 2nd level or higher, the cold damage increases by 1d6 for each slot level above 1st.",
-            compText: "* - (a drop of water or a piece of ice)",
-            source: "Elemental Evil Player's Companion",
+        def jsonSlurper = new JsonSlurper()
 
-            classes: ["Bard", "Sorcerer", "Warlock", "Wizard", "Artificer"]
-        ).save(flush: true)
+        for(int s = 0; s < library.length; s++) {
 
-        def mageHand = new Spell(
-            name: "Mage Hand",
-            level: "0th",
-            castingTime: "1 Action",
-            range: "30 ft",
-            components: ["V", "S"],
-            duration: "1 Minute",
-            school: "Conjuration",
-            atk: "None",
-            save: "None",
-            dmgType: ["Utility"],
-            tags: null,
-            concentration: false,
-            
-            formula: "None",
-            higherAddFormula: "None",
+            def contents = jsonSlurper.parse(new File("data/spells/" + library[s]))
 
-            body: "A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration or until you dismiss it as an action. The hand vanishes if it is ever more than 30 feet away from you or if you cast this spell again.  You can use your action to control the hand. You can use the hand to manipulate an object, open an unlocked door or container, stow or retrieve an item from an open container, or pour the contents out of a vial. You can move the hand up to 30 feet each time you use it.  The hand can't attack, activate magic items, or carry more than 10 pounds.",
-            highText: "",
-            compText: "",
-            source: "Basic Rules",
+            for(int i = 0; i < contents.spell.size(); i++){
+                def spell = contents.spell.get(i)
 
-            classes: ["Druid", "Sorcerer", "Wizard"]
-        ).save(flush: true)
+                def initSpell = new Spell(
+                    name: spell.name,
+                    level: spell.level,
+                    castingTime: grabCastingTime(spell.time),
+                    range: grabRange(spell.range),
+                    components: grabComponents(spell.components),
+                    duration: grabDuration(spell.duration),
+                    school: grabSchool(spell.school),
+                    atk: grabAtk(spell.spellAttack),
+                    save: listToString(spell.savingThrow),
+                    dmgType: spell.damageInflict ?: ["Other"],
+                    tags: spell.miscTags,
+                    concentration: grabConcentration(spell.duration.concentration),
+                    formula: "None",
+                    higherAddFormula: "None",
+                    body: generateBody(spell.entries),
+                    highText: grabHighText(spell.entriesHigherLevel),
+                    compText: grabCompText(spell.components.m),
+                    source: spell.source,
+                    classes: ["Bard"]
+                ).save(flush:true)
+
+                if(!initSpell)
+                    println spell.name
+            }
+        }
+
     }
 
 }

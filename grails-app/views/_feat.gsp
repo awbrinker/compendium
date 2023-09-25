@@ -13,7 +13,7 @@
         <button class="closebtn" onclick="togglePanel(${feat.id})">X</button>
         <h1 name="${feat.id}name" id="${feat.id}name">${feat.name}</h1>
         <g:if test="${feat.prereq != null}">
-            <h4 name="${feat.id}prereq" id="${feat.id}preqreq">Prerequisite: ${feat.prereq}</h4>
+            <h4 name="${feat.id}prereq" id="${feat.id}prereq">Prerequisite: ${feat.prereq}</h4>
             <hr/>
         </g:if>
         <p name="${feat.id}text" id="${feat.id}text" style="white-space: pre-wrap">${feat.body}</p>

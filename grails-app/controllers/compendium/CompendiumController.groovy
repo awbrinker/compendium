@@ -152,6 +152,34 @@ class CompendiumController {
         render(view: "equipment", model: [items: Equipment.listOrderByName().subList(start, end), count: Equipment.count, start: start+1, end: end, hook: springSecurityService.currentUser.defaultHook])
     }
 
+    // Feats
+
+    def getFilteredFeats(baseList) {
+        def feats = new ArrayList<Feat>()
+
+        for(Feat it: baseList){
+            boolean flag = true;
+            flag = it.name.toLowerCase().contains(params.nameFilter.toLowerCase())
+
+            if(params.tagFilter != "--"){
+                flag = worse(flag, it.tags != null && it.tags.contains(params.tagFilter))
+            }
+
+            if(flag){
+                feats.add(it)
+            }
+
+        }
+        
+        return feats
+    }
+
+    def filterFeats(){
+        def springSecurityService = Holders.applicationContext.springSecurityService
+
+        render(view: "feats", model: [feats: getFilteredFeats(Feat.listOrderByName()), hook: springSecurityService.currentUser.defaultHook])
+    }
+
     def feats(){
         def springSecurityService = Holders.applicationContext.springSecurityService
 

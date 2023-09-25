@@ -39,11 +39,11 @@
 
             <div class="row">
                 <div class="col">
-                    <a href="/#">
+                    <a href="/content">
                         <button class="classBannerButton">
                             <asset:image src="homeIcons/content.svg" class="homeBannerImage"/>
                             <asset:image src="PirateBanner.png" class="classBanner"/>
-                            <p class="classBannerText" style="color: red">My Content</p>
+                            <p class="classBannerText">My Content</p>
                         </button>
                     </a>
                 </div>

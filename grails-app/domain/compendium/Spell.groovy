@@ -27,10 +27,12 @@ class Spell {
     String[] classes
 
     static constraints = {
-        body(maxSize: 1024)
+        body(maxSize: 100000)
         name(unique: true)
-        highText(nullable: true)
-        compText(nullable: true)
+        highText(nullable: true, maxSize: 1024)
+        compText(nullable: true, maxSize: 1024)
         tags(nullable: true)
     }
+
+
 }

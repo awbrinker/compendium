@@ -1,0 +1,136 @@
+.charbtn {
+    border: solid;
+    border-color: darkred;
+    border-radius: 10px;
+}
+
+.charbtn:hover {
+    background-color: lightgray;
+}
+
+table {
+    background-color: gray
+}
+
+tr:hover {
+    background-color: gray;
+}
+
+th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: gray; 
+    color: black
+}
+
+td {
+    padding-bottom: 11px;
+    background-color: gray;
+}
+
+.body {
+    height: 650px; 
+    margin-top: 20px; 
+    padding: 0px; 
+    border: solid; 
+    border-color: darkred; 
+    border-width: 3px; 
+    border-radius: 15px; 
+    background-color: gray; 
+    color: black;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+/* Style the tab */
+.tab {
+    overflow: visible;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    height: 50px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+}
+
+.actiontab .inventorytab {
+    overflow: visible;
+    margin-left: 10px;
+    background-color: gray;
+}
+
+.actiontab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 14px 16px;
+    height: 50px
+
+}
+
+/* Change background color of buttons on hover */
+.actiontab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.actiontab button.active {
+    background-color: #ccc;
+}
+
+.inventorytab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 14px 16px;
+    height: 50px
+
+}
+
+/* Change background color of buttons on hover */
+.inventorytab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.inventorytab button.active {
+    background-color: #ccc;
+}
+
+.actiontabcontent .inventorytabcontent {
+    display: block
+}
+
+.rolltext {
+    transform: translate(0%, -50%);
+}
