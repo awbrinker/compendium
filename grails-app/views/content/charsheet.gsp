@@ -10,6 +10,7 @@
     <asset:link rel="icon" href="BlackFlagLogo.ico" type="image/x-ico"/>
     <asset:stylesheet href="home.css"/>
     <asset:stylesheet href="table.css"/>
+    <asset:stylesheet href="spell.css"/>
     <asset:stylesheet href="charsheet.css"/>
 </head>
 <body>
@@ -35,7 +36,7 @@
             <%-- Header --%>
             <div style="display: flex; flex-direction: column">
                 <div style="display: flex; flex-direction: horizontal">
-                    <asset:image src="charart/valakhad.png" style="width: 120px; height: 120px; margin-right: 20px"/>
+                    <asset:image src="charart/${name}.png" style="width: 120px; height: 120px; margin-right: 20px"/>
                     <div style="align-items: left; width: 50%; display: flex; flex-direction: column; margin-right: 5%">
                         <h1>${name}</h1>
                         <h3>${raceclass}</h3>
@@ -230,7 +231,7 @@
                             <g:hiddenField name="init" id="init" value="/r d20+${initbonus + (int)((stats[1]-10)/2)}"/>
                             <button class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendMessageTo('init', 'target')">
                                 <div>Initiative</div>
-                                <h4>+${initbonus + (stats[1]-10)/2}</h4>
+                                <h4>+${initbonus + (int)((stats[1]-10)/2)}</h4>
                             </button>
 
                             <%-- AC --%>
@@ -260,23 +261,368 @@
                                 <button class="tablinks" onclick="openTab(event, 'actions')">Actions</button>
                                 <button class="tablinks" onclick="openTab(event, 'inventory')">Inventory</button>
                                 <button class="tablinks" onclick="openTab(event, 'features')">Features & Traits</button>
+                                <g:if test="${spellcaster}">
+                                    <button class="tablinks" onclick="openTab(event, 'spells')">Spells</button>
+                                </g:if>
                                 <button class="tablinks" onclick="openTab(event, 'description')">Description</button>
                             </div>
 
-                            <div id="actions" class="tabcontent">
+                            <%-- Actions --%>
+                            <div id="actions" class="tabcontent" style="display: block">
+                                <div class="actiontab">
+                                    <button class="actiontablinks" onclick="openActionTab(event, 'all')">All</button>
+                                    <button class="actiontablinks" onclick="openActionTab(event, 'attack')">Attack</button>
+                                    <button class="actiontablinks" onclick="openActionTab(event, 'action')">Action</button>
+                                    <button class="actiontablinks" onclick="openActionTab(event, 'bonusaction')">Bonus Action</button>
+                                    <button class="actiontablinks" onclick="openActionTab(event, 'reaction')">Reaction</button>
+                                    <button class="actiontablinks" onclick="openActionTab(event, 'other')">Other</button>
+                                </div>
 
+                                <div class="col" style="width: 100%; border-top: solid; border-color: darkred; border-width: 2px">
+                                    <div id="attack" class="actiontabcontent" style="margin-top: 5px">
+                                        <h4>Attacks</h4>
+                                        <hr>
+                                        <table>
+                                            <tr>
+                                                <th>Attack</th>
+                                                <th>Range</th>
+                                                <th>Hit / DC</th>
+                                                <th>Damage</th>
+                                                <th>Type</th>
+                                                <th>Notes</th>
+                                                <th></th>
+                                            </tr>
+                                            <g:each in="${actions}">
+                                                <g:if test="${it.type == "Attack"}">
+                                                    <tr>
+                                                        <td>${it.name}</td>
+                                                        <td>${it.range}</td>
+                                                        <g:if test="${it.dc == null}">
+                                                            <g:hiddenField name="${it.name}" id="${it.name}" value="/r 1d20+${it.hit} & ${it.damage}"/>
+                                                            <td>${it.hit}</td>
+                                                            <td>${it.damage}</td>
+                                                            <td>${it.dmgtype}</td>
+                                                            <td>${it.notes}</td>
+                                                            <td><g:render template="/roll" model="${[source: it.name, target: 'target']}"/></td>
+                                                        </g:if>
+                                                        <g:else>
+                                                            <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.damage}"/>
+                                                            <td>${it.savetype} ${it.dc}</td>
+                                                            <td>${it.damage}</td>
+                                                            <td>${it.dmgtype}</td>
+                                                            <td>${it.notes}</td>
+                                                            <td><g:render template="/roll" model="${[source: it.name, target: 'target']}"/></td>
+                                                        </g:else>
+                                                    </tr>
+                                                </g:if>
+                                            </g:each>
+                                        </table>
+                                    </div> 
+
+                                    <div id="action" class="actiontabcontent">
+                                        <h4>Actions</h4>
+                                        <hr>
+                                        <g:each in="${actions}">
+                                            <g:if test="${it.type == "Action"}">
+                                                <h5 id="${it.name}name">${it.name}</h5>
+                                                <p id="${it.name}body">${it.body}</p>
+                                                <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
+                                            </g:if>
+                                        </g:each>
+                                    </div>
+
+                                    <div id="bonusaction" class="actiontabcontent">
+                                        <h4>Bonus Actions</h4>
+                                        <hr>
+                                        <g:each in="${actions}">
+                                            <g:if test="${it.type == "Bonus Action"}">
+                                                <h5 id="${it.name}name">${it.name}</h5>
+                                                <p id="${it.name}body">${it.body}</p>
+                                                <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
+                                            </g:if>
+                                        </g:each>
+                                    </div>
+
+                                    <div id="reaction" class="actiontabcontent">
+                                        <h4>Reactions</h4>
+                                        <hr>
+                                        <g:each in="${actions}">
+                                            <g:if test="${it.type == "Reaction"}">
+                                                <h5 id="${it.name}name">${it.name}</h5>
+                                                <p id="${it.name}body">${it.body}</p>
+                                                <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
+                                            </g:if>
+                                        </g:each>
+                                    </div>
+
+                                    <div id="other" class="actiontabcontent">
+                                        <h4>Other</h4>
+                                        <hr>
+                                        <g:each in="${actions}">
+                                            <g:if test="${it.type == "Special"}">
+                                                <h5 id="${it.name}name">${it.name}</h5>
+                                                <p id="${it.name}body">${it.body}</p>
+                                                <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
+                                            </g:if>
+                                        </g:each>
+                                    </div>
+                                </div>
                             </div> 
 
+                            <%-- Spells --%>
+                            <g:if test="${spellcaster}">
+                                <g:set var="bonus" value="${(int)((stats[spellstat]-10)/2)+prof}" />
+                                <div id="spells" class="tabcontent" style="display: block">
+                                    <div class="spelltab">
+                                        <button class="spelltablinks" onclick="openSpellTab(event, 'all')">All</button>
+                                        <g:each in="${(0..<maxspelllevel+1)}">
+                                            <button class="spelltablinks" onclick="openSpellTab(event, 'spell${it}')">-${it}-</button>
+                                        </g:each>
+                                    </div>
+
+                                    <div class="col" style="width: 100%; border-top: solid; border-color: darkred; border-width: 2px">
+                                        <g:each in="${(0..<maxspelllevel+1)}" var="level">
+                                            <div id="spell${level}" class="spelltabcontent" style="margin-top: 5px">
+                                                <%-- TODO: Header and Spell Slots --%>
+                                                <table>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Time</th>
+                                                        <th>Range</th>
+                                                        <th>Hit/DC</th>
+                                                        <th>Effect</th>
+                                                        <th>Notes</th>
+                                                    </tr>
+                                                    <g:each in="${spells}" var="spell">
+                                                        <g:if test="${spell.level == ''+level}">
+                                                            <g:render template="/charspell" model="[spell: spell, bonus: bonus]" />
+                                                        </g:if>
+                                                    </g:each>
+                                                </table>
+                                            </div>
+                                        </g:each>
+                                    </div>
+                                </div>
+                            </g:if>
+
+                            <%-- Inventory --%>
                             <div id="inventory" class="tabcontent">
+                                <div class="inventorytab">
+                                    <button class="inventorytablinks" onclick="openInventoryTab(event, 'all')">All</button>
+                                    <button class="inventorytablinks" onclick="openInventoryTab(event, 'equipped')">Equipped</button>
+                                    <button class="inventorytablinks" onclick="openInventoryTab(event, 'backpack')">Backpack</button>
+                                    <button class="inventorytablinks" onclick="openInventoryTab(event, 'attunement')">Attunement</button>
+                                </div>
 
+                                <div class="col" style="width: 100%; border-top: solid; border-color: darkred; border-width: 2px">
+                                    <div id="equipped" class="inventorytabcontent" style="margin-top: 5px">
+                                        <h4>Currently Equipped</h4>
+                                        <hr>
+                                        <table>
+                                            <tr>
+                                                <th>Active</th>
+                                                <th>Name</th>
+                                                <th>Weight</th>
+                                                <th>QTY</th>
+                                                <th>Cost (gp)</th>
+                                                <th>Notes</th>
+                                            </tr>
+                                            <g:each in="${inventory}">
+                                                <g:if test="${it.active}">
+                                                    <g:render template="/inventoryitem" model="[item: it, hook: hook]"/>
+                                                </g:if>
+                                            </g:each>
+                                        </table>
+                                    </div>
+                                    <div id="backpack" class="inventorytabcontent">
+                                    <h4>Backpack</h4>
+                                        <hr>
+                                        <table>
+                                            <tr>
+                                                <th>Active</th>
+                                                <th>Name</th>
+                                                <th>Weight</th>
+                                                <th>QTY</th>
+                                                <th>Cost (gp)</th>
+                                                <th>Notes</th>
+                                            </tr>
+                                            <g:each in="${inventory}">
+                                                <g:render template="/inventoryitem" model="[item: it, hook: hook]"/>
+                                            </g:each>
+                                        </table>
+                                    </div>
+                                    <div id="attunement" class="inventorytabcontent">
+                                    <h4>Attunement</h4>
+                                        <hr>
+                                        <div style="display: flex; flex-direction: horizontal">
+                                            <div class="col">
+                                                <h5>Currently Attuned</h5>
+                                                <g:each in="${inventory}">
+                                                    <g:if test="${it.attuned}">
+                                                        <button onclick="togglePanel('${it.name}')">${it.name}</button>
+                                                    </g:if>
+                                                </g:each>
+                                            </div>
+                                            <div class="col">
+                                                <h5>Items that Require Attunement</h5>
+                                                <g:each in="${inventory}">
+                                                    <g:if test="${it.attunable}">
+                                                        <button onclick="togglePanel('${it.name}')">${it.name}</button>
+                                                    </g:if>
+                                                </g:each>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div> 
 
+                            <%-- Features --%>
                             <div id="features" class="tabcontent">
+                                <div class="featuretab">
+                                    <button class="featuretablinks" onclick="openFeatureTab(event, 'all')">All</button>
+                                    <button class="featuretablinks" onclick="openFeatureTab(event, 'class')">Class Features</button>
+                                    <button class="featuretablinks" onclick="openFeatureTab(event, 'race')">Racial Traits</button>
+                                    <button class="featuretablinks" onclick="openFeatureTab(event, 'feats')">Feats</button>
+                                </div>
 
+                                <div class="col" style="width: 100%; border-top: solid; border-color: darkred; border-width: 2px">
+                                    <div id="class" class="featuretabcontent" style="margin-top: 5px">
+                                        <h4>Class Features</h4>
+                                        <hr>
+                                        <g:each in="${features}">
+                                            <g:if test="${it.source == "Class"}">
+                                                <h5 id="${it.name}name">${it.name}</h5>
+                                                <p id="${it.name}body">${it.body}</p>
+                                                <g:if test="${it.maxCharges > 0}">
+                                                    <input type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
+                                                </g:if>
+                                                <g:if test="${it.formula}">
+                                                    <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.formula}"/>
+                                                    <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
+                                                </g:if>
+                                                <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
+                                            </g:if>
+                                            <p></p>
+                                        </g:each>
+                                    </div>
+
+                                    <div id="race" class="featuretabcontent" style="margin-top: 5px">
+                                        <h4>Racial Traits</h4>
+                                        <hr>
+                                        <g:each in="${features}">
+                                            <g:if test="${it.source == "Race"}">
+                                                <h5 id="${it.name}name">${it.name}</h5>
+                                                <p id="${it.name}body">${it.body}</p>
+                                                <g:if test="${it.maxCharges > 0}">
+                                                    <input type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
+                                                </g:if>
+                                                <g:if test="${it.formula}">
+                                                    <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.formula}"/>
+                                                    <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
+                                                </g:if>
+                                                <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
+                                            </g:if>
+                                            <p></p>
+                                        </g:each>
+                                    </div>
+
+                                    <div id="feats" class="featuretabcontent" style="margin-top: 5px">
+                                        <h4>Feats</h4>
+                                        <hr>
+                                        <g:each in="${features}">
+                                            <g:if test="${it.source == "Feat"}">
+                                                <h5 id="${it.name}name">${it.name}</h5>
+                                                <p id="${it.name}body">${it.body}</p>
+                                                <g:if test="${it.maxCharges > 0}">
+                                                    <input type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
+                                                </g:if>
+                                                <g:if test="${it.formula}">
+                                                    <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.formula}"/>
+                                                    <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
+                                                </g:if>
+                                                <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
+                                            </g:if>
+                                            <p></p>
+                                        </g:each>
+                                    </div>
+                                </div>
                             </div> 
 
+                            <%-- Description --%>
                             <div id="description" class="tabcontent">
+                                <div class="col" style="width: 100%; border-top: solid; border-color: darkred; border-width: 2px">
+                                    <h6 style="margin-top: 10px">Background</h6>
+                                    <hr>
+                                    <h5>${background}</h5>
+                                    <h6>Feature: ${backgroundfeaturename}</h6>
+                                    <p>${backgroundfeaturebody}</p>
+                                    <br>
 
+                                    <h6>Characteristics</h6>
+                                    <table>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Alignment</p>
+                                                <p>${characteristics[0]}</p>
+                                            </td>
+                                            <td>
+                                                <p>Gender</p>
+                                                <p>${characteristics[1]}</p>
+                                            </td>
+                                            <td>
+                                                <p>Eyes</p>
+                                                <p>${characteristics[2]}</p>
+                                            </td>
+                                            <td>
+                                                <p>Size</p>
+                                                <p>${characteristics[3]}</p>
+                                            </td>
+                                            <td>
+                                                <p>Height</p>
+                                                <p>${characteristics[4]}</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Faith</p>
+                                                <p>${characteristics[5]}</p>
+                                            </td>
+                                            <td>
+                                                <p>Hair</p>
+                                                <p>${characteristics[6]}</p>
+                                            </td>
+                                            <td>
+                                                <p>Skin</p>
+                                                <p>${characteristics[7]}</p>
+                                            </td>
+                                            <td>
+                                                <p>Age</p>
+                                                <p>${characteristics[8]}</p>
+                                            </td>
+                                            <td>
+                                                <p>Weight</p>
+                                                <p>${characteristics[9]}</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <hr>
+                                    <h6>Personality Traits</h6>
+                                    <p></p>
+                                    <h6>Ideals</h6>
+                                    <p></p>
+                                    <h6>Bonds</h6>
+                                    <p></p>
+                                    <h6>Flaws</h6>
+                                    <p></p>
+                                </div>
                             </div> 
 
                         </div>

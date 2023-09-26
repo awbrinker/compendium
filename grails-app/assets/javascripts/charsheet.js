@@ -145,3 +145,70 @@ function openTab(evt, tabName) {
     evt.currentTarget.className += " active";
   }
 
+  function openFeatureTab(evt, tabName) {
+    // Declare all variables
+    var i, featuretabcontent, featuretablinks;
+
+    if(tabName == 'all'){
+        featuretabcontent = document.getElementsByClassName("featuretabcontent");
+        for (i = 0; i < featuretabcontent.length; i++) {
+            featuretabcontent[i].style.display = "block";
+        }
+        featuretablinks = document.getElementsByClassName("featuretablinks");
+        for (i = 0; i < featuretablinks.length; i++) {
+            featuretablinks[i].className = featuretablinks[i].className.replace(" active", "");
+        }
+        evt.currentTarget.className += " active";
+        return
+    }
+  
+    // Get all elements with class="tabcontent" and hide them
+    featuretabcontent = document.getElementsByClassName("featuretabcontent");
+    for (i = 0; i < featuretabcontent.length; i++) {
+        featuretabcontent[i].style.display = "none";
+    }
+  
+    // Get all elements with class="tablinks" and remove the class "active"
+    featuretablinks = document.getElementsByClassName("featuretablinks");
+    for (i = 0; i < featuretablinks.length; i++) {
+        featuretablinks[i].className = featuretablinks[i].className.replace(" active", "");
+    }
+  
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+
+  function openSpellTab(evt, tabName) {
+    // Declare all variables
+    var i, spelltabcontent, spelltablinks;
+
+    if(tabName == 'all'){
+        spelltabcontent = document.getElementsByClassName("spelltabcontent");
+        for (i = 0; i < spelltabcontent.length; i++) {
+            spelltabcontent[i].style.display = "block";
+        }
+        spelltablinks = document.getElementsByClassName("spelltablinks");
+        for (i = 0; i < spelltablinks.length; i++) {
+            spelltablinks[i].className = spelltablinks[i].className.replace(" active", "");
+        }
+        evt.currentTarget.className += " active";
+        return
+    }
+  
+    // Get all elements with class="tabcontent" and hide them
+    spelltabcontent = document.getElementsByClassName("spelltabcontent");
+    for (i = 0; i < spelltabcontent.length; i++) {
+        spelltabcontent[i].style.display = "none";
+    }
+  
+    // Get all elements with class="tablinks" and remove the class "active"
+    spelltablinks = document.getElementsByClassName("spelltablinks");
+    for (i = 0; i < spelltablinks.length; i++) {
+        spelltablinks[i].className = spelltablinks[i].className.replace(" active", "");
+    }
+  
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }

@@ -77,10 +77,14 @@ td {
     display: none;
 }
 
-.actiontab .inventorytab {
+.actiontab .inventorytab .featuretab .spelltab{
     overflow: visible;
     margin-left: 10px;
     background-color: gray;
+}
+
+.actiontabcontent .inventorytabcontent .featuretabcontent .spelltabcontent{
+    display: block
 }
 
 .actiontab button {
@@ -117,18 +121,52 @@ td {
 
 }
 
-/* Change background color of buttons on hover */
 .inventorytab button:hover {
     background-color: #ddd;
 }
 
-/* Create an active/current tablink class */
 .inventorytab button.active {
     background-color: #ccc;
 }
 
-.actiontabcontent .inventorytabcontent {
-    display: block
+.featuretab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 14px 16px;
+    height: 50px
+
+}
+
+.featuretab button:hover {
+    background-color: #ddd;
+}
+
+.featuretab button.active {
+    background-color: #ccc;
+}
+
+.spelltab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 14px 16px;
+    height: 50px
+
+}
+
+.spelltab button:hover {
+    background-color: #ddd;
+}
+
+.spelltab button.active {
+    background-color: #ccc;
 }
 
 .rolltext {

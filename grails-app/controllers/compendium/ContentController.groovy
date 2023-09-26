@@ -9,11 +9,159 @@ class ContentController {
     }
 
     def sentinel(){
-        render(view: "sentinel")
+        def springSecurityService = Holders.applicationContext.springSecurityService
+
+        def NAME = "Sentinel"
+        def RACECLASS = "Warforged Cleric 2"
+
+        def XP = 300
+        def NEXTXP = 900
+
+        def STR = 13
+        def DEX = 11
+        def CON = 14
+        def INT = 11
+        def WIS = 15
+        def CHA = 12
+
+        def PROF = 2
+        def SPEED = 30
+
+        def INSP = false
+
+        def HP = 17
+        def MAXHP = 17
+        def TEMPHP = 0
+        def SUCCESSES = 0
+        def FAILURES = 0
+
+        def SAVES = [0, 0, 0, 0, 1, 1]
+        def SAVENOTES = ["Adv. against being Poisoned"]
+
+        def SENSES = ""
+
+        def ARMOR = "Light Armor, Medium Armor, Heavy Armor, Shields"
+        def WEAPONS = "Simple Weapons"
+        def TOOLS = "Tinker's Tools"
+        def LANGUAGES = "Common, Dwarvish, Elvish, Gnomish"
+
+        def SKILLS = [0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0]
+
+        def INITBONUS = 0
+        def AC = 19
+
+        def DEFENCES = "Poison resistance; Immunity to Disease and Magical Sleep"
+        def CONDITIONS = "None"
+
+        def ACTIONS = []
+
+        def SPELLCASTER = true
+        def SPELLSTAT = 4
+        def MAXSPELLLEVEL = 1
+        def SPELLS = [
+            Spell.findByName('Healing Word'),
+            Spell.findByName('Guiding Bolt')
+        ]
+
+        println(SPELLS[0].level)
+
+        def INVENTORY = []
+
+        def FEATURES = []
+
+        def BACKGROUND = "Azorius Functionary"
+        def BACKGROUNDFEATURENAME = "Legal Authority"
+        def BACKGROUNDFEATUREBODY = "You have the authority to enforce the laws of Ravnica, and that status inspires a certain amount of respect and even fear in the populace. People mind their manners in your presence and avoid drawing your attention; they assume you have the right to be wherever you are. Showing your Azorius insignia gets you an audience with anyone you want to talk to (though it might cause more problems than it solves when you're dealing with incorrigible lawbreakers). If you abuse this privilege, though, you can get in serious trouble with your superiors and even be stripped of your position."
+
+        def CHARACTERISTICS = [
+            "Lawful Stupid",
+            "--",
+            "--",
+            "Medium",
+            "Tall",
+            "Tyr",
+            "--",
+            "--",
+            "--",
+            "Heavy"
+        ]
+
+        render(view: "charsheet", model: [hook: springSecurityService.currentUser.defaultHook,
+                                        name: NAME,
+                                        xp: XP,
+                                        nextxp: NEXTXP,
+                                        raceclass: RACECLASS,
+                                        stats: [STR, DEX, CON, INT, WIS, CHA], 
+                                        prof: PROF, 
+                                        speed: SPEED,
+                                        insp: INSP,
+                                        hp: HP,
+                                        maxhp: MAXHP,
+                                        temphp: TEMPHP,
+                                        successes: SUCCESSES,
+                                        failures: FAILURES,
+                                        saves: SAVES,
+                                        savenotes: SAVENOTES,
+                                        senses: SENSES,
+                                        armor: ARMOR,
+                                        weapons: WEAPONS,
+                                        tools: TOOLS,
+                                        languages: LANGUAGES,
+                                        skills: SKILLS,
+                                        initbonus: INITBONUS,
+                                        ac: AC,
+                                        defences: DEFENCES,
+                                        conditions: CONDITIONS,
+                                        actions: ACTIONS,
+                                        spellcaster: SPELLCASTER,
+                                        spellstat: SPELLSTAT,
+                                        maxspelllevel: MAXSPELLLEVEL,
+                                        spells: SPELLS,
+                                        inventory: INVENTORY,
+                                        features: FEATURES,
+                                        background: BACKGROUND,
+                                        backgroundfeaturename: BACKGROUNDFEATURENAME,
+                                        backgroundfeaturebody: BACKGROUNDFEATUREBODY,
+                                        characteristics: CHARACTERISTICS])
     }
 
     def rivaan(){
-        render(view: "rivaan")
+        render(view: "charsheet", model: [hook: springSecurityService.currentUser.defaultHook,
+                                        name: NAME,
+                                        xp: XP,
+                                        nextxp: NEXTXP,
+                                        raceclass: RACECLASS,
+                                        stats: [STR, DEX, CON, INT, WIS, CHA], 
+                                        prof: PROF, 
+                                        speed: SPEED,
+                                        insp: INSP,
+                                        hp: HP,
+                                        maxhp: MAXHP,
+                                        temphp: TEMPHP,
+                                        successes: SUCCESSES,
+                                        failures: FAILURES,
+                                        saves: SAVES,
+                                        savenotes: SAVENOTES,
+                                        senses: SENSES,
+                                        armor: ARMOR,
+                                        weapons: WEAPONS,
+                                        tools: TOOLS,
+                                        languages: LANGUAGES,
+                                        skills: SKILLS,
+                                        initbonus: INITBONUS,
+                                        ac: AC,
+                                        defences: DEFENCES,
+                                        conditions: CONDITIONS,
+                                        spellcaster: SPELLCASTER,
+                                        actions: ACTIONS,
+                                        maxspelllevel: MAXSPELLLEVEL,
+                                        spells: SPELLS,
+                                        inventory: INVENTORY,
+                                        features: FEATURES,
+                                        background: BACKGROUND,
+                                        backgroundfeaturename: BACKGROUNDFEATURENAME,
+                                        backgroundfeaturebody: BACKGROUNDFEATUREBODY,
+                                        characteristics: CHARACTERISTICS])
     }
 
     def valakhad(){
@@ -61,8 +209,6 @@ class ContentController {
         def DEFENCES = "Psychic resistance"
         def CONDITIONS = "None"
 
-        def SPELLCASTER = false
-
         def ACTIONS = [
             new Action(
                 name: "Dagger",
@@ -102,6 +248,11 @@ class ContentController {
                 body: "You can take a bonus action on each of your turns to take the Dash, Disengage, or Hide action."
             )
         ]
+
+        def SPELLCASTER = false
+
+        def MAXSPELLLEVEL = 1
+        def SPELLS = []
 
         def INVENTORY = [
             new InventoryItem(
@@ -183,7 +334,84 @@ class ContentController {
             ),
         ]
 
-        render(view: "valakhad", model: [hook: springSecurityService.currentUser.defaultHook,
+        def FEATURES = [
+            new Feature(
+                name: 'Sneak Attack',
+                body: "Once per turn, you can deal an extra 1d6 damage to one creature you hit with an attack with a finesse or ranged weapon if you have advantage on the attack roll. You don't need advantage on the attack roll if another enemy of the target is within 5 ft. of it, that enemy isn't incapacitated, and you don't have disadvantage on the attack roll.",
+                formula: "1d6",
+                source: "Class",
+                charges: 0,
+                maxCharges: 0
+            ),
+            new Feature(
+                name: "Thieves' Cant",
+                body: "You have learned thieves’ cant, a secret mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation. It takes four times longer to convey such a message than it does to speak the same idea plainly.",
+                source: "Class",
+                charges: 0,
+                maxCharges: 0
+            ),
+            new Feature(
+                name: "Cunning Action",
+                body: "You can take a bonus action on each of your turns to take the Dash, Disengage, or Hide action.",
+                source: "Class",
+                charges: 0,
+                maxCharges: 0
+            ),
+            new Feature(
+                name: "Dual Mind",
+                body: "You have advantage on all Wisdom saving throws.",
+                source: "Race",
+                charges: 0,
+                maxCharges: 0
+            ),
+            new Feature(
+                name: "Mental Discipline",
+                body: "You have resistance to psychic damage.",
+                source: "Race",
+                charges: 0,
+                maxCharges: 0
+            ),
+            new Feature(
+                name: "Mind Link",
+                body: "You can speak telepathically to any creature you can see within 20 ft. of you. You don't need to share a language with the creature for it to understand, but the creature must be able to understand at least one language.\n\nAs an action, when you’re speaking telepathically to a creature, you can give that creature the ability to speak telepathically with you for the next hour, or until you end this effect as an action.",
+                source: "Race",
+                charges: 0,
+                maxCharges: 0
+            ),
+            new Feature(
+                name: "Severed from Dreams",
+                body: "You are immune to magical spells and effects that require you to dream, like the dream spell, but not to spells and effects that put you to sleep, like the sleep spell.",
+                source: "Race",
+                charges: 0,
+                maxCharges: 0
+            ),
+            new Feature(
+                name: "Alert",
+                body: "You gain a +5 bonus to initiative rolls and can't be surprised.",
+                source: "Feat",
+                charges: 0,
+                maxCharges: 0
+            )
+        ]
+
+        def BACKGROUND = "Urchin"
+        def BACKGROUNDFEATURENAME = "City Secrets"
+        def BACKGROUNDFEATUREBODY = "You know the secret patterns and flow to cities and can find passages through the urban sprawl that others would miss. When you are not in combat, you (and companions you lead) can travel between any two locations in the city twice as fast as your speed would normally allow."
+
+        def CHARACTERISTICS = [
+            "Neutral",
+            "Female",
+            "Brown",
+            "Medium",
+            "Average",
+            "None",
+            "White",
+            "Pale",
+            "Young",
+            "Average"
+        ]
+
+        render(view: "charsheet", model: [hook: springSecurityService.currentUser.defaultHook,
                                         name: NAME,
                                         xp: XP,
                                         nextxp: NEXTXP,
@@ -211,7 +439,14 @@ class ContentController {
                                         conditions: CONDITIONS,
                                         spellcaster: SPELLCASTER,
                                         actions: ACTIONS,
-                                        inventory: INVENTORY])
+                                        maxspelllevel: MAXSPELLLEVEL,
+                                        spells: SPELLS,
+                                        inventory: INVENTORY,
+                                        features: FEATURES,
+                                        background: BACKGROUND,
+                                        backgroundfeaturename: BACKGROUNDFEATURENAME,
+                                        backgroundfeaturebody: BACKGROUNDFEATUREBODY,
+                                        characteristics: CHARACTERISTICS])
     }
 
 }

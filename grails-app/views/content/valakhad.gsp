@@ -324,8 +324,8 @@
                                         <hr>
                                         <g:each in="${actions}">
                                             <g:if test="${it.type == "Action"}">
-                                                <h6 id="${it.name}name">${it.name}</h6>
-                                                <p id="${it.name}body">${it.body}</h6>
+                                                <h5 id="${it.name}name">${it.name}</h5>
+                                                <p id="${it.name}body">${it.body}</p>
                                                 <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
                                             </g:if>
                                         </g:each>
@@ -336,8 +336,8 @@
                                         <hr>
                                         <g:each in="${actions}">
                                             <g:if test="${it.type == "Bonus Action"}">
-                                                <h6 id="${it.name}name">${it.name}</h6>
-                                                <p id="${it.name}body">${it.body}</h6>
+                                                <h5 id="${it.name}name">${it.name}</h5>
+                                                <p id="${it.name}body">${it.body}</p>
                                                 <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
                                             </g:if>
                                         </g:each>
@@ -348,8 +348,8 @@
                                         <hr>
                                         <g:each in="${actions}">
                                             <g:if test="${it.type == "Reaction"}">
-                                                <h6 id="${it.name}name">${it.name}</h6>
-                                                <p id="${it.name}body">${it.body}</h6>
+                                                <h5 id="${it.name}name">${it.name}</h5>
+                                                <p id="${it.name}body">${it.body}</p>
                                                 <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
                                             </g:if>
                                         </g:each>
@@ -360,8 +360,8 @@
                                         <hr>
                                         <g:each in="${actions}">
                                             <g:if test="${it.type == "Special"}">
-                                                <h6 id="${it.name}name">${it.name}</h6>
-                                                <p id="${it.name}body">${it.body}</h6>
+                                                <h5 id="${it.name}name">${it.name}</h5>
+                                                <p id="${it.name}body">${it.body}</p>
                                                 <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
                                             </g:if>
                                         </g:each>
@@ -440,12 +440,153 @@
                                 </div>
                             </div> 
 
+                            <%-- Features --%>
                             <div id="features" class="tabcontent">
+                                <div class="featuretab">
+                                    <button class="featuretablinks" onclick="openFeatureTab(event, 'all')">All</button>
+                                    <button class="featuretablinks" onclick="openFeatureTab(event, 'class')">Class Features</button>
+                                    <button class="featuretablinks" onclick="openFeatureTab(event, 'race')">Racial Traits</button>
+                                    <button class="featuretablinks" onclick="openFeatureTab(event, 'feats')">Feats</button>
+                                </div>
 
+                                <div class="col" style="width: 100%; border-top: solid; border-color: darkred; border-width: 2px">
+                                    <div id="class" class="featuretabcontent" style="margin-top: 5px">
+                                        <h4>Class Features</h4>
+                                        <hr>
+                                        <g:each in="${features}">
+                                            <g:if test="${it.source == "Class"}">
+                                                <h5 id="${it.name}name">${it.name}</h5>
+                                                <p id="${it.name}body">${it.body}</p>
+                                                <g:if test="${it.maxCharges > 0}">
+                                                    <input type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
+                                                </g:if>
+                                                <g:if test="${it.formula}">
+                                                    <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.formula}"/>
+                                                    <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
+                                                </g:if>
+                                                <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
+                                            </g:if>
+                                            <p></p>
+                                        </g:each>
+                                    </div>
+
+                                    <div id="race" class="featuretabcontent" style="margin-top: 5px">
+                                        <h4>Racial Traits</h4>
+                                        <hr>
+                                        <g:each in="${features}">
+                                            <g:if test="${it.source == "Race"}">
+                                                <h5 id="${it.name}name">${it.name}</h5>
+                                                <p id="${it.name}body">${it.body}</p>
+                                                <g:if test="${it.maxCharges > 0}">
+                                                    <input type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
+                                                </g:if>
+                                                <g:if test="${it.formula}">
+                                                    <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.formula}"/>
+                                                    <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
+                                                </g:if>
+                                                <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
+                                            </g:if>
+                                            <p></p>
+                                        </g:each>
+                                    </div>
+
+                                    <div id="feats" class="featuretabcontent" style="margin-top: 5px">
+                                        <h4>Feats</h4>
+                                        <hr>
+                                        <g:each in="${features}">
+                                            <g:if test="${it.source == "Feat"}">
+                                                <h5 id="${it.name}name">${it.name}</h5>
+                                                <p id="${it.name}body">${it.body}</p>
+                                                <g:if test="${it.maxCharges > 0}">
+                                                    <input type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
+                                                </g:if>
+                                                <g:if test="${it.formula}">
+                                                    <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.formula}"/>
+                                                    <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
+                                                </g:if>
+                                                <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
+                                            </g:if>
+                                            <p></p>
+                                        </g:each>
+                                    </div>
+                                </div>
                             </div> 
 
+                            <%-- Description --%>
                             <div id="description" class="tabcontent">
+                                <div class="col" style="width: 100%; border-top: solid; border-color: darkred; border-width: 2px">
+                                    <h6 style="margin-top: 10px">Background</h6>
+                                    <hr>
+                                    <h5>${background}</h5>
+                                    <h6>Feature: ${backgroundfeaturename}</h6>
+                                    <p>${backgroundfeaturebody}</p>
+                                    <br>
 
+                                    <h6>Characteristics</h6>
+                                    <table>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Alignment</p>
+                                                <p>${characteristics[0]}</p>
+                                            </td>
+                                            <td>
+                                                <p>Gender</p>
+                                                <p>${characteristics[1]}</p>
+                                            </td>
+                                            <td>
+                                                <p>Eyes</p>
+                                                <p>${characteristics[2]}</p>
+                                            </td>
+                                            <td>
+                                                <p>Size</p>
+                                                <p>${characteristics[3]}</p>
+                                            </td>
+                                            <td>
+                                                <p>Height</p>
+                                                <p>${characteristics[4]}</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>Faith</p>
+                                                <p>${characteristics[5]}</p>
+                                            </td>
+                                            <td>
+                                                <p>Hair</p>
+                                                <p>${characteristics[6]}</p>
+                                            </td>
+                                            <td>
+                                                <p>Skin</p>
+                                                <p>${characteristics[7]}</p>
+                                            </td>
+                                            <td>
+                                                <p>Age</p>
+                                                <p>${characteristics[8]}</p>
+                                            </td>
+                                            <td>
+                                                <p>Weight</p>
+                                                <p>${characteristics[9]}</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <hr>
+                                    <h6>Personality Traits</h6>
+                                    <p></p>
+                                    <h6>Ideals</h6>
+                                    <p></p>
+                                    <h6>Bonds</h6>
+                                    <p></p>
+                                    <h6>Flaws</h6>
+                                    <p></p>
+                                </div>
                             </div> 
 
                         </div>

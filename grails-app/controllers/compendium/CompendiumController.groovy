@@ -35,7 +35,7 @@ class CompendiumController {
                 flag = worse(flag, it.dmgType.contains(params.tagFilter) || (it.tags != null && it.tags.contains(params.tagFilter)))
             }
             if(params.castingTimeFilter != "--"){
-                flag = worse(flag, it.environment == params.castingTimeFilter)
+                flag = worse(flag, it.castingTime == params.castingTimeFilter)
             }
             if(params.levelStart != "--"){
                 flag = worse(flag, it.level.compareTo(params.levelStart) >= 0)
