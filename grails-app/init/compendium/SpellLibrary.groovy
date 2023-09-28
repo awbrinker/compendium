@@ -208,6 +208,11 @@ class SpellLibrary {
             roll
         }
 
+        def dicePattern = /\{@scaledice \d+d\d+\|\d\-\d\|(\d+d\d+)\}/
+        out = out.replaceAll(dicePattern){ _, roll ->
+            roll
+        }
+
         return out
     }
 

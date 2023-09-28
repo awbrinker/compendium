@@ -21,7 +21,9 @@
 <g:set var="skillnames" value="${['Acrobatics', 'Animal Handling', 'Arcana', 'Athletics', 'Deception', 'History',
                                     'Insight', 'Intimidation', 'Investigation', 'Medicine', 'Nature', 'Perception',
                                     'Performance', 'Persuasion', 'Religion', 'Sleight of Hand', 'Stealth', 'Survival']}"/>
-<g:set var="skillstats" value="${['1', '4', '3', '0', '5', '3', '4', '5', '3', '4', '3', '4', '5', '5', '3', '1', '1', '4']}"/>                              
+<g:set var="skillstats" value="${['1', '4', '3', '0', '5', '3', '4', '5', '3', '4', '3', '4', '5', '5', '3', '1', '1', '4']}"/>
+
+<g:set var="levelnames" value="${['Cantrip', '1st Level', '2nd Level', '3rd Level', '4th Level', '5th Level', '6th Level', '7th Level', '8th Level', '9th Level']}"/>
 
 <div role="main" class="homePage">
     <div class="mainMenu">
@@ -100,12 +102,12 @@
 
                         <div class="col">
                             <div>Current HP</div>
-                            <input type="number" name="hp" id="hp" style="width: 65px; margin-left: 6px" value="${hp}"/>
+                            <input type="number" name="hp" id="hp" style="width: 65px; margin-left: 6px" min="0" max="${maxhp}" value="${hp}"/>
                         </div>
 
                         <div class="col">
                             <div>Max HP</div>
-                            <input type="number" name="maxhp" id="maxhp" style="width: 65px; margin-left: 6px" value="${maxhp}"/>
+                            <input type="number" name="maxhp" id="maxhp" style="width: 65px; margin-left: 6px" min="0" value="${maxhp}"/>
                         </div>
 
                         <div class="col">
@@ -383,7 +385,18 @@
                                     <div class="col" style="width: 100%; border-top: solid; border-color: darkred; border-width: 2px">
                                         <g:each in="${(0..<maxspelllevel+1)}" var="level">
                                             <div id="spell${level}" class="spelltabcontent" style="margin-top: 5px">
-                                                <%-- TODO: Header and Spell Slots --%>
+                                                
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <h5>${levelnames[level]}</h5>
+                                                    </div>
+                                                    <div class="col" style="align-items: flex-end">
+                                                        <g:if test="${maxspellslots[level] > 0}">
+                                                            <input style="width: 20%" type="number" min="0" max="${maxspellslots[level]}" value="${spellslots[level]}" />
+                                                        </g:if>
+                                                    </div>
+                                                </div>
+
                                                 <table>
                                                     <tr>
                                                         <th>Name</th>
@@ -394,8 +407,8 @@
                                                         <th>Notes</th>
                                                     </tr>
                                                     <g:each in="${spells}" var="spell">
-                                                        <g:if test="${spell.level == ''+level}">
-                                                            <g:render template="/charspell" model="[spell: spell, bonus: bonus, tier: maxspelllevel]" />
+                                                        <g:if test="${spell.level == ''+level || (spell.level != '0' && spell.level <= ''+level)}">
+                                                            <g:render template="/charspell" model="[spell: spell, bonus: bonus, tier: maxspelllevel, level: level]" />
                                                         </g:if>
                                                     </g:each>
                                                 </table>

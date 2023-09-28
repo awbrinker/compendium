@@ -52,33 +52,80 @@ class Spell {
     }
 
     String cantripFormula(int tier){
+        if(formula == 'None')
+            return "--"
+
         String out = ""
         def list = formula.split(" &")
         int k = list.size()/4
 
         if(tier < 3){
             for(int i = 0; i < k; i++){
+                if(list.size()%4 != 0)
+                    i++
                 out += list[i]
                 out += " & "
             }
         }else if(tier < 6){
             for(int i = k; i < 2*k; i++){
+                if(list.size()%4 != 0)
+                    i++
                 out += list[i]
                 out += " & "
             }
         }else if(tier < 9){
             for(int i = 2*k; i < 3*k; i++){
+                if(list.size()%4 != 0)
+                    i++
                 out += list[i]
                 out += " & "
             }
         }else{
             for(int i = 3*k; i < 4*k; i++){
+                if(list.size()%4 != 0)
+                    i++
                 out += list[i]
                 out += " & "
             }
         }
 
         return out.substring(0, out.length()-3)
+    }
+
+    String charFormula(int tier, int bonus, int level){
+        if(formula == 'None')
+            return "--"
+
+        def higher = ""
+        if(level > this.level.toInteger()){
+            int per = higherAddFormula.substring(0,1).toInteger()
+            int die = higherAddFormula.substring(2).toInteger()
+            higher += "& ${per * (level-this.level.toInteger())}d$die"
+        }
+
+        if(atk == 'Ranged' || atk == 'Melee'){
+            if(this.level == '0'){
+                return "d20${hitDC(bonus)} & ${cantripFormula(tier)}"
+            }
+            return "d20${hitDC(bonus)} & $formula $higher"
+        }
+        if(this.level == '0'){
+            return "${cantripFormula(tier)}"
+        }
+
+        return "$formula $higher"
+    }
+
+    String charDisplayFormula(int tier, int bonus, int level){
+        if(formula == 'None')
+            return "--"
+
+        def higher = ""
+        int per = higherAddFormula.substring(0,1).toInteger()
+        int die = higherAddFormula.substring(2).toInteger()
+        higher += "& ${per * (level-this.level.toInteger())}d$die"
+
+        return "$formula $higher"
     }
 
     static constraints = {

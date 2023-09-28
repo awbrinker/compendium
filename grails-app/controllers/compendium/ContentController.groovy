@@ -58,11 +58,18 @@ class ContentController {
         def SPELLCASTER = true
         def SPELLSTAT = 4
         def MAXSPELLLEVEL = 1
+        def SPELLSLOTS = [-1,3,0,0,0,0,0,0,0,0]
+        def MAXSPELLSLOTS = [-1,3,0,0,0,0,0,0,0,0]
         def SPELLS = [
-            Spell.findByName('Sacred Flame'),
+            Spell.findByName('Guidance'),
+            Spell.findByName('Light'),
             Spell.findByName('Toll the Dead'),
             Spell.findByName('Healing Word'),
-            Spell.findByName('Guiding Bolt')
+            Spell.findByName('Guiding Bolt'),
+            Spell.findByName('Bless'),
+            Spell.findByName('Sanctuary'),
+            Spell.findByName('Command'),
+            Spell.findByName('Heroism')
         ]
 
         def INVENTORY = []
@@ -116,6 +123,8 @@ class ContentController {
                                         spellcaster: SPELLCASTER,
                                         spellstat: SPELLSTAT,
                                         maxspelllevel: MAXSPELLLEVEL,
+                                        spellslots: SPELLSLOTS,
+                                        maxspellslots: MAXSPELLSLOTS,
                                         spells: SPELLS,
                                         inventory: INVENTORY,
                                         features: FEATURES,
