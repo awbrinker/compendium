@@ -5,7 +5,12 @@
     <td>${spell.castingTimeShorthand()}</td>
     <td>${spell.range}</td>
     <td>${spell.hitDC(bonus)}</td>
-    <td>${spell.formula}</td>
+    <g:if test="${spell.level == '0'}">
+        <td>${spell.cantripFormula(tier)}</td>
+    </g:if>
+    <g:else>
+        <td>${spell.formula}</td>
+    </g:else>
     <td><g:each in="${spell.components}">${it}; </g:each></td>
 </tr>
 
@@ -16,7 +21,7 @@
     <div class="card card-body spellBody" style="color: white">
         <button class="closebtn" onclick="togglePanel(${spell.id})">X</button>
         <h1 name="${spell.id}name" id="${spell.id}name">${spell.name}</h1>
-        <g:if test="${spell.level == '0th'}">
+        <g:if test="${spell.level == '0'}">
             <h3 name="${spell.id}level" id="${spell.id}level">${spell.school} Cantrip</h3>
         </g:if>
         <g:else>

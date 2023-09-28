@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <tr style="align-items: center; justify-content: center" onclick="togglePanel(${spell.id})">
-    <g:if test="${spell.level == '0th'}">
+    <g:if test="${spell.level == '0'}">
         <td style="width: 10%">Cantrip</td>
     </g:if>
     <g:else>
@@ -25,7 +25,7 @@
     <div class="card card-body spellBody">
         <button class="closebtn" onclick="togglePanel(${spell.id})">X</button>
         <h1 name="${spell.id}name" id="${spell.id}name">${spell.name}</h1>
-        <g:if test="${spell.level == '0th'}">
+        <g:if test="${spell.level == '0'}">
             <h3 name="${spell.id}level" id="${spell.id}level">${spell.school} Cantrip</h3>
         </g:if>
         <g:else>

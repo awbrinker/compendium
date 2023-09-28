@@ -1,6 +1,7 @@
 package compendium
 
 import groovy.json.JsonSlurper
+import java.util.regex.Pattern
 
 class SpellLibrary {
 
@@ -153,8 +154,43 @@ class SpellLibrary {
                 out += list.get(i)
             }
 
-            out += """
+            out += """     
             """
+        }
+
+        def chaosPattern = /\{@damage 2d8 \+ 1d6\}/
+        out = out.replaceAll(chaosPattern) {
+           "2d8 + 1d6"
+        }
+
+        def dmgPattern = /\{@damage (\d+d\d+)\}/
+        out = out.replaceAll(dmgPattern) { _, roll ->
+           roll
+        }
+
+        def dicePattern = /\{@dice (\d*d\d+)\}/
+        out = out.replaceAll(dicePattern) { _, roll ->
+           roll
+        }
+
+        def diffTerrainPattern = /\{@quickref difficult terrain\|\|3\}/
+        out = out.replaceAll(diffTerrainPattern) {
+           "difficult terrain"
+        }
+
+        def quickrefPattern = /\{@quickref.*\|PHB\|\d*\|\d*\|([\w*\s]*)\}/
+        out = out.replaceAll(quickrefPattern) { _, it ->
+           it
+        }
+
+        def conditionPattern = /\{@condition (\w*)\}/
+        out = out.replaceAll(conditionPattern) { _, it ->
+           it
+        }
+
+        def spellPattern = /\{@spell (\w*)\}/
+        out = out.replaceAll(spellPattern) { _, it ->
+           it
         }
 
         return out
@@ -165,7 +201,14 @@ class SpellLibrary {
             return ""
         }
 
-        return "At Higher Levels. " + higher.entries.get(0).toString().substring(1, higher.entries.get(0).toString().length()-1)
+        def out = "At Higher Levels. " + higher.entries.get(0).toString().substring(1, higher.entries.get(0).toString().length()-1)
+
+        def scalePattern = /\{@scaledamage \d+d\d+\|\d\-\d\|(\d+d\d+)\}/
+        out = out.replaceAll(scalePattern){ _, roll ->
+            roll
+        }
+
+        return out
     }
 
     static String grabCompText(m){
@@ -187,6 +230,40 @@ class SpellLibrary {
         return false
     }
 
+    static String grabFormula(body){
+        def dmgPattern = /\d+d\d+/
+        def matcher = body =~ dmgPattern
+        def result = matcher.findAll()
+        
+        if(result.size() == 0){
+            return "None"
+        }
+
+        def out = ""
+        for(s in result){
+            out += s
+            out += " & "
+        }
+        return out.substring(0, out.length()-3)
+    }
+
+    static String grabHigherFormula(body){
+        def dmgPattern = /\d+d\d+/
+        def matcher = body =~ dmgPattern
+        def result = matcher.findAll()
+        
+        if(result.size() == 0){
+            return "None"
+        }
+
+        def out = ""
+        for(s in result){
+            out += s
+            out += " & "
+        }
+        return out.substring(0, out.length()-3)
+    }
+
     static void initialize() {
         String[] library = ["spells-egw.json",
                             "spells-ftd.json",
@@ -205,6 +282,9 @@ class SpellLibrary {
             for(int i = 0; i < contents.spell.size(); i++){
                 def spell = contents.spell.get(i)
 
+                def body = generateBody(spell.entries)
+                def highBody = grabHighText(spell.entriesHigherLevel)
+
                 def initSpell = new Spell(
                     name: spell.name,
                     level: spell.level,
@@ -218,10 +298,10 @@ class SpellLibrary {
                     dmgType: spell.damageInflict ?: ["Other"],
                     tags: spell.miscTags,
                     concentration: grabConcentration(spell.duration.concentration),
-                    formula: "None",
-                    higherAddFormula: "None",
-                    body: generateBody(spell.entries),
-                    highText: grabHighText(spell.entriesHigherLevel),
+                    formula: grabFormula(body),
+                    higherAddFormula: grabHigherFormula(highBody),
+                    body: body,
+                    highText: highBody,
                     compText: grabCompText(spell.components.m),
                     source: spell.source,
                     classes: ["Bard"]

@@ -372,7 +372,7 @@
                             <%-- Spells --%>
                             <g:if test="${spellcaster}">
                                 <g:set var="bonus" value="${(int)((stats[spellstat]-10)/2)+prof}" />
-                                <div id="spells" class="tabcontent" style="display: block">
+                                <div id="spells" class="tabcontent">
                                     <div class="spelltab">
                                         <button class="spelltablinks" onclick="openSpellTab(event, 'all')">All</button>
                                         <g:each in="${(0..<maxspelllevel+1)}">
@@ -395,7 +395,7 @@
                                                     </tr>
                                                     <g:each in="${spells}" var="spell">
                                                         <g:if test="${spell.level == ''+level}">
-                                                            <g:render template="/charspell" model="[spell: spell, bonus: bonus]" />
+                                                            <g:render template="/charspell" model="[spell: spell, bonus: bonus, tier: maxspelllevel]" />
                                                         </g:if>
                                                     </g:each>
                                                 </table>

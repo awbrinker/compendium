@@ -59,11 +59,11 @@ class ContentController {
         def SPELLSTAT = 4
         def MAXSPELLLEVEL = 1
         def SPELLS = [
+            Spell.findByName('Sacred Flame'),
+            Spell.findByName('Toll the Dead'),
             Spell.findByName('Healing Word'),
             Spell.findByName('Guiding Bolt')
         ]
-
-        println(SPELLS[0].level)
 
         def INVENTORY = []
 
