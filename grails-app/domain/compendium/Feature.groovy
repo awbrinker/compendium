@@ -1,6 +1,8 @@
 package compendium
 
-class Feature {
+import java.io.Serializable
+
+class Feature implements Serializable{
 
     String name
     String body
@@ -8,11 +10,13 @@ class Feature {
     String source
     int charges
     int maxCharges
+    boolean shortRest
 
     static constraints = {
         body(maxSize: 1024)
         formula(nullable: true)
         name(unique: true)
+        shortRest(nullable: true)
     }
 
 }

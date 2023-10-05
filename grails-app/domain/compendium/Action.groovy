@@ -1,6 +1,8 @@
 package compendium
 
-class Action {
+import java.io.Serializable
+
+class Action implements Serializable{
 
     String name
     String type
@@ -15,17 +17,18 @@ class Action {
 
     String body
     int charges
-    
-
+    int maxCharges
+    boolean shortRest
 
     static constraints = {
-        body(maxSize: 1024)
+        body(maxSize: 1024, nullable: true)
         range(nullable: true)
         hit(nullable: true)
         dc(nullable: true)
         savetype(nullable: true)
         damage(nullable: true)
         dmgtype(nullable: true)
-        name(unique: true)
+        notes(nullable: true)
+        shortRest(nullable: true)
     }
 }

@@ -1,6 +1,8 @@
 package compendium
 
-class Spell {
+import java.io.Serializable
+
+class Spell implements Serializable{
 
     String name
     String level

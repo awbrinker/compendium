@@ -1,6 +1,8 @@
 package compendium
 
-class InventoryItem {
+import java.io.Serializable
+
+class InventoryItem implements Serializable{
 
     String name
     boolean active
@@ -15,7 +17,6 @@ class InventoryItem {
     static constraints = {
         body(maxSize: 1024)
         notes(nullable: true)
-        name(unique: true)
     }
 
 }

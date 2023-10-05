@@ -27,21 +27,28 @@
 
 <div role="main" class="homePage">
     <div class="mainMenu">
-            <div style="align-items: left; width: 100%">
-                <a href="/content">
-                    <button class="backbtn">
-                        <p>Back</p>
-                    </button>
-                </a>
-            </div>
+        <div style="align-items: left; width: 100%">
+            <a href="/content">
+                <button class="backbtn">
+                    <p>Back</p>
+                </button>
+            </a>
+        </div>
+
+        <g:form name="update" action="update">
 
             <%-- Header --%>
             <div style="display: flex; flex-direction: column">
                 <div style="display: flex; flex-direction: horizontal">
                     <asset:image src="charart/${name}.png" style="width: 120px; height: 120px; margin-right: 20px"/>
-                    <div style="align-items: left; width: 50%; display: flex; flex-direction: column; margin-right: 5%">
+                    <div style="align-items: left; width: 25%; display: flex; flex-direction: column; margin-right: 5%">
                         <h1>${name}</h1>
+                        <g:hiddenField name="name" value="${name}"/>
                         <h3>${raceclass}</h3>
+                    </div>
+
+                    <div style="align-items: left; width: 25%; display: flex; flex-direction: column; margin-right: 5%">
+                        <g:actionSubmit value="Save Changes" action="update"/>
                     </div>
 
                     <div style="align-items: left; text-align: right; width: 50%; display: flex; flex-direction: column; margin-right: 5%">
@@ -55,7 +62,7 @@
                 <div style="display: flex; flex-direction: horizontal">
                     <g:each in="${(0..<6)}">
                         <g:hiddenField name="stats${it}" id="stats${it}" value="/r d20+${(int)((stats[it]-10)/2)}"/>
-                        <button class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendMessageTo('stats'+${it}, 'target')">
+                        <button type="button" class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendMessageTo('stats'+${it}, 'target')">
                             <div>${statnames[it]}</div>
                             <h4>+${(int)((stats[it]-10)/2)}</h4>
                             <div>(${stats[it]})</div>
@@ -64,21 +71,21 @@
 
                     <%-- Proficiency Bonus --%>
                     <g:hiddenField name="prof" id="prof" value="Proficiency: +${prof}"/>
-                    <button class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendMessageTo('prof', 'target')">
+                    <button type="button" class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendMessageTo('prof', 'target')">
                         <div>PROF</div>
                         <h4>+${prof}</h4>
                     </button>
 
                     <%-- Movement Speed --%>
                     <g:hiddenField name="speed" id="speed" value="Speed: ${speed} ft."/>
-                    <button class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendMessageTo('speed', 'target')">
+                    <button type="button" class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendMessageTo('speed', 'target')">
                         <div>Walking</div>
                         <h4>${speed} ft.</h4>
                         <div>Speed</div>
                     </button>
                     
                     <%-- Inspiration --%>
-                    <button style="width: 90px; padding: 10px; margin: 10px; align-items: center; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="toggleInsp()">
+                    <button type="button" style="width: 90px; padding: 10px; margin: 10px; align-items: center; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="toggleInsp()">
                         <div>Inspiration</div>
                         <g:if test="${insp}">
                             <asset:image id="insp" src="inspiration.png" class="classBanner"/>
@@ -86,16 +93,17 @@
                         <g:else>
                             <asset:image id="insp" style="display: none" src="inspiration.png" class="classBanner"/>
                         </g:else>
+                        <g:hiddenField name="inspValue" value="${insp}" />
                     </button>
                     
                     <%-- Health --%>
                     <div style="border: solid; border-color: darkred; border-width: 3px; border-radius: 15px; align-items: center; background-color: gray; color: black" class="row">
                         <div class="col">
-                            <button class="charbtn" style="color: green; margin: 5px" onclick="heal()">
+                            <button type="button" class="charbtn" style="color: green; margin: 5px" onclick="heal()">
                                 <div>Heal</div>
                             </button>
                             <input type="number" name="hpchange" id="hpchange" style="width: 65px; margin-left: 6px" value="${0}"/>
-                            <button class="charbtn" style="color: red; margin: 5px" onclick="damage()">
+                            <button type="button" class="charbtn" style="color: red; margin: 5px" onclick="damage()">
                                 <div>Damage</div>
                             </button>
                         </div>
@@ -130,7 +138,7 @@
                                     <div style="display: flex; flex-direction: horizontal; margin: 5px">
                                         <g:hiddenField name="saves${it}" id="saves${it}" value="/r d20+${(int)((stats[it]-10)/2)+(prof * saves[it])}"/>
                                         <div style="margin-top: 15px">${statnames[it]}</div>
-                                        <button class="charbtn" style="width: 40px; padding: 5px; margin: 5px" onclick="sendMessageTo('saves'+${it}, 'target')">
+                                        <button type="button" class="charbtn" style="width: 40px; padding: 5px; margin: 5px" onclick="sendMessageTo('saves'+${it}, 'target')">
                                             <h4>+${(int)((stats[it]-10)/2)+(prof * saves[it])}</h4>
                                         </button>
                                     </div>
@@ -144,7 +152,7 @@
                                     <div style="display: flex; flex-direction: horizontal; margin: 5px">
                                         <g:hiddenField name="saves${it}" id="saves${it}" value="/r d20+${(int)((stats[it]-10)/2)+(prof * saves[it])}"/>
                                         <div style="margin-top: 15px">${statnames[it]}</div>
-                                        <button class="charbtn" style="width: 40px; padding: 5px; margin: 5px" onclick="sendMessageTo('saves'+${it}, 'target')">
+                                        <button type="button" class="charbtn" style="width: 40px; padding: 5px; margin: 5px" onclick="sendMessageTo('saves'+${it}, 'target')">
                                             <h4>+${(int)((stats[it]-10)/2)+(prof * saves[it])}</h4>
                                         </button>
                                     </div>
@@ -167,7 +175,7 @@
                                 <h3>${10+(int)((stats[4]-10)/2)+prof*skills[6]}</h3>
                                 <p style="margin-top: 0px; margin-left: 10px">Passive Wis (Insight)</p>
                                 </div>
-                                <g:if test="${!senses.isBlank()}">
+                                <g:if test="${senses}">
                                     <p>${senses}</p>
                                 </g:if>
                             </div>
@@ -215,7 +223,7 @@
                                     <td>${skillnames[it]}</td>
                                     <g:hiddenField name="skills${it}" id="skills${it}" value=""/>
                                     <td>
-                                        <button class="charbtn" style="width: 40px; font-size: 13px; margin-left: 10px" onclick="sendMessageTo('skills'+${it}, 'target')">
+                                        <button type="button" class="charbtn" style="width: 40px; font-size: 13px; margin-left: 10px" onclick="sendMessageTo('skills'+${it}, 'target')">
                                             <strong>+${(int)((stats[skillstats[it].toInteger()]-10)/2)+(prof * skills[it])}</strong>
                                         </button>
                                     <td>
@@ -231,14 +239,14 @@
 
                             <%-- Initiative --%>
                             <g:hiddenField name="init" id="init" value="/r d20+${initbonus + (int)((stats[1]-10)/2)}"/>
-                            <button class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendMessageTo('init', 'target')">
+                            <button type="button" class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendMessageTo('init', 'target')">
                                 <div>Initiative</div>
                                 <h4>+${initbonus + (int)((stats[1]-10)/2)}</h4>
                             </button>
 
                             <%-- AC --%>
                             <g:hiddenField name="ac" id="ac" value="AC: ${ac}"/>
-                            <button class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendMessageTo('ac', 'target')">
+                            <button type="button" class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendMessageTo('ac', 'target')">
                                 <div>AC</div>
                                 <h4>${ac}</h4>
                             </button>
@@ -260,24 +268,24 @@
                         <div class="body">
 
                             <div class="tab">
-                                <button class="tablinks" onclick="openTab(event, 'actions')">Actions</button>
-                                <button class="tablinks" onclick="openTab(event, 'inventory')">Inventory</button>
-                                <button class="tablinks" onclick="openTab(event, 'features')">Features & Traits</button>
+                                <button type="button" class="tablinks" onclick="openTab(event, 'actions')">Actions</button>
+                                <button type="button" class="tablinks" onclick="openTab(event, 'inventory')">Inventory</button>
+                                <button type="button" class="tablinks" onclick="openTab(event, 'features')">Features & Traits</button>
                                 <g:if test="${spellcaster}">
-                                    <button class="tablinks" onclick="openTab(event, 'spells')">Spells</button>
+                                    <button type="button" class="tablinks" onclick="openTab(event, 'spells')">Spells</button>
                                 </g:if>
-                                <button class="tablinks" onclick="openTab(event, 'description')">Description</button>
+                                <button type="button" class="tablinks" onclick="openTab(event, 'description')">Description</button>
                             </div>
 
                             <%-- Actions --%>
                             <div id="actions" class="tabcontent" style="display: block">
                                 <div class="actiontab">
-                                    <button class="actiontablinks" onclick="openActionTab(event, 'all')">All</button>
-                                    <button class="actiontablinks" onclick="openActionTab(event, 'attack')">Attack</button>
-                                    <button class="actiontablinks" onclick="openActionTab(event, 'action')">Action</button>
-                                    <button class="actiontablinks" onclick="openActionTab(event, 'bonusaction')">Bonus Action</button>
-                                    <button class="actiontablinks" onclick="openActionTab(event, 'reaction')">Reaction</button>
-                                    <button class="actiontablinks" onclick="openActionTab(event, 'other')">Other</button>
+                                    <button type="button" class="actiontablinks" onclick="openActionTab(event, 'all')">All</button>
+                                    <button type="button" class="actiontablinks" onclick="openActionTab(event, 'attack')">Attack</button>
+                                    <button type="button" class="actiontablinks" onclick="openActionTab(event, 'action')">Action</button>
+                                    <button type="button" class="actiontablinks" onclick="openActionTab(event, 'bonusaction')">Bonus Action</button>
+                                    <button type="button" class="actiontablinks" onclick="openActionTab(event, 'reaction')">Reaction</button>
+                                    <button type="button" class="actiontablinks" onclick="openActionTab(event, 'other')">Other</button>
                                 </div>
 
                                 <div class="col" style="width: 100%; border-top: solid; border-color: darkred; border-width: 2px">
@@ -299,7 +307,7 @@
                                                     <tr>
                                                         <td>${it.name}</td>
                                                         <td>${it.range}</td>
-                                                        <g:if test="${it.dc == null}">
+                                                        <g:if test="${!it.dc}">
                                                             <g:hiddenField name="${it.name}" id="${it.name}" value="/r 1d20+${it.hit} & ${it.damage}"/>
                                                             <td>${it.hit}</td>
                                                             <td>${it.damage}</td>
@@ -376,14 +384,17 @@
                                 <g:set var="bonus" value="${(int)((stats[spellstat]-10)/2)+prof}" />
                                 <div id="spells" class="tabcontent">
                                     <div class="spelltab">
-                                        <button class="spelltablinks" onclick="openSpellTab(event, 'all')">All</button>
+                                        <button type="button" class="spelltablinks" onclick="openSpellTab(event, 'all')">All</button>
                                         <g:each in="${(0..<maxspelllevel+1)}">
-                                            <button class="spelltablinks" onclick="openSpellTab(event, 'spell${it}')">-${it}-</button>
+                                            <g:if test="${it == 0 || spellslots[it] > 0}">
+                                                <button type="button" class="spelltablinks" onclick="openSpellTab(event, 'spell${it}')">-${it}-</button>
+                                            </g:if>
                                         </g:each>
                                     </div>
 
                                     <div class="col" style="width: 100%; border-top: solid; border-color: darkred; border-width: 2px">
                                         <g:each in="${(0..<maxspelllevel+1)}" var="level">
+                                            <g:if test="${level == 0 || spellslots[level] > 0}">
                                             <div id="spell${level}" class="spelltabcontent" style="margin-top: 5px">
                                                 
                                                 <div class="row">
@@ -413,6 +424,7 @@
                                                     </g:each>
                                                 </table>
                                             </div>
+                                            </g:if>
                                         </g:each>
                                     </div>
                                 </div>
@@ -421,10 +433,10 @@
                             <%-- Inventory --%>
                             <div id="inventory" class="tabcontent">
                                 <div class="inventorytab">
-                                    <button class="inventorytablinks" onclick="openInventoryTab(event, 'all')">All</button>
-                                    <button class="inventorytablinks" onclick="openInventoryTab(event, 'equipped')">Equipped</button>
-                                    <button class="inventorytablinks" onclick="openInventoryTab(event, 'backpack')">Backpack</button>
-                                    <button class="inventorytablinks" onclick="openInventoryTab(event, 'attunement')">Attunement</button>
+                                    <button type="button" class="inventorytablinks" onclick="openInventoryTab(event, 'all')">All</button>
+                                    <button type="button" class="inventorytablinks" onclick="openInventoryTab(event, 'equipped')">Equipped</button>
+                                    <button type="button" class="inventorytablinks" onclick="openInventoryTab(event, 'backpack')">Backpack</button>
+                                    <button type="button" class="inventorytablinks" onclick="openInventoryTab(event, 'attunement')">Attunement</button>
                                 </div>
 
                                 <div class="col" style="width: 100%; border-top: solid; border-color: darkred; border-width: 2px">
@@ -472,7 +484,7 @@
                                                 <h5>Currently Attuned</h5>
                                                 <g:each in="${inventory}">
                                                     <g:if test="${it.attuned}">
-                                                        <button onclick="togglePanel('${it.name}')">${it.name}</button>
+                                                        <button type="button" onclick="togglePanel('${it.name}')">${it.name}</button>
                                                     </g:if>
                                                 </g:each>
                                             </div>
@@ -480,7 +492,7 @@
                                                 <h5>Items that Require Attunement</h5>
                                                 <g:each in="${inventory}">
                                                     <g:if test="${it.attunable}">
-                                                        <button onclick="togglePanel('${it.name}')">${it.name}</button>
+                                                        <button type="button" onclick="togglePanel('${it.name}')">${it.name}</button>
                                                     </g:if>
                                                 </g:each>
                                             </div>
@@ -492,10 +504,10 @@
                             <%-- Features --%>
                             <div id="features" class="tabcontent">
                                 <div class="featuretab">
-                                    <button class="featuretablinks" onclick="openFeatureTab(event, 'all')">All</button>
-                                    <button class="featuretablinks" onclick="openFeatureTab(event, 'class')">Class Features</button>
-                                    <button class="featuretablinks" onclick="openFeatureTab(event, 'race')">Racial Traits</button>
-                                    <button class="featuretablinks" onclick="openFeatureTab(event, 'feats')">Feats</button>
+                                    <button type="button" class="featuretablinks" onclick="openFeatureTab(event, 'all')">All</button>
+                                    <button type="button" class="featuretablinks" onclick="openFeatureTab(event, 'class')">Class Features</button>
+                                    <button type="button" class="featuretablinks" onclick="openFeatureTab(event, 'race')">Racial Traits</button>
+                                    <button type="button" class="featuretablinks" onclick="openFeatureTab(event, 'feats')">Feats</button>
                                 </div>
 
                                 <div class="col" style="width: 100%; border-top: solid; border-color: darkred; border-width: 2px">
@@ -513,7 +525,7 @@
                                                     <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.formula}"/>
                                                     <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
                                                 </g:if>
-                                                <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
+                                                <g:render template="/display" model="${[sourceList: ["${it.name}name", "${it.name}body"], target: 'target']}"/>
                                             </g:if>
                                             <p></p>
                                         </g:each>
@@ -645,6 +657,8 @@
                 </div>
             
             </div>
+
+        </g:form>
 
     </div>
 </div>

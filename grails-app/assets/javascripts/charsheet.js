@@ -1,10 +1,17 @@
 function toggleInsp(){
     if(document.getElementById('insp').style.display == 'none'){
         document.getElementById('insp').style.display = 'inline'
-        return
+    }else{
+        document.getElementById('insp').style.display = 'none'
     }
 
-    document.getElementById('insp').style.display = 'none'
+    if(document.getElementsByName('inspValue')[0].value == 'false'){
+        document.getElementsByName('inspValue')[0].value = 'true'
+    }else{
+        document.getElementsByName('inspValue')[0].value = 'false'
+    }
+
+    console.log(document.getElementsByName('inspValue')[0].value)
 }
 
 function heal(){
