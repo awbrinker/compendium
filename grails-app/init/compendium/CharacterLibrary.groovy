@@ -112,6 +112,7 @@ class CharacterLibrary {
             insp: character.insp,
             hp: character.hp,
             maxhp: character.maxhp,
+            maxhpchange: 0,
             temphp: character.temphp,
             successes: character.successes,
             failures: character.failures,

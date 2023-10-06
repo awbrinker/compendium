@@ -17,6 +17,7 @@ class Character {
     boolean insp
     int hp
     int maxhp
+    int maxhpchange
     int temphp
     int successes
     int failures

@@ -13,6 +13,30 @@ class ContentController {
         def character = Character.findByName(params.name)
 
         character.insp = params.inspValue.toBoolean()
+        character.hp = params.hp.toInteger()
+        character.maxhpchange = params.maxhp.toInteger() - character.maxhp.toInteger()
+        character.temphp = params.temphp.toInteger()
+
+        for(a in character.actions){
+            if(a.maxCharges != 0){
+                a.charges = params["${a.name}charges"].toInteger()
+            }
+            a.save(flush:true)
+        }
+
+        def slots = [0]
+        for(int i = 1; i < 10; i++){
+            slots.add(i <= character.maxspelllevel ? params["slots$i"].toInteger() : 0)
+        }
+        character.spellslots = slots
+
+        for(f in character.features){
+            if(f.maxCharges != 0){
+                f.charges = params["${f.name}charges"].toInteger()
+            }
+            f.save(flush:true)
+        }
+
         character.save(flush: true)
 
         redirect(action: params.name.toLowerCase())
@@ -38,7 +62,7 @@ class ContentController {
                                         speed: character.speed,
                                         insp: character.insp,
                                         hp: character.hp,
-                                        maxhp: character.maxhp,
+                                        maxhp: character.maxhp + character.maxhpchange,
                                         temphp: character.temphp,
                                         successes: character.successes,
                                         failures: character.failures,
@@ -85,7 +109,7 @@ class ContentController {
                                         speed: character.speed,
                                         insp: character.insp,
                                         hp: character.hp,
-                                        maxhp: character.maxhp,
+                                        maxhp: character.maxhp + character.maxhpchange,
                                         temphp: character.temphp,
                                         successes: character.successes,
                                         failures: character.failures,

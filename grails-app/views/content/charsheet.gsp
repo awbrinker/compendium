@@ -232,9 +232,10 @@
                         </table>
                     </div>
 
+                    <%-- Initiative through Conditions and Primary Window --%>
                     <div style="align-items: left; width: 50%; display: flex; flex-direction: column">
 
-
+                        <%-- Subheader --%>
                         <div style="display: flex; flex-direction: horizontal; color: black">
 
                             <%-- Initiative --%>
@@ -260,11 +261,10 @@
                                 Conditions
                                 <p style="font-size: 9px; text-align: left; margin: 3px">${conditions}</p>
                             </div>
-
-
+                            
                         </div>
 
-                        <%-- Main Body --%>
+                        <%-- Primary Window --%>
                         <div class="body">
 
                             <div class="tab">
@@ -301,6 +301,7 @@
                                                 <th>Type</th>
                                                 <th>Notes</th>
                                                 <th></th>
+                                                <th></th>
                                             </tr>
                                             <g:each in="${actions}">
                                                 <g:if test="${it.type == "Attack"}">
@@ -308,11 +309,16 @@
                                                         <td>${it.name}</td>
                                                         <td>${it.range}</td>
                                                         <g:if test="${!it.dc}">
-                                                            <g:hiddenField name="${it.name}" id="${it.name}" value="/r 1d20+${it.hit} & ${it.damage}"/>
+                                                            <g:hiddenField name="${it.name}" id="${it.name}" value="/r 1d20${it.hit} & ${it.damage}"/>
                                                             <td>${it.hit}</td>
                                                             <td>${it.damage}</td>
                                                             <td>${it.dmgtype}</td>
                                                             <td>${it.notes}</td>
+                                                            <td>
+                                                                <g:if test="${it.maxCharges > 0}">
+                                                                    <input name="${it.name}charges" id="${it.name}charges" type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
+                                                                </g:if>
+                                                            </td>
                                                             <td><g:render template="/roll" model="${[source: it.name, target: 'target']}"/></td>
                                                         </g:if>
                                                         <g:else>
@@ -321,6 +327,11 @@
                                                             <td>${it.damage}</td>
                                                             <td>${it.dmgtype}</td>
                                                             <td>${it.notes}</td>
+                                                            <td>
+                                                                <g:if test="${it.maxCharges > 0}">
+                                                                    <input name="${it.name}charges" id="${it.name}charges" type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
+                                                                </g:if>
+                                                            </td>
                                                             <td><g:render template="/roll" model="${[source: it.name, target: 'target']}"/></td>
                                                         </g:else>
                                                     </tr>
@@ -348,6 +359,9 @@
                                             <g:if test="${it.type == "Bonus Action"}">
                                                 <h5 id="${it.name}name">${it.name}</h5>
                                                 <p id="${it.name}body">${it.body}</p>
+                                                <g:if test="${it.maxCharges > 0}">
+                                                    <input name="${it.name}charges" id="${it.name}charges" type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
+                                                </g:if>
                                                 <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
                                             </g:if>
                                         </g:each>
@@ -360,6 +374,9 @@
                                             <g:if test="${it.type == "Reaction"}">
                                                 <h5 id="${it.name}name">${it.name}</h5>
                                                 <p id="${it.name}body">${it.body}</p>
+                                                <g:if test="${it.maxCharges > 0}">
+                                                    <input name="${it.name}charges" id="${it.name}charges" type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
+                                                </g:if>
                                                 <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
                                             </g:if>
                                         </g:each>
@@ -372,6 +389,9 @@
                                             <g:if test="${it.type == "Special"}">
                                                 <h5 id="${it.name}name">${it.name}</h5>
                                                 <p id="${it.name}body">${it.body}</p>
+                                                <g:if test="${it.maxCharges > 0}">
+                                                    <input name="${it.name}charges" id="${it.name}charges" type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
+                                                </g:if>
                                                 <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
                                             </g:if>
                                         </g:each>
@@ -403,7 +423,7 @@
                                                     </div>
                                                     <div class="col" style="align-items: flex-end">
                                                         <g:if test="${maxspellslots[level] > 0}">
-                                                            <input style="width: 20%" type="number" min="0" max="${maxspellslots[level]}" value="${spellslots[level]}" />
+                                                            <input name="slots${level}" id="slots${level}" style="width: 20%" type="number" min="0" max="${maxspellslots[level]}" value="${spellslots[level]}" />
                                                         </g:if>
                                                     </div>
                                                 </div>
@@ -519,7 +539,7 @@
                                                 <h5 id="${it.name}name">${it.name}</h5>
                                                 <p id="${it.name}body">${it.body}</p>
                                                 <g:if test="${it.maxCharges > 0}">
-                                                    <input type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
+                                                    <input name="${it.name}charges" id="${it.name}charges" type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
                                                 </g:if>
                                                 <g:if test="${it.formula}">
                                                     <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.formula}"/>
@@ -539,7 +559,7 @@
                                                 <h5 id="${it.name}name">${it.name}</h5>
                                                 <p id="${it.name}body">${it.body}</p>
                                                 <g:if test="${it.maxCharges > 0}">
-                                                    <input type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
+                                                    <input name="${it.name}charges" id="${it.name}charges" type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
                                                 </g:if>
                                                 <g:if test="${it.formula}">
                                                     <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.formula}"/>
@@ -559,7 +579,7 @@
                                                 <h5 id="${it.name}name">${it.name}</h5>
                                                 <p id="${it.name}body">${it.body}</p>
                                                 <g:if test="${it.maxCharges > 0}">
-                                                    <input type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
+                                                    <input name="${it.name}charges" id="${it.name}charges" type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
                                                 </g:if>
                                                 <g:if test="${it.formula}">
                                                     <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.formula}"/>
