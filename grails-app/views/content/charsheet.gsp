@@ -41,17 +41,37 @@
             <div style="display: flex; flex-direction: column">
                 <div style="display: flex; flex-direction: horizontal">
                     <asset:image src="charart/${name}.png" style="width: 120px; height: 120px; margin-right: 20px"/>
-                    <div style="align-items: left; width: 25%; display: flex; flex-direction: column; margin-right: 5%">
+                    <div style="align-items: left; width: 55%; display: flex; flex-direction: column; margin-right: 5%">
                         <h1>${name}</h1>
                         <g:hiddenField name="name" value="${name}"/>
                         <h3>${raceclass}</h3>
                     </div>
 
-                    <div style="align-items: left; width: 25%; display: flex; flex-direction: column; margin-right: 5%">
-                        <g:actionSubmit value="Save Changes" action="update"/>
+                    <div style="align-items: center; width: 20%; display: flex; flex-direction: column; margin-right: 2%">
+                        <h5>Hit Dice</h5>
+                        <g:each in="${0..<hitDice.size()}">
+                            <div style="align-items: center; display: flex; flex-direction: column">
+                                <g:hiddenField name="hitdice${it}" id="hitdice${it}" value="/r d${hitDice[it]}+${(int)((stats[2]-10)/2)}"/>
+                                <p>d${hitDice[it]}</p>
+                                <input type="number" name="hitdicecount${it}" id="hitdicecount${it}" style="width: 65px" value="${hitDiceCount[it]}" min="0" max="${maxHitDice[it]}"/>
+                                <g:render template="/roll" model="${[source: "hitdice${it}", target: 'target']}"/>
+                            </div>
+                        </g:each>
                     </div>
 
-                    <div style="align-items: left; text-align: right; width: 50%; display: flex; flex-direction: column; margin-right: 5%">
+                    <div style="align-items: left; width: 10%; display: flex; flex-direction: column; margin-right: 2%">
+                        <g:actionSubmit class="charbtn" value="Short Rest" action="shortRest" onclick="return confirm('Short rest?')"/>
+                    </div>
+
+                    <div style="align-items: left; width: 10%; display: flex; flex-direction: column; margin-right: 2%">
+                        <g:actionSubmit class="charbtn" value="Long Rest" action="longRest" onclick="return confirm('Long rest?')"/>
+                    </div>
+
+                    <div style="align-items: left; width: 10%; display: flex; flex-direction: column; margin-right: 5%">
+                        <g:actionSubmit class="charbtn" value="Save Changes" action="update"/>
+                    </div>
+
+                    <div style="align-items: left; text-align: right; width: 15%; display: flex; flex-direction: column; margin-right: 5%">
                         <p>Experience: ${xp}</p>
                         <p>Next level at: ${nextxp}</p>
                     </div>             
@@ -121,6 +141,12 @@
                         <div class="col">
                             <div>Temp HP</div>
                             <input type="number" name="temphp" id="temphp" style="width: 65px; margin-left: 6px" value="${temphp}"/>
+                        </div>
+
+                        <div class="col">
+                            <div>Death Saving Throws</div>
+                            <input type="number" name="successes" id="successes" style="width: 65px; margin-left: 6px; color: green" value="${successes}" min="0" max="3"/>
+                            <input type="number" name="failures" id="failures" style="width: 65px; margin-left: 6px; color: red" value="${failures}" min="0" max="3"/>
                         </div>
                     </div>
                 </div>  
@@ -221,9 +247,9 @@
                                     </g:elseif>
                                     <td>${statnames[skillstats[it].toInteger()]}</td>
                                     <td>${skillnames[it]}</td>
-                                    <g:hiddenField name="skills${it}" id="skills${it}" value=""/>
+                                    <g:hiddenField name="skills${it}" id="skills${it}" value="/r d20+${(int)((stats[skillstats[it].toInteger()]-10)/2)+(prof * skills[it])}"/>
                                     <td>
-                                        <button type="button" class="charbtn" style="width: 40px; font-size: 13px; margin-left: 10px" onclick="sendMessageTo('skills'+${it}, 'target')">
+                                        <button type="button" class="charbtn" style="width: 40px; font-size: 13px; margin-left: 10px" onclick="sendMessageTo('skills${it}', 'target')">
                                             <strong>+${(int)((stats[skillstats[it].toInteger()]-10)/2)+(prof * skills[it])}</strong>
                                         </button>
                                     <td>
@@ -261,7 +287,7 @@
                                 Conditions
                                 <p style="font-size: 9px; text-align: left; margin: 3px">${conditions}</p>
                             </div>
-                            
+
                         </div>
 
                         <%-- Primary Window --%>

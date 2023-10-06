@@ -17,6 +17,12 @@ class ContentController {
         character.maxhpchange = params.maxhp.toInteger() - character.maxhp.toInteger()
         character.temphp = params.temphp.toInteger()
 
+        def diceCount = []
+        for(int i = 0; i < character.hitDice.size(); i++){
+            diceCount.add(params["hitdicecount$i"].toInteger())
+        }
+        character.hitDiceCount = diceCount
+
         for(a in character.actions){
             if(a.maxCharges != 0){
                 a.charges = params["${a.name}charges"].toInteger()
@@ -33,6 +39,90 @@ class ContentController {
         for(f in character.features){
             if(f.maxCharges != 0){
                 f.charges = params["${f.name}charges"].toInteger()
+            }
+            f.save(flush:true)
+        }
+
+        character.save(flush: true)
+
+        redirect(action: params.name.toLowerCase())
+    }
+
+    @Transactional
+    def shortRest() {
+        def character = Character.findByName(params.name)
+
+        character.insp = params.inspValue.toBoolean()
+        character.hp = params.hp.toInteger()
+        character.maxhpchange = params.maxhp.toInteger() - character.maxhp.toInteger()
+        character.temphp = params.temphp.toInteger()
+
+        def diceCount = []
+        for(int i = 0; i < character.hitDice.size(); i++){
+            diceCount.add(params["hitdicecount$i"].toInteger())
+        }
+        character.hitDiceCount = diceCount
+
+        for(a in character.actions){
+            if(a.maxCharges != 0){
+                if(a.shortRest){
+                    a.charges = a.maxCharges
+                }else{
+                    a.charges = params["${a.name}charges"].toInteger()
+                }
+            }
+            a.save(flush:true)
+        }
+
+        def slots = [0]
+        for(int i = 1; i < 10; i++){
+            slots.add(i <= character.maxspelllevel ? params["slots$i"].toInteger() : 0)
+        }
+        character.spellslots = slots
+
+        for(f in character.features){
+            if(f.maxCharges != 0){
+                if(f.shortRest){
+                    f.charges = f.maxCharges
+                }else{
+                    f.charges = params["${f.name}charges"].toInteger()
+                }
+            }
+            f.save(flush:true)
+        }
+
+        character.save(flush: true)
+
+        redirect(action: params.name.toLowerCase())
+    }
+
+    @Transactional
+    def longRest() {
+        def character = Character.findByName(params.name)
+
+        character.insp = params.inspValue.toBoolean()
+        character.hp = character.maxhp
+        character.maxhpchange = 0
+        character.temphp = 0
+
+        def diceCount = []
+        for(int i = 0; i < character.hitDice.size(); i++){
+            diceCount.add(params["hitdicecount$i"].toInteger() + (character.maxHitDice[i]/2))
+        }
+        character.hitDiceCount = diceCount
+
+        for(a in character.actions){
+            if(a.maxCharges != 0){
+                a.charges = a.maxCharges
+            }
+            a.save(flush:true)
+        }
+
+        character.spellslots = character.maxspellslots
+
+        for(f in character.features){
+            if(f.maxCharges != 0){
+                f.charges = f.maxCharges
             }
             f.save(flush:true)
         }
@@ -66,6 +156,9 @@ class ContentController {
                                         temphp: character.temphp,
                                         successes: character.successes,
                                         failures: character.failures,
+                                        hitDice: character.hitDice,
+                                        hitDiceCount: character.hitDiceCount,
+                                        maxHitDice: character.maxHitDice,
                                         saves: character.saves,
                                         savenotes: character.savenotes,
                                         senses: character.senses,
@@ -113,6 +206,9 @@ class ContentController {
                                         temphp: character.temphp,
                                         successes: character.successes,
                                         failures: character.failures,
+                                        hitDice: character.hitDice,
+                                        hitDiceCount: character.hitDiceCount,
+                                        maxHitDice: character.maxHitDice,
                                         saves: character.saves,
                                         savenotes: character.savenotes,
                                         senses: character.senses,
@@ -164,6 +260,9 @@ class ContentController {
                                         temphp: character.temphp,
                                         successes: character.successes,
                                         failures: character.failures,
+                                        hitDice: character.hitDice,
+                                        hitDiceCount: character.hitDiceCount,
+                                        maxHitDice: character.maxHitDice,
                                         saves: character.saves,
                                         savenotes: character.savenotes,
                                         senses: character.senses,

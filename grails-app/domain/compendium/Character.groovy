@@ -21,6 +21,9 @@ class Character {
     int temphp
     int successes
     int failures
+    int[] hitDice
+    int[] hitDiceCount
+    int[] maxHitDice
     int[] saves
     String[] savenotes
     String senses 
