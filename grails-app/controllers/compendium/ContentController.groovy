@@ -16,6 +16,8 @@ class ContentController {
         character.hp = params.hp.toInteger()
         character.maxhpchange = params.maxhp.toInteger() - character.maxhp.toInteger()
         character.temphp = params.temphp.toInteger()
+        character.successes = params.successes.toInteger()
+        character.failures = params.failures.toInteger()
 
         def diceCount = []
         for(int i = 0; i < character.hitDice.size(); i++){
@@ -56,6 +58,8 @@ class ContentController {
         character.hp = params.hp.toInteger()
         character.maxhpchange = params.maxhp.toInteger() - character.maxhp.toInteger()
         character.temphp = params.temphp.toInteger()
+        character.successes = 0
+        character.failures = 0
 
         def diceCount = []
         for(int i = 0; i < character.hitDice.size(); i++){
@@ -104,6 +108,8 @@ class ContentController {
         character.hp = character.maxhp
         character.maxhpchange = 0
         character.temphp = 0
+        character.successes = 0
+        character.failures = 0
 
         def diceCount = []
         for(int i = 0; i < character.hitDice.size(); i++){
@@ -137,7 +143,7 @@ class ContentController {
 
         def character = Character.findByName("Sentinel")
 
-        render(view: "charsheet", model: [hook: springSecurityService.currentUser.defaultHook,
+        render(view: "charsheet", model: [hook: character.hook ?: springSecurityService.currentUser.defaultHook,
                                         name: character.name,
                                         xp: character.xp,
                                         nextxp: character.nextxp,
@@ -187,7 +193,11 @@ class ContentController {
     }
 
     def rivaan(){
-        render(view: "charsheet", model: [hook: springSecurityService.currentUser.defaultHook,
+        def springSecurityService = Holders.applicationContext.springSecurityService
+
+        def character = Character.findByName("Rivaan")
+
+        render(view: "charsheet", model: [hook: character.hook ?: springSecurityService.currentUser.defaultHook,
                                         name: character.name,
                                         xp: character.xp,
                                         nextxp: character.nextxp,
@@ -241,7 +251,7 @@ class ContentController {
 
         def character = Character.findByName("Valakhad")
 
-        render(view: "charsheet", model: [hook: springSecurityService.currentUser.defaultHook,
+        render(view: "charsheet", model: [hook: character.hook ?: springSecurityService.currentUser.defaultHook,
                                         name: character.name,
                                         xp: character.xp,
                                         nextxp: character.nextxp,

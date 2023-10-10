@@ -97,6 +97,7 @@ class CharacterLibrary {
         def character = jsonSlurper.parse(new File("data/characters/${filename}"))
 
         def initChar = new Character(
+            hook: character.hook,
             name: character.name,
             raceclass: character.raceclass,
             xp: character.xp,
@@ -153,6 +154,7 @@ class CharacterLibrary {
     static void initialize() {
         buildChar("valakhad.json")
         buildChar("sentinel.json")
+        buildChar("rivaan.json")
     }
 
 }

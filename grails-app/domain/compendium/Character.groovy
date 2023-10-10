@@ -2,6 +2,7 @@ package compendium
 
 class Character {
 
+    String hook
     String name
     String raceclass
     int xp
@@ -54,6 +55,7 @@ class Character {
     ]
 
     static constraints = {
+        hook(nullable: true)
         backgroundfeaturebody(maxSize: 1024)
         spellslots(nullable: true)
         maxspellslots(nullable: true)

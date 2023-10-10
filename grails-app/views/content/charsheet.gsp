@@ -373,6 +373,10 @@
                                             <g:if test="${it.type == "Action"}">
                                                 <h5 id="${it.name}name">${it.name}</h5>
                                                 <p id="${it.name}body">${it.body}</p>
+                                                <g:if test="${it.damage}">
+                                                    <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.damage}"/>
+                                                    <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
+                                                </g:if>
                                                 <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
                                             </g:if>
                                         </g:each>
@@ -387,6 +391,10 @@
                                                 <p id="${it.name}body">${it.body}</p>
                                                 <g:if test="${it.maxCharges > 0}">
                                                     <input name="${it.name}charges" id="${it.name}charges" type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
+                                                </g:if>
+                                                <g:if test="${it.damage}">
+                                                    <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.damage}"/>
+                                                    <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
                                                 </g:if>
                                                 <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
                                             </g:if>
@@ -403,6 +411,10 @@
                                                 <g:if test="${it.maxCharges > 0}">
                                                     <input name="${it.name}charges" id="${it.name}charges" type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
                                                 </g:if>
+                                                <g:if test="${it.damage}">
+                                                    <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.damage}"/>
+                                                    <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
+                                                </g:if>
                                                 <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
                                             </g:if>
                                         </g:each>
@@ -417,6 +429,10 @@
                                                 <p id="${it.name}body">${it.body}</p>
                                                 <g:if test="${it.maxCharges > 0}">
                                                     <input name="${it.name}charges" id="${it.name}charges" type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
+                                                </g:if>
+                                                <g:if test="${it.damage}">
+                                                    <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.damage}"/>
+                                                    <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
                                                 </g:if>
                                                 <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
                                             </g:if>
