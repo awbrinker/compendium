@@ -114,6 +114,8 @@ class ContentController {
         def diceCount = []
         for(int i = 0; i < character.hitDice.size(); i++){
             diceCount.add(params["hitdicecount$i"].toInteger() + (character.maxHitDice[i]/2))
+            if(diceCount[i] > character.maxHitDice[i])
+                diceCount[i] = character.maxHitDice[i]
         }
         character.hitDiceCount = diceCount
 
@@ -144,6 +146,7 @@ class ContentController {
         def character = Character.findByName("Sentinel")
 
         render(view: "charsheet", model: [hook: character.hook ?: springSecurityService.currentUser.defaultHook,
+                                        imgurl: character.imgurl,
                                         name: character.name,
                                         xp: character.xp,
                                         nextxp: character.nextxp,
@@ -184,6 +187,7 @@ class ContentController {
                                         spellslots: character.spellslots,
                                         maxspellslots: character.maxspellslots,
                                         spells: character.spells,
+                                        gold: character.gold,
                                         inventory: character.inventory,
                                         features: character.features,
                                         background: character.background,
@@ -198,6 +202,7 @@ class ContentController {
         def character = Character.findByName("Rivaan")
 
         render(view: "charsheet", model: [hook: character.hook ?: springSecurityService.currentUser.defaultHook,
+                                        imgurl: character.imgurl,
                                         name: character.name,
                                         xp: character.xp,
                                         nextxp: character.nextxp,
@@ -238,6 +243,7 @@ class ContentController {
                                         spellslots: character.spellslots,
                                         maxspellslots: character.maxspellslots,
                                         spells: character.spells,
+                                        gold: character.gold,
                                         inventory: character.inventory,
                                         features: character.features,
                                         background: character.background,
@@ -252,6 +258,7 @@ class ContentController {
         def character = Character.findByName("Valakhad")
 
         render(view: "charsheet", model: [hook: character.hook ?: springSecurityService.currentUser.defaultHook,
+                                        imgurl: character.imgurl,
                                         name: character.name,
                                         xp: character.xp,
                                         nextxp: character.nextxp,
@@ -292,6 +299,7 @@ class ContentController {
                                         spellslots: character.spellslots,
                                         maxspellslots: character.maxspellslots,
                                         spells: character.spells,
+                                        gold: character.gold,
                                         inventory: character.inventory,
                                         features: character.features,
                                         background: character.background,

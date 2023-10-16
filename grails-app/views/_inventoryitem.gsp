@@ -5,7 +5,9 @@
     <g:else><td>&#9634;</td></g:else>
     <td>${item.name}</td>
     <td>${item.weight}</td>
-    <td>${item.qty}</td>
+    <td>
+        <input type="number" id="${item.name}qty" value="${item.qty}" style="width: 50px"/>
+    </td>
     <td>${item.cost}</td>
     <td>${item.notes}</td>
 </tr>

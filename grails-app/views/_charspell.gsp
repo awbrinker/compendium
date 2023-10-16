@@ -58,7 +58,7 @@
         </div>
         <div class="row" style="align-items: center">
             <g:if test="${spell.formula != 'None'}">
-                <g:render template="/roll" model="${[source: ("${level}"+spell.id+'formula'), target: ("${level}"+spell.id+'target')]}"/>
+                <g:render template="/charRoll" model="${[source: ("${level}"+spell.id+'formula'), target: ("${level}"+spell.id+'target')]}"/>
             </g:if>
             <g:render template="/display" model="${[sourceList: [level+spell.id+'name', level+spell.id+'level', level+spell.id+'casting', level+spell.id+'range', level+spell.id+'comps', level+spell.id+'duration', level+spell.id+'text', level+spell.id+'highText', level+spell.id+'comText'], target: level+spell.id+'target']}"/>
         </div>

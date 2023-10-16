@@ -244,6 +244,43 @@ tr:hover {
     color: goldenrod;
 }
 
+.charRollText {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-25%, -50%);
+    font-size: 12px;
+    font-family:'Times New Roman', Times, serif;
+    font-weight: 800;
+    color: white;
+}
+
+.charRollText-shift {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-25%, -50%);
+    font-size: 12px;
+    font-family:'Times New Roman', Times, serif;
+    font-weight: 800;
+    color: green;
+}
+
+.charRollText-ctrl {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-25%, -50%);
+    font-size: 12px;
+    font-family:'Times New Roman', Times, serif;
+    font-weight: 800;
+    color: red;
+}
+
+.charRollText:hover {
+    color: goldenrod;
+}
+
 .displayText {
     position: absolute;
     top: 50%;
@@ -256,5 +293,20 @@ tr:hover {
 }
 
 .displayText:hover {
+    color: goldenrod;
+}
+
+.charDisplayText {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-35%, -50%);
+    font-size: 12px;
+    font-family:'Times New Roman', Times, serif;
+    font-weight: 800;
+    color: white;
+}
+
+.charDisplayText:hover {
     color: goldenrod;
 }

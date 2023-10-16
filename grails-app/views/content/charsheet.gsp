@@ -17,6 +17,7 @@
 <g:render template="/navbar" />
 
 <g:hiddenField name="target" id="target" value="${hook}"/>
+<g:hiddenField name="imgurl" id="imgurl" value="${imgurl}"/>
 <g:set var="statnames" value="${['STR', 'DEX', "CON", "INT", "WIS", "CHA"]}"/>
 <g:set var="skillnames" value="${['Acrobatics', 'Animal Handling', 'Arcana', 'Athletics', 'Deception', 'History',
                                     'Insight', 'Intimidation', 'Investigation', 'Medicine', 'Nature', 'Perception',
@@ -54,7 +55,7 @@
                                 <g:hiddenField name="hitdice${it}" id="hitdice${it}" value="/r d${hitDice[it]}+${(int)((stats[2]-10)/2)}"/>
                                 <p>d${hitDice[it]}</p>
                                 <input type="number" name="hitdicecount${it}" id="hitdicecount${it}" style="width: 65px" value="${hitDiceCount[it]}" min="0" max="${maxHitDice[it]}"/>
-                                <g:render template="/roll" model="${[source: "hitdice${it}", target: 'target']}"/>
+                                <g:render template="/charRoll" model="${[source: "hitdice${it}", target: 'target']}"/>
                             </div>
                         </g:each>
                     </div>
@@ -82,7 +83,7 @@
                 <div style="display: flex; flex-direction: horizontal">
                     <g:each in="${(0..<6)}">
                         <g:hiddenField name="stats${it}" id="stats${it}" value="/r d20+${(int)((stats[it]-10)/2)}"/>
-                        <button type="button" class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendMessageTo('stats'+${it}, 'target')">
+                        <button type="button" class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendCharMessageTo('stats'+${it}, 'target')">
                             <div>${statnames[it]}</div>
                             <h4>+${(int)((stats[it]-10)/2)}</h4>
                             <div>(${stats[it]})</div>
@@ -91,14 +92,14 @@
 
                     <%-- Proficiency Bonus --%>
                     <g:hiddenField name="prof" id="prof" value="Proficiency: +${prof}"/>
-                    <button type="button" class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendMessageTo('prof', 'target')">
+                    <button type="button" class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendCharMessageTo('prof', 'target')">
                         <div>PROF</div>
                         <h4>+${prof}</h4>
                     </button>
 
                     <%-- Movement Speed --%>
                     <g:hiddenField name="speed" id="speed" value="Speed: ${speed} ft."/>
-                    <button type="button" class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendMessageTo('speed', 'target')">
+                    <button type="button" class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendCharMessageTo('speed', 'target')">
                         <div>Walking</div>
                         <h4>${speed} ft.</h4>
                         <div>Speed</div>
@@ -164,7 +165,7 @@
                                     <div style="display: flex; flex-direction: horizontal; margin: 5px">
                                         <g:hiddenField name="saves${it}" id="saves${it}" value="/r d20+${(int)((stats[it]-10)/2)+(prof * saves[it])}"/>
                                         <div style="margin-top: 15px">${statnames[it]}</div>
-                                        <button type="button" class="charbtn" style="width: 40px; padding: 5px; margin: 5px" onclick="sendMessageTo('saves'+${it}, 'target')">
+                                        <button type="button" class="charbtn" style="width: 40px; padding: 5px; margin: 5px" onclick="sendCharMessageTo('saves'+${it}, 'target')">
                                             <h4>+${(int)((stats[it]-10)/2)+(prof * saves[it])}</h4>
                                         </button>
                                     </div>
@@ -178,7 +179,7 @@
                                     <div style="display: flex; flex-direction: horizontal; margin: 5px">
                                         <g:hiddenField name="saves${it}" id="saves${it}" value="/r d20+${(int)((stats[it]-10)/2)+(prof * saves[it])}"/>
                                         <div style="margin-top: 15px">${statnames[it]}</div>
-                                        <button type="button" class="charbtn" style="width: 40px; padding: 5px; margin: 5px" onclick="sendMessageTo('saves'+${it}, 'target')">
+                                        <button type="button" class="charbtn" style="width: 40px; padding: 5px; margin: 5px" onclick="sendCharMessageTo('saves'+${it}, 'target')">
                                             <h4>+${(int)((stats[it]-10)/2)+(prof * saves[it])}</h4>
                                         </button>
                                     </div>
@@ -249,7 +250,7 @@
                                     <td>${skillnames[it]}</td>
                                     <g:hiddenField name="skills${it}" id="skills${it}" value="/r d20+${(int)((stats[skillstats[it].toInteger()]-10)/2)+(prof * skills[it])}"/>
                                     <td>
-                                        <button type="button" class="charbtn" style="width: 40px; font-size: 13px; margin-left: 10px" onclick="sendMessageTo('skills${it}', 'target')">
+                                        <button type="button" class="charbtn" style="width: 40px; font-size: 13px; margin-left: 10px" onclick="sendCharMessageTo('skills${it}', 'target')">
                                             <strong>+${(int)((stats[skillstats[it].toInteger()]-10)/2)+(prof * skills[it])}</strong>
                                         </button>
                                     <td>
@@ -266,14 +267,14 @@
 
                             <%-- Initiative --%>
                             <g:hiddenField name="init" id="init" value="/r d20+${initbonus + (int)((stats[1]-10)/2)}"/>
-                            <button type="button" class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendMessageTo('init', 'target')">
+                            <button type="button" class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendCharMessageTo('init', 'target')">
                                 <div>Initiative</div>
                                 <h4>+${initbonus + (int)((stats[1]-10)/2)}</h4>
                             </button>
 
                             <%-- AC --%>
                             <g:hiddenField name="ac" id="ac" value="AC: ${ac}"/>
-                            <button type="button" class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendMessageTo('ac', 'target')">
+                            <button type="button" class="charbtn" style="width: 80px; padding: 10px; margin: 10px; border: solid; border-color: darkred; border-width: 3px; border-radius: 15px" onclick="sendCharMessageTo('ac', 'target')">
                                 <div>AC</div>
                                 <h4>${ac}</h4>
                             </button>
@@ -345,7 +346,7 @@
                                                                     <input name="${it.name}charges" id="${it.name}charges" type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
                                                                 </g:if>
                                                             </td>
-                                                            <td><g:render template="/roll" model="${[source: it.name, target: 'target']}"/></td>
+                                                            <td><g:render template="/charRoll" model="${[source: it.name, target: 'target']}"/></td>
                                                         </g:if>
                                                         <g:else>
                                                             <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.damage}"/>
@@ -358,7 +359,7 @@
                                                                     <input name="${it.name}charges" id="${it.name}charges" type="number" min="0" max="${it.maxCharges}" value="${it.charges}"/>
                                                                 </g:if>
                                                             </td>
-                                                            <td><g:render template="/roll" model="${[source: it.name, target: 'target']}"/></td>
+                                                            <td><g:render template="/charRoll" model="${[source: it.name, target: 'target']}"/></td>
                                                         </g:else>
                                                     </tr>
                                                 </g:if>
@@ -375,9 +376,9 @@
                                                 <p id="${it.name}body">${it.body}</p>
                                                 <g:if test="${it.damage}">
                                                     <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.damage}"/>
-                                                    <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
+                                                    <g:render template="/charRoll" model="${[source: it.name, target: 'target']}"/>
                                                 </g:if>
-                                                <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
+                                                <g:render template="/charDisplay" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
                                             </g:if>
                                         </g:each>
                                     </div>
@@ -394,9 +395,9 @@
                                                 </g:if>
                                                 <g:if test="${it.damage}">
                                                     <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.damage}"/>
-                                                    <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
+                                                    <g:render template="/charRoll" model="${[source: it.name, target: 'target']}"/>
                                                 </g:if>
-                                                <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
+                                                <g:render template="/charDisplay" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
                                             </g:if>
                                         </g:each>
                                     </div>
@@ -413,9 +414,9 @@
                                                 </g:if>
                                                 <g:if test="${it.damage}">
                                                     <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.damage}"/>
-                                                    <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
+                                                    <g:render template="/charRoll" model="${[source: it.name, target: 'target']}"/>
                                                 </g:if>
-                                                <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
+                                                <g:render template="/charDisplay" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
                                             </g:if>
                                         </g:each>
                                     </div>
@@ -432,9 +433,9 @@
                                                 </g:if>
                                                 <g:if test="${it.damage}">
                                                     <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.damage}"/>
-                                                    <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
+                                                    <g:render template="/charRoll" model="${[source: it.name, target: 'target']}"/>
                                                 </g:if>
-                                                <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
+                                                <g:render template="/charDisplay" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
                                             </g:if>
                                         </g:each>
                                     </div>
@@ -499,6 +500,7 @@
                                     <button type="button" class="inventorytablinks" onclick="openInventoryTab(event, 'equipped')">Equipped</button>
                                     <button type="button" class="inventorytablinks" onclick="openInventoryTab(event, 'backpack')">Backpack</button>
                                     <button type="button" class="inventorytablinks" onclick="openInventoryTab(event, 'attunement')">Attunement</button>
+                                    <input type="number" value="${gold}" style="float: right; margin: 10px; width: 70px"/>
                                 </div>
 
                                 <div class="col" style="width: 100%; border-top: solid; border-color: darkred; border-width: 2px">
@@ -585,9 +587,9 @@
                                                 </g:if>
                                                 <g:if test="${it.formula}">
                                                     <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.formula}"/>
-                                                    <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
+                                                    <g:render template="/charRoll" model="${[source: it.name, target: 'target']}"/>
                                                 </g:if>
-                                                <g:render template="/display" model="${[sourceList: ["${it.name}name", "${it.name}body"], target: 'target']}"/>
+                                                <g:render template="/charDisplay" model="${[sourceList: ["${it.name}name", "${it.name}body"], target: 'target']}"/>
                                             </g:if>
                                             <p></p>
                                         </g:each>
@@ -605,9 +607,9 @@
                                                 </g:if>
                                                 <g:if test="${it.formula}">
                                                     <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.formula}"/>
-                                                    <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
+                                                    <g:render template="/charRoll" model="${[source: it.name, target: 'target']}"/>
                                                 </g:if>
-                                                <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
+                                                <g:render template="/charDisplay" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
                                             </g:if>
                                             <p></p>
                                         </g:each>
@@ -625,9 +627,9 @@
                                                 </g:if>
                                                 <g:if test="${it.formula}">
                                                     <g:hiddenField name="${it.name}" id="${it.name}" value="/r ${it.formula}"/>
-                                                    <g:render template="/roll" model="${[source: it.name, target: 'target']}"/>
+                                                    <g:render template="/charRoll" model="${[source: it.name, target: 'target']}"/>
                                                 </g:if>
-                                                <g:render template="/display" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
+                                                <g:render template="/charDisplay" model="${[sourceList: [it.name+'name', it.name+'body'], target: 'target']}"/>
                                             </g:if>
                                             <p></p>
                                         </g:each>

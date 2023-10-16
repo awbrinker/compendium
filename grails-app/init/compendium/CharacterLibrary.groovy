@@ -98,6 +98,7 @@ class CharacterLibrary {
 
         def initChar = new Character(
             hook: character.hook,
+            imgurl: character.imgurl,
             name: character.name,
             raceclass: character.raceclass,
             xp: character.xp,
@@ -139,6 +140,7 @@ class CharacterLibrary {
             spellslots: character.spellslots,
             maxspellslots: character.maxspellslots,
             spells: buildSpells(character.spells),
+            gold: character.gold,
             inventory: buildInventory(character.inventory),
             features: buildFeatures(character.features),
             background: character.background,

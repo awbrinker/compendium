@@ -60,6 +60,44 @@ function sendMessageTo(id, target) {
 
 }
 
+function sendCharMessageTo(id, target){
+    let input
+    let url
+
+    if(id != null){
+        input = document.getElementById(id).value
+    }else{
+        input = document.getElementById(id).value
+    }
+    if(input == null){
+        input = document.getElementById(id).innerHTML
+    }
+
+    if(target != null){
+        url = document.getElementById(target).value
+    }else{
+        url = document.getElementById(target).value
+    }
+    if(url == null){
+        url = document.getElementById(target).innerHTML
+    }
+
+    if(input.substring(0,2) == "/r"){
+        input = parseRoll(input.substring(2));
+    }
+
+    const request = new XMLHttpRequest();
+    request.open("POST", url);
+    request.setRequestHeader('Content-type', 'application/json');
+    const params = {
+        username: document.getElementById("name").value,
+        avatar_url: document.getElementById("imgurl").value,
+        content: input
+    }
+
+    request.send(JSON.stringify(params));
+}
+
 function sendMultiMessageTo(idList, target) {
 
     idList = idList.substring(1,idList.length-1)
@@ -92,6 +130,45 @@ function sendMultiMessageTo(idList, target) {
     const params = {
         username: "Steve the Helpful Pirate",
         avatar_url: "https://cdn-icons-png.flaticon.com/512/6545/6545894.png",
+        content: input
+    }
+
+    request.send(JSON.stringify(params));
+
+}
+
+function sendCharMultiMessageTo(idList, target) {
+
+    idList = idList.substring(1,idList.length-1)
+    let ids = idList.split(",")
+
+    let input = ""
+    let url
+
+    ids.forEach(id => {
+        id = id.trim()
+        input += document.getElementById(id).innerText + "\n"
+    })
+
+    if(target != null){
+        url = document.getElementById(target).value
+    }else{
+        url = document.getElementById(target).value
+    }
+    if(url == null){
+        url = document.getElementById(target).innerText
+    }
+
+    if(input.substring(0,2) == "/r"){
+        input = parseRoll(input.substring(2));
+    }
+
+    const request = new XMLHttpRequest();
+    request.open("POST", url);
+    request.setRequestHeader('Content-type', 'application/json');
+    const params = {
+        username: document.getElementById("name").value,
+        avatar_url: document.getElementById("imgurl").value,
         content: input
     }
 

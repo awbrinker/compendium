@@ -3,6 +3,7 @@ package compendium
 class Character {
 
     String hook
+    String imgurl
     String name
     String raceclass
     int xp
@@ -46,6 +47,7 @@ class Character {
     String backgroundfeaturename
     String backgroundfeaturebody
     String[] characteristics
+    int gold
 
     static hasMany = [
         actions: Action,
